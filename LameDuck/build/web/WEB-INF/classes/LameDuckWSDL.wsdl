@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="LameDuckWSDL" targetNamespace="http://LameDuck.ws"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://LameDuck.ws">
+    <types>
+        <xsd:schema targetNamespace="http://LameDuck.ws" xmlns:tns="http://LameDuck.ws">
+            <xsd:complexType name="FlightInfoType">
+                <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xsd:element name="bookingNumber" type="xsd:string"></xsd:element>
+                    <xsd:element name="flightPrice" type="xsd:int"></xsd:element>
+                    <xsd:element name="airlineReservationServiceName" type="xsd:string"></xsd:element>
+                    <xsd:element name="flight" type="tns:FlightType"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="FlightType">
+                <xsd:sequence>
+                    <xsd:element name="startAirport" type="xsd:string"></xsd:element>
+                    <xsd:element name="destinationAirport" type="xsd:string"></xsd:element>
+                    <xsd:element name="liftoffDate" type="xsd:date"></xsd:element>
+                    <xsd:element name="landingDate" type="xsd:date"></xsd:element>
+                    <xsd:element name="carrierName" type="xsd:string"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="FlightFaultType">
+                <xsd:sequence>
+                    <xsd:element name="fault_message" type="xsd:string"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="FlightInfo" type="tns:FlightInfoType"></xsd:element>
+            <xsd:element name="FlightFault" type="tns:FlightFaultType"></xsd:element>
+            <xsd:element name="getFlightsRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="action" type="xsd:string"></xsd:element>
+                        <xsd:element name="startDestination" type="xsd:string"></xsd:element>
+                        <xsd:element name="finalDestination" type="xsd:string"></xsd:element>
+                        <xsd:element name="dateFlight" type="xsd:date"></xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="bookFlightRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="action" type="xsd:string"></xsd:element>
+                        <xsd:element name="bookingNumber" type="xsd:string"></xsd:element>
+                        <xsd:element name="CreditCardInformation" type="tns:CreditCardInformationType"></xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="cancelFlightRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="action" type="xsd:string"></xsd:element>
+                        <xsd:element name="bookingNumber" type="xsd:string"></xsd:element>
+                        <xsd:element name="price" type="xsd:int"></xsd:element>
+                        <xsd:element name="CreditCardInformation" type="tns:CreditCardInformationType"></xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="CreditCardInformationType">
+                <xsd:sequence>
+                    <xsd:element name="holderName" type="xsd:string"></xsd:element>
+                    <xsd:element name="eightDigitNumber" type="xsd:string"></xsd:element>
+                    <xsd:element name="expirationDate" type="xsd:date"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+    <message name="LameDuckWSDLOperationRequest">
+        <part name="request" element="tns:getFlightsRequest"/>
+    </message>
+    <message name="LameDuckWSDLOperationResponse">
+        <part name="response" element="tns:FlightInfo"/>
+    </message>
+    <message name="LameDuckWSDLOperationRequest1">
+        <part name="request" element="tns:bookFlightRequest"/>
+    </message>
+    <message name="LameDuckWSDLOperationResponse1">
+        <part name="response" type="xsd:boolean"/>
+    </message>
+    <message name="BookingFault">
+        <part name="fault_message" element="tns:FlightFault"/>
+    </message>
+    <message name="LameDuckWSDLOperationRequest2">
+        <part name="request" element="tns:cancelFlightRequest"/>
+    </message>
+    <message name="output"/>
+    <message name="LameDuckWSDLOperationRequest3">
+        <part name="request" element="tns:cancelFlightRequest"/>
+    </message>
+    <message name="LameDuckWSDLOperationResponse2"/>
+    <message name="FaultCancelFlight">
+        <part name="fault_message" element="tns:FlightFault"/>
+    </message>
+    <portType name="LameDuck">
+        <operation name="getFlights">
+            <input name="input1" message="tns:LameDuckWSDLOperationRequest"/>
+            <output name="output1" message="tns:LameDuckWSDLOperationResponse"/>
+        </operation>
+        <operation name="bookFlight">
+            <input name="input2" message="tns:LameDuckWSDLOperationRequest1"/>
+            <output name="output2" message="tns:LameDuckWSDLOperationResponse1"/>
+            <fault name="fault1" message="tns:BookingFault"/>
+        </operation>
+        <operation name="cancelFlight">
+            <input name="input3" message="tns:LameDuckWSDLOperationRequest3"/>
+            <output name="output3" message="tns:LameDuckWSDLOperationResponse2"/>
+            <fault name="fault1" message="tns:FaultCancelFlight"/>
+        </operation>
+    </portType>
+</definitions>
