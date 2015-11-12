@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="NiceView" targetNamespace="http://NiceView.ws"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://NiceView.ws" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <types>
+        <xsd:schema targetNamespace="http://NiceView.ws" xmlns:tns="http://NiceView.ws">
+            <xsd:complexType name="HotelType">
+                <xsd:sequence>
+                    <xsd:element name="name" type="xsd:string"></xsd:element>
+                    <xsd:element name="price" type="xsd:integer"></xsd:element>
+                    <xsd:element name="bookingNumber" type="xsd:string"></xsd:element>
+                    <xsd:element name="cancellable" type="xsd:boolean"></xsd:element>
+                    <xsd:element name="address" type="tns:AddressType"></xsd:element>
+                    <xsd:element name="creditCardGuarentee" type="xsd:boolean"></xsd:element>
+                    <xsd:element name="hotelReservationServiceName" type="xsd:string"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="AddressType">
+                <xsd:sequence>
+                    <xsd:element name="street" type="xsd:string"></xsd:element>
+                    <xsd:element name="zipCode" type="xsd:string"></xsd:element>
+                    <xsd:element name="city" type="xsd:string"></xsd:element>
+                    <xsd:element name="country" type="xsd:string"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="HotelFaultType">
+                <xsd:sequence>
+                    <xsd:element name="fault_message" type="xsd:string"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="getHotelsRequest" type="tns:getHotel"></xsd:element>
+            <xsd:complexType name="getHotelRequestType">
+                <xsd:sequence>
+                    <xsd:element name="city" type="xsd:string"></xsd:element>
+                    <xsd:element name="arrivalDate" type="xsd:date"></xsd:element>
+                    <xsd:element name="depatureDate" type="xsd:date"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="getHotelsResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="newElement" type="tns:HotelType" maxOccurs="unbounded" minOccurs="0"></xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="bookHotelRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="bookingNumber" type="xsd:string"></xsd:element>
+                        <xsd:element name="creditCard" type="tns:creditCardType" minOccurs="0"></xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="creditCardType">
+                <xsd:sequence>
+                    <xsd:element name="creditCardNumber" type="xsd:integer"></xsd:element>
+                    <xsd:element name="name" type="xsd:string"></xsd:element>
+                    <xsd:element name="expirationDate" type="xsd:date"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="bookHotelResponse">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:boolean"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="cancelHotelRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="bookingNumber" type="xsd:string"></xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </types>
+    <message name="getHotelsRequest">
+        <part name="getHotels" element="tns:getHotelsRequest"/>
+    </message>
+    <message name="getHotelsResponse">
+        <part name="part1" element="tns:getHotelsResponse"/>
+    </message>
+    <message name="bookHotelRequest">
+        <part name="part1" element="tns:bookHotelRequest"/>
+    </message>
+    <message name="bookHotelResponse">
+        <part name="part1" element="tns:bookHotelResponse"/>
+    </message>
+    <message name="bookHotelFault">
+        <part name="part1" type="tns:HotelFaultType"/>
+    </message>
+    <message name="cancelHotelRequest">
+        <part name="part1" element="tns:cancelHotelRequest"/>
+    </message>
+    <message name="cancelHotelResponse"/>
+    <message name="cancelHotelFault">
+        <part name="part1" type="tns:HotelFaultType"/>
+    </message>
+    <portType name="NiceViewPortType">
+        <operation name="getHotels">
+            <input name="input1" message="tns:getHotelsRequest"/>
+            <output name="output1" message="tns:getHotelsResponse"/>
+        </operation>
+        <operation name="bookHotel">
+            <input name="input2" message="tns:bookHotelRequest"/>
+            <output name="output2" message="tns:bookHotelResponse"/>
+            <fault name="fault1" message="tns:bookHotelFault"/>
+        </operation>
+        <operation name="cancelHotel">
+            <input name="input3" message="tns:cancelHotelRequest"/>
+            <output name="output3" message="tns:cancelHotelResponse"/>
+            <fault name="fault1" message="tns:cancelHotelFault"/>
+        </operation>
+    </portType>
+    <binding name="NiceViewPortTypeBinding" type="tns:NiceViewPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="getHotels">
+            <soap:operation/>
+            <input name="input1">
+                <soap:body use="literal"/>
+            </input>
+            <output name="output1">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="bookHotel">
+            <soap:operation/>
+            <input name="input2">
+                <soap:body use="literal"/>
+            </input>
+            <output name="output2">
+                <soap:body use="literal"/>
+            </output>
+            <fault name="fault1">
+                <soap:fault name="fault1" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="cancelHotel">
+            <soap:operation/>
+            <input name="input3">
+                <soap:body use="literal"/>
+            </input>
+            <output name="output3">
+                <soap:body use="literal"/>
+            </output>
+            <fault name="fault1">
+                <soap:fault name="fault1" use="literal"/>
+            </fault>
+        </operation>
+    </binding>
+    <service name="NiceViewService">
+        <port name="NiceViewPortTypeBindingPort" binding="tns:NiceViewPortTypeBinding">
+            <soap:address location="http://localhost:${HttpDefaultPort}/service"/>
+        </port>
+    </service>
+    <plnk:partnerLinkType name="NiceView">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="NiceViewPortTypeRole" portType="tns:NiceViewPortType"/>
+    </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="NiceView2">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="NiceViewPortTypeRole" portType="tns:NiceViewPortType"/>
+    </plnk:partnerLinkType>
+</definitions>
