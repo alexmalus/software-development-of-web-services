@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="NiceViewService" targetNamespace="http://niceview.ws"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://niceview.ws">
+    <types>
+        <xsd:schema targetNamespace="http://niceview.ws" xmlns:tns="http://niceview.ws">
+            <xsd:complexType name="hotelType">
+                <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xsd:element name="name" type="xsd:string"></xsd:element>
+                    <xsd:element name="address" type="tns:addressType"></xsd:element>
+                    <xsd:element name="price" type="xsd:int"></xsd:element>
+                    <xsd:element name="bookingNumber" type="xsd:string"></xsd:element>
+                    <xsd:element name="cancellable" type="xsd:boolean"></xsd:element>
+                    <xsd:element name="creditCardGuarentee" type="xsd:boolean"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="addressType">
+                <xsd:sequence>
+                    <xsd:element name="street" type="xsd:string"></xsd:element>
+                    <xsd:element name="city">
+                        <xsd:complexType>
+                            <xsd:sequence/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="country">
+                        <xsd:complexType>
+                            <xsd:sequence/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="zipcode" type="xsd:string"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="bookHotel">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="bookingNumber" type="xsd:string"></xsd:element>
+                        <xsd:element name="creditCardInformation" type="tns:CreditCardInformationType"></xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="CreditCardInformationType">
+                <xsd:sequence>
+                    <xsd:element name="HolderName" type="xsd:string"></xsd:element>
+                    <xsd:element name="eightDigitNumber" type="xsd:string"></xsd:element>
+                    <xsd:element name="expirationDate" type="xsd:date"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="hotelFaultType">
+                <xsd:sequence>
+                    <xsd:element name="faultMessage" type="xsd:string"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="getHotels">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="newElement" type="tns:hotelType"></xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </types>
+</definitions>
