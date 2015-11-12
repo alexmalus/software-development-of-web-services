@@ -7,7 +7,9 @@ package NiceView.ws;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.jws.WebService;
 import ws.niceview.AddressType;
 import ws.niceview.BookHotelFault;
@@ -22,11 +24,13 @@ import ws.niceview.HotelType;
 @WebService(serviceName = "NiceViewService", portName = "NiceViewPortTypeBindingPort", endpointInterface = "ws.niceview.NiceViewPortType", targetNamespace = "http://NiceView.ws", wsdlLocation = "WEB-INF/wsdl/NiceViewWebService/NiceView.wsdl")
 public class NiceViewWebService {
     List<HotelType> hotels = new ArrayList<>();
+    int bookingNumber = 1;
+    Map<String, HotelType> bookings = new HashMap<>();
     
     public NiceViewWebService(){
         HotelType hotel1 = new HotelType();
         hotel1.setName("Mary Gold");
-        hotel1.setBookingNumber("000001");
+        //hotel1.setBookingNumber("000001");
         hotel1.setCancellable(true);
         hotel1.setCreditCardGuarentee(true);
         hotel1.setHotelReservationServiceName("NiceView");
@@ -41,7 +45,7 @@ public class NiceViewWebService {
         
         HotelType hotel2 = new HotelType();
         hotel2.setName("Hilton");
-        hotel2.setBookingNumber("000002");
+        //hotel2.setBookingNumber("000002");
         hotel2.setCancellable(false);
         hotel2.setCreditCardGuarentee(false);
         hotel2.setHotelReservationServiceName("NiceView");
@@ -63,15 +67,25 @@ public class NiceViewWebService {
         ArrayList<HotelType> hotelList = (ArrayList)response.getNewElement();
         for (HotelType hotel : hotels) {
             if(hotel.getAddress().getCity()
-                    .equals(part1.getCity()))
+                    .equals(part1.getCity())){
+                hotel.setBookingNumber(Integer.toString(bookingNumber++));
                 hotelList.add(hotel);
+                bookings.put(hotel.getBookingNumber(), hotel);
+            }
         }
         return response;
     }
 
     public boolean bookHotel(ws.niceview.BookHotelRequest part1) throws BookHotelFault {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        if(bookings.containsKey(part1.getBookingNumber())){
+            HotelType hotel = bookings.get(part1.getBookingNumber());
+            if(hotel.isCreditCardGuarentee()){
+                throw new UnsupportedOperationException("Not implemented yet.");
+            }
+            System.out.println("Booking hotel " + hotel.getName());
+            return true;
+        }
+        throw new BookHotelFault("No bookings with this booking number.", null);
     }
 
     public boolean cancelHotel(ws.niceview.CancelHotelRequest part1) throws CancelHotelFault {
