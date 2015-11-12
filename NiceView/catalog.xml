@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system"/>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/Users/martin/Documents/Git/02267-software-development-of-web-services-e15/NiceView/src/java/NiceView.wsdl" uri="src/conf/xml-resources/web-services/NiceViewWebService/wsdl/NiceView.wsdl"/>
+</catalog>

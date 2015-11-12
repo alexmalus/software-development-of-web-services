@@ -29,7 +29,7 @@
                     <xsd:element name="fault_message" type="xsd:string"></xsd:element>
                 </xsd:sequence>
             </xsd:complexType>
-            <xsd:element name="getHotelsRequest" type="tns:getHotelRequestType"></xsd:element>
+            <xsd:element name="getHotelsRequest" type="tns:getHotel"></xsd:element>
             <xsd:complexType name="getHotelRequestType">
                 <xsd:sequence>
                     <xsd:element name="city" type="xsd:string"></xsd:element>
@@ -71,12 +71,10 @@
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
-            <xsd:element name="cancelHotelResponse" type="xsd:boolean"></xsd:element>
-            <xsd:element name="faultElement" type="tns:HotelFaultType"></xsd:element>
         </xsd:schema>
     </types>
     <message name="getHotelsRequest">
-        <part name="part1" element="tns:getHotelsRequest"/>
+        <part name="getHotels" element="tns:getHotelsRequest"/>
     </message>
     <message name="getHotelsResponse">
         <part name="part1" element="tns:getHotelsResponse"/>
@@ -88,16 +86,14 @@
         <part name="part1" element="tns:bookHotelResponse"/>
     </message>
     <message name="bookHotelFault">
-        <part name="part1" element="tns:faultElement"/>
+        <part name="part1" type="tns:HotelFaultType"/>
     </message>
     <message name="cancelHotelRequest">
         <part name="part1" element="tns:cancelHotelRequest"/>
     </message>
-    <message name="cancelHotelResponse">
-        <part name="part1" element="tns:cancelHotelResponse"/>
-    </message>
+    <message name="cancelHotelResponse"/>
     <message name="cancelHotelFault">
-        <part name="part1" element="tns:faultElement"/>
+        <part name="part1" type="tns:HotelFaultType"/>
     </message>
     <portType name="NiceViewPortType">
         <operation name="getHotels">
@@ -118,7 +114,7 @@
     <binding name="NiceViewPortTypeBinding" type="tns:NiceViewPortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="getHotels">
-            <soap:operation style="document"/>
+            <soap:operation/>
             <input name="input1">
                 <soap:body use="literal"/>
             </input>
@@ -127,7 +123,7 @@
             </output>
         </operation>
         <operation name="bookHotel">
-            <soap:operation style="document"/>
+            <soap:operation/>
             <input name="input2">
                 <soap:body use="literal"/>
             </input>
@@ -139,7 +135,7 @@
             </fault>
         </operation>
         <operation name="cancelHotel">
-            <soap:operation style="document"/>
+            <soap:operation/>
             <input name="input3">
                 <soap:body use="literal"/>
             </input>
