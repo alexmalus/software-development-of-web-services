@@ -6,3 +6,6 @@ https://docs.google.com/document/d/1x4SeundH_n4IatRoJZ6E-LDU2BGNlsR7_45c58x3IvI/
 
 Project report:
 https://docs.google.com/document/d/107drldSQd5Bh0pGpZykprIB6eE_RxQdgw5u0tettnyg/edit
+
+Bank Service link:
+http://fastmoney.imm.dtu.dk:8080/

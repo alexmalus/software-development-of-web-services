@@ -10,6 +10,7 @@ import java.util.List;
 import javax.jws.WebService;
 import javax.xml.datatype.XMLGregorianCalendar;
 import lameduck.ws.FlightsDatabase.DateUtils;
+import ws.lameduck.BookFlightResponse;
 import ws.lameduck.FlightInfoType;
 import ws.lameduck.GetFlightsResponse;
 
@@ -24,7 +25,7 @@ public class LameDuckService {
 //    used when we add flights
     private List<FlightInfoType> booked_flights = new ArrayList();
 //    used for transactions with the Bank Service
-    static final String lameduck_acc_no = "23212312";
+    static final String LAMEDUCK_ACCOUNT_NUMBER = "50208812";
     
     public ws.lameduck.GetFlightsResponse getFlights(ws.lameduck.GetFlightsRequest request) {
         GetFlightsResponse matched_flights = new GetFlightsResponse();
@@ -49,8 +50,13 @@ public class LameDuckService {
     }
 
     public ws.lameduck.BookFlightResponse bookFlight(ws.lameduck.BookFlightRequest request) throws ws.lameduck.BookFlightFault {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        BookFlightResponse response = null;
+//        AccountType LameDuck_account = new AccountType();
+        
+//        after all steps successfully complete, response set to true and returned
+        response.setResponse(true);
+        return response;
+//        throw new UnsupportedOperationException("Not implemented yet.");
     }
 
     public ws.lameduck.CancelFlightResponse cancelFlight(ws.lameduck.CancelFlightRequest request) throws ws.lameduck.CancelFlightFault {
