@@ -37,6 +37,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link CreditCardType }
+     * 
+     */
+    public CreditCardType createCreditCardType() {
+        return new CreditCardType();
+    }
+
+    /**
      * Create an instance of {@link GetHotelsResponse }
      * 
      */
@@ -58,14 +66,6 @@ public class ObjectFactory {
      */
     public BookHotelRequest createBookHotelRequest() {
         return new BookHotelRequest();
-    }
-
-    /**
-     * Create an instance of {@link CreditCardType }
-     * 
-     */
-    public CreditCardType createCreditCardType() {
-        return new CreditCardType();
     }
 
     /**
@@ -98,6 +98,14 @@ public class ObjectFactory {
      */
     public AddressType createAddressType() {
         return new AddressType();
+    }
+
+    /**
+     * Create an instance of {@link CreditCardType.ExpirationDate }
+     * 
+     */
+    public CreditCardType.ExpirationDate createCreditCardTypeExpirationDate() {
+        return new CreditCardType.ExpirationDate();
     }
 
     /**

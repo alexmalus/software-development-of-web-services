@@ -1,7 +1,6 @@
 
 package niceviewtest;
 
-import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -19,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="price" type="{http://www.w3.org/2001/XMLSchema}integer"/>
+ *         &lt;element name="price" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="bookingNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="cancellable" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;element name="address" type="{http://NiceView.ws}AddressType"/>
@@ -47,8 +46,7 @@ public class HotelType {
 
     @XmlElement(required = true)
     protected String name;
-    @XmlElement(required = true)
-    protected BigInteger price;
+    protected int price;
     @XmlElement(required = true)
     protected String bookingNumber;
     protected boolean cancellable;
@@ -85,24 +83,16 @@ public class HotelType {
     /**
      * Gets the value of the price property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
      */
-    public BigInteger getPrice() {
+    public int getPrice() {
         return price;
     }
 
     /**
      * Sets the value of the price property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
      */
-    public void setPrice(BigInteger value) {
+    public void setPrice(int value) {
         this.price = value;
     }
 
