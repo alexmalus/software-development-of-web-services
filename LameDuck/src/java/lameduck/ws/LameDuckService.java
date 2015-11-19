@@ -39,7 +39,7 @@ public class LameDuckService {
 //    used when we add flights
     private List<FlightInfoType> booked_flights = new ArrayList();
 //    has all the demo flights
-    private FlightsDatabase flight_db = new FlightsDatabase();
+    private final FlightsDatabase flight_db = new FlightsDatabase();
 //    used for transactions with the Bank Service
     static final String LAMEDUCK_ACCOUNT_NUMBER = "50208812";
     
@@ -125,6 +125,9 @@ public class LameDuckService {
         if (flight_info == null) {
             throw cancel_flight_fault("No flights found using provided Booking no:" + booking_number);
         }
+        if(!flight_info.isCancellable()){
+            throw cancel_flight_fault("Flight cannot be cancelled using provided Booking no:" + booking_number);          
+        } 
         
         try {
             refundCreditCard(GROUP_NUMBER, request.getCreditCardInfo(), refund_money, LameDuck_account);

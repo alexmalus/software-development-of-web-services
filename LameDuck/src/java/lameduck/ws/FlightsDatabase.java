@@ -22,6 +22,7 @@ public class FlightsDatabase {
             DateUtils.convertDateTimeToGregCal("2015-11-18", "17:00"),
             DateUtils.convertDateTimeToGregCal("2015-11-18", "19:00")));
         flight_info_no_1.setFlightPrice(1500);
+        flight_info_no_1.setCancellable(true);
         flight_info_no_1.setAirlineReservationServiceName("LameDuck");
         
         FlightInfoType flight_info_no_2 = new FlightInfoType();
@@ -29,7 +30,8 @@ public class FlightsDatabase {
         flight_info_no_2.setFlight(createFlight("RYAN","LHR","CPH",
             DateUtils.convertDateTimeToGregCal("2015-11-19", "11:00"),
             DateUtils.convertDateTimeToGregCal("2015-11-21", "01:00")));
-        flight_info_no_2.setFlightPrice(1000);
+        flight_info_no_2.setFlightPrice(500);
+        flight_info_no_1.setCancellable(true);
         flight_info_no_2.setAirlineReservationServiceName("LameDuck");
         
         FlightInfoType flight_info_no_3 = new FlightInfoType();
@@ -38,6 +40,7 @@ public class FlightsDatabase {
             DateUtils.convertDateTimeToGregCal("2015-11-23", "17:00"),
             DateUtils.convertDateTimeToGregCal("2015-11-24", "04:00")));
         flight_info_no_3.setFlightPrice(9999);
+        flight_info_no_1.setCancellable(false);
         flight_info_no_3.setAirlineReservationServiceName("LameDuck");
         
         FlightInfoType flight_info_no_4 = new FlightInfoType();
@@ -46,6 +49,7 @@ public class FlightsDatabase {
             DateUtils.convertDateTimeToGregCal("2015-11-18", "23:00"),
             DateUtils.convertDateTimeToGregCal("2015-11-20", "02:00")));
         flight_info_no_4.setFlightPrice(1200);
+        flight_info_no_1.setCancellable(true);
         flight_info_no_4.setAirlineReservationServiceName("LameDuck");
         
         FlightInfoType flight_info_no_5 = new FlightInfoType();
@@ -54,6 +58,7 @@ public class FlightsDatabase {
             DateUtils.convertDateTimeToGregCal("2015-11-19", "11:00"),
             DateUtils.convertDateTimeToGregCal("2015-11-19", "13:00")));
         flight_info_no_5.setFlightPrice(1500);
+        flight_info_no_1.setCancellable(false);
         flight_info_no_5.setAirlineReservationServiceName("LameDuck");
         
         flight_info_list.getFlightInfoList().add(flight_info_no_1);
