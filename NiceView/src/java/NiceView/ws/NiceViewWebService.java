@@ -16,6 +16,7 @@ import javax.jws.WebService;
 import javax.xml.ws.WebServiceRef;
 import ws.niceview.AddressType;
 import ws.niceview.BookHotelFault;
+import ws.niceview.BookHotelResponse;
 import ws.niceview.CancelHotelFault;
 import ws.niceview.CreditCardType;
 import ws.niceview.GetHotelsResponse;
@@ -33,7 +34,7 @@ public class NiceViewWebService {
     List<HotelType> hotels = new ArrayList<>();
     int bookingNumber = 1;
     Map<String, HotelType> bookings = new HashMap<>();
-    private static int GROUP_NUMBER = 16;
+    private static final int GROUP_NUMBER = 16;
     
     public NiceViewWebService(){
         HotelType hotel1 = new HotelType();
@@ -70,9 +71,9 @@ public class NiceViewWebService {
         
     }
     
-    public ws.niceview.GetHotelsResponse getHotels(ws.niceview.GetHotelRequestType part1) {
+    public ws.niceview.GetHotelsResponse getHotels(ws.niceview.GetHotels part1) {
         GetHotelsResponse response = new GetHotelsResponse();
-        ArrayList<HotelType> hotelList = (ArrayList)response.getNewElement();
+        ArrayList<HotelType> hotelList = (ArrayList)response.getHotels();
         for (HotelType hotel : hotels) {
             if(hotel.getAddress().getCity()
                     .equals(part1.getCity())){
@@ -84,7 +85,8 @@ public class NiceViewWebService {
         return response;
     }
 
-    public boolean bookHotel(ws.niceview.BookHotelRequest part1) throws BookHotelFault {
+    public ws.niceview.BookHotelResponse bookHotel(ws.niceview.BookHotel part1) throws BookHotelFault {
+        BookHotelResponse response = new BookHotelResponse();
         if(bookings.containsKey(part1.getBookingNumber())){
             HotelType hotel = bookings.get(part1.getBookingNumber());
             if(hotel.isCreditCardGuarentee()){
@@ -102,22 +104,24 @@ public class NiceViewWebService {
                 int amount = bookings.get(part1.getBookingNumber()).getPrice();
                 
                 try {
-                    return validateCreditCard(GROUP_NUMBER, cdi, amount);
+                    response.setResponse(validateCreditCard(GROUP_NUMBER, cdi, amount));
+                    return response;
                 } catch (CreditCardFaultMessage ex) {
                     System.out.println("Fault when booking " + hotel.getName() + " by " + creditCard.getName());
                     ws.niceview.HotelFaultType faultInfo = new ws.niceview.HotelFaultType();
-                    faultInfo.setFaultMessage(ex.getMessage());
+                    faultInfo.setMessage(ex.getMessage());
                     BookHotelFault fault = new BookHotelFault(ex.getMessage(), faultInfo);
                     throw fault;
                 }
             }
             System.out.println("Booking hotel " + hotel.getName());
-            return true;
+            response.setResponse(true);
+            return response;
         }
         throw new BookHotelFault("No bookings with this booking number.", null);
     }
 
-    public boolean cancelHotel(ws.niceview.CancelHotelRequest part1) throws CancelHotelFault {
+    public ws.niceview.CancelHotelResponse cancelHotel(ws.niceview.CancelHotel part1) throws CancelHotelFault {
         //TODO implement this method
         throw new UnsupportedOperationException("Not implemented yet.");
     }

@@ -7,16 +7,16 @@ package NiceView.ws.test;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import niceviewtest.BookHotelFault;
-import niceviewtest.BookHotelRequest;
-import niceviewtest.CancelHotelFault;
-import niceviewtest.CreditCardType;
-import niceviewtest.GetHotelRequestType;
-import niceviewtest.GetHotelsResponse;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import ws.niceview.BookHotelFault;
+import ws.niceview.BookHotelResponse;
+import ws.niceview.CancelHotelFault;
+import ws.niceview.CancelHotelResponse;
+import ws.niceview.GetHotels;
+import ws.niceview.GetHotelsResponse;
 
 /**
  *
@@ -41,34 +41,29 @@ public class NiceViewJUnitTest {
     //
     @Test
     public void testGetHotels() {
-        GetHotelRequestType request = new GetHotelRequestType();
+        GetHotels request = new GetHotels();
         request.setCity("Everywhere");
-        GetHotelsResponse hotels = getHotels_1(request);
+        GetHotelsResponse hotels = getHotels(request);
         
-        assertEquals("All of them", hotels.getNewElement().get(0).getAddress().getCountry());
-        assertEquals(1, hotels.getNewElement().size());
+        assertEquals("All of them", hotels.getHotels().get(0).getAddress().getCountry());
+        assertEquals(1, hotels.getHotels().size());
     }
-    
-    
-    
-    
-    
 
-    private static boolean bookHotel(niceviewtest.BookHotelRequest part1) throws BookHotelFault {
-        niceviewtest.NiceViewService service = new niceviewtest.NiceViewService();
-        niceviewtest.NiceViewPortType port = service.getNiceViewPortTypeBindingPort();
+    private static BookHotelResponse bookHotel(ws.niceview.BookHotel part1) throws BookHotelFault {
+        ws.niceview.NiceViewService service = new ws.niceview.NiceViewService();
+        ws.niceview.NiceViewPortType port = service.getNiceViewPortTypeBindingPort();
         return port.bookHotel(part1);
     }
 
-    private static boolean cancelHotel(niceviewtest.CancelHotelRequest part1) throws CancelHotelFault {
-        niceviewtest.NiceViewService service = new niceviewtest.NiceViewService();
-        niceviewtest.NiceViewPortType port = service.getNiceViewPortTypeBindingPort();
+    private static CancelHotelResponse cancelHotel(ws.niceview.CancelHotel part1) throws CancelHotelFault {
+        ws.niceview.NiceViewService service = new ws.niceview.NiceViewService();
+        ws.niceview.NiceViewPortType port = service.getNiceViewPortTypeBindingPort();
         return port.cancelHotel(part1);
     }
 
-    private static GetHotelsResponse getHotels_1(niceviewtest.GetHotelRequestType part1) {
-        niceviewtest.NiceViewService service = new niceviewtest.NiceViewService();
-        niceviewtest.NiceViewPortType port = service.getNiceViewPortTypeBindingPort();
+    private static GetHotelsResponse getHotels(ws.niceview.GetHotels part1) {
+        ws.niceview.NiceViewService service = new ws.niceview.NiceViewService();
+        ws.niceview.NiceViewPortType port = service.getNiceViewPortTypeBindingPort();
         return port.getHotels(part1);
     }
 }
