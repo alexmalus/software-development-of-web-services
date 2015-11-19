@@ -5,6 +5,9 @@
  */
 package NiceView.ws;
 
+import dk.dtu.imm.fastmoney.BankService;
+import dk.dtu.imm.fastmoney.CreditCardFaultMessage;
+import dk.dtu.imm.fastmoney.types.CreditCardInfoType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,9 +17,9 @@ import javax.xml.ws.WebServiceRef;
 import ws.niceview.AddressType;
 import ws.niceview.BookHotelFault;
 import ws.niceview.CancelHotelFault;
+import ws.niceview.CreditCardType;
 import ws.niceview.GetHotelsResponse;
 import ws.niceview.HotelType;
-
 /**
  *
  * @author martin
@@ -24,9 +27,13 @@ import ws.niceview.HotelType;
 @WebService(serviceName = "NiceViewService", portName = "NiceViewPortTypeBindingPort", endpointInterface = "ws.niceview.NiceViewPortType", targetNamespace = "http://NiceView.ws", wsdlLocation = "WEB-INF/wsdl/NiceViewWebService/NiceView.wsdl")
 public class NiceViewWebService {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/fastmoney.imm.dtu.dk_8080/BankService.wsdl")
+    private BankService service;
+    private static Object _locker = new Object();
+
     List<HotelType> hotels = new ArrayList<>();
     int bookingNumber = 1;
     Map<String, HotelType> bookings = new HashMap<>();
+    private static int GROUP_NUMBER = 16;
     
     public NiceViewWebService(){
         HotelType hotel1 = new HotelType();
@@ -35,7 +42,7 @@ public class NiceViewWebService {
         hotel1.setCancellable(true);
         hotel1.setCreditCardGuarentee(true);
         hotel1.setHotelReservationServiceName("NiceView");
-        hotel1.setPrice(1000);
+        hotel1.setPrice(999);
         AddressType address1 = new AddressType();
         address1.setCity("Bangladesh");
         address1.setCountry("India");
@@ -81,7 +88,28 @@ public class NiceViewWebService {
         if(bookings.containsKey(part1.getBookingNumber())){
             HotelType hotel = bookings.get(part1.getBookingNumber());
             if(hotel.isCreditCardGuarentee()){
-                throw new UnsupportedOperationException("Not implemented yet.");
+                CreditCardType creditCard = part1.getCreditCard();
+                dk.dtu.imm.fastmoney.types.CreditCardInfoType cdi = new dk.dtu.imm.fastmoney.types.CreditCardInfoType();
+                cdi.setName(creditCard.getName());
+                cdi.setNumber(Integer.toString(creditCard.getCreditCardNumber()));
+                
+                CreditCardType.ExpirationDate expirationIn = creditCard.getExpirationDate();
+                CreditCardInfoType.ExpirationDate expirationOut = new CreditCardInfoType.ExpirationDate();
+                expirationOut.setMonth(expirationIn.getMonth());
+                expirationOut.setYear(expirationIn.getYear());
+                cdi.setExpirationDate(expirationOut);
+                
+                int amount = bookings.get(part1.getBookingNumber()).getPrice();
+                
+                try {
+                    return validateCreditCard(GROUP_NUMBER, cdi, amount);
+                } catch (CreditCardFaultMessage ex) {
+                    System.out.println("Fault when booking " + hotel.getName() + " by " + creditCard.getName());
+                    ws.niceview.HotelFaultType faultInfo = new ws.niceview.HotelFaultType();
+                    faultInfo.setFaultMessage(ex.getMessage());
+                    BookHotelFault fault = new BookHotelFault(ex.getMessage(), faultInfo);
+                    throw fault;
+                }
             }
             System.out.println("Booking hotel " + hotel.getName());
             return true;
@@ -92,6 +120,15 @@ public class NiceViewWebService {
     public boolean cancelHotel(ws.niceview.CancelHotelRequest part1) throws CancelHotelFault {
         //TODO implement this method
         throw new UnsupportedOperationException("Not implemented yet.");
+    }
+
+    private boolean validateCreditCard(int group, dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCardInfo, int amount) throws CreditCardFaultMessage {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        dk.dtu.imm.fastmoney.BankPortType port = service.getBankPort();
+        synchronized( _locker ) {
+            return port.validateCreditCard(group, creditCardInfo, amount);
+        }
     }
 
 

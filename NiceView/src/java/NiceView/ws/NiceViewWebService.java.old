@@ -1,0 +1,34 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package NiceView.ws;
+
+import javax.jws.WebService;
+import ws.niceview.BookHotelFault;
+import ws.niceview.CancelHotelFault;
+
+/**
+ *
+ * @author martin
+ */
+@WebService(serviceName = "NiceViewService", portName = "NiceViewPortTypeBindingPort", endpointInterface = "ws.niceview.NiceViewPortType", targetNamespace = "http://NiceView.ws", wsdlLocation = "WEB-INF/wsdl/NiceViewWebService/NiceView.wsdl")
+public class NiceViewWebService {
+
+    public ws.niceview.GetHotelsResponse getHotels(ws.niceview.GetHotelRequestType part1) {
+        //TODO implement this method
+        throw new UnsupportedOperationException("Not implemented yet.");
+    }
+
+    public boolean bookHotel(ws.niceview.BookHotelRequest part1) throws BookHotelFault {
+        //TODO implement this method
+        throw new UnsupportedOperationException("Not implemented yet.");
+    }
+
+    public boolean cancelHotel(ws.niceview.CancelHotelRequest part1) throws CancelHotelFault {
+        //TODO implement this method
+        throw new UnsupportedOperationException("Not implemented yet.");
+    }
+    
+}

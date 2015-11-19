@@ -54,7 +54,7 @@
             </xsd:element>
             <xsd:complexType name="creditCardType">
                 <xsd:sequence>
-                    <xsd:element name="creditCardNumber" type="xsd:integer"></xsd:element>
+                    <xsd:element name="creditCardNumber" type="xsd:int"></xsd:element>
                     <xsd:element name="name" type="xsd:string"></xsd:element>
                     <xsd:element name="expirationDate">
                         <xsd:complexType>
