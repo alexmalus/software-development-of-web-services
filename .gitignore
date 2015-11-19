@@ -16,5 +16,7 @@
 hs_err_pid*
 /NiceView/build/
 /NiceView/nbproject/private/
-/NiceViewTest/build/
-/NiceViewTest/nbproject/private/
+/NiceView/dist/
+/LameDuckTest/nbproject/private/
+/LameDuckClient/nbproject/private/
+/LameDuckClient/build/
