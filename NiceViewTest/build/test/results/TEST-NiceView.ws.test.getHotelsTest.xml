@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="Martin-laptop" name="NiceView.ws.test.getHotelsTest" skipped="0" tests="1" time="0.36" timestamp="2015-11-12T14:09:46">
+<testsuite errors="0" failures="0" hostname="Martin-laptop" name="NiceView.ws.test.getHotelsTest" skipped="0" tests="1" time="0.359" timestamp="2015-11-12T14:50:12">
   <properties>
     <property name="libs.jsp-compiler.javadoc" value="" />
     <property name="netbeans.autoupdate.country" value="GB" />
@@ -11,7 +11,7 @@
     <property name="ant.core.lib" value="C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\extide\ant\lib\ant.jar" />
     <property name="javadoc.windowtitle" value="" />
     <property name="libs.jsp-compilation.javadoc" value="" />
-    <property name="user.dir" value="C:\Users\martin\Documents\NetBeansProjects\NiceViewTest" />
+    <property name="user.dir" value="C:\Users\martin\Documents\Git\02267-software-development-of-web-services-e15\NiceViewTest" />
     <property name="libs.javaee-api-7.0.src" value="" />
     <property name="java.vm.version" value="25.60-b23" />
     <property name="libs.MySQLDriver.classpath" value="C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\ide\modules\ext\mysql-connector-java-5.1.23-bin.jar" />
@@ -59,7 +59,7 @@
     <property name="copylibs.rebase" value="true" />
     <property name="libs.spring-webmvc3.0.maven-pom" value="" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner NiceView.ws.test.getHotelsTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\martin\Documents\NetBeansProjects\NiceViewTest\build\test\results\TEST-NiceView.ws.test.getHotelsTest.xml crashfile=C:\Users\martin\Documents\NetBeansProjects\NiceViewTest\build\junitvmwatcher5513488272176460754.properties propsfile=C:\Users\martin\Documents\NetBeansProjects\NiceViewTest\build\junit4836048533682694226.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner NiceView.ws.test.getHotelsTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\martin\Documents\Git\02267-software-development-of-web-services-e15\NiceViewTest\build\test\results\TEST-NiceView.ws.test.getHotelsTest.xml crashfile=C:\Users\martin\Documents\Git\02267-software-development-of-web-services-e15\NiceViewTest\build\junitvmwatcher5595464829352637416.properties propsfile=C:\Users\martin\Documents\Git\02267-software-development-of-web-services-e15\NiceViewTest\build\junit52614458878553205.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="build.sysclasspath" value="ignore" />
     <property name="ap.supported.internal" value="true" />
@@ -99,7 +99,7 @@
     <property name="javadoc.splitindex" value="true" />
     <property name="file.separator" value="\" />
     <property name="libs.Java-EE-GlassFish-v3-Prelude.maven-pom" value="" />
-    <property name="wsdl-NiceViewService" value="C:\Users\martin\Documents\NetBeansProjects\NiceViewTest\xml-resources\web-service-references\NiceViewService\wsdl\martin-laptop_8080\NiceView\NiceViewService.wsdl" />
+    <property name="wsdl-NiceViewService" value="C:\Users\martin\Documents\Git\02267-software-development-of-web-services-e15\NiceViewTest\xml-resources\web-service-references\NiceViewService\wsdl\martin-laptop_8080\NiceView\NiceViewService.wsdl" />
     <property name="libs.junit_4.maven-pom" value="" />
     <property name="mkdist.disabled" value="false" />
     <property name="javac.test.processorpath" value=":build/classes:C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\platform\modules\ext\junit-4.10.jar" />
@@ -128,7 +128,7 @@
     <property name="libs.spring-framework400.src" value="" />
     <property name="libs.PostgreSQLDriver.src" value="" />
     <property name="sun.arch.data.model" value="64" />
-    <property name="basedir" value="C:\Users\martin\Documents\NetBeansProjects\NiceViewTest" />
+    <property name="basedir" value="C:\Users\martin\Documents\Git\02267-software-development-of-web-services-e15\NiceViewTest" />
     <property name="libs.jpa20-persistence.maven-pom" value="" />
     <property name="jar.compress" value="false" />
     <property name="libs.javaee-web-api-7.0.classpath" value="C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\enterprise\modules\ext\javaee-web-api-7.0.jar" />
@@ -174,7 +174,7 @@
     <property name="libs.spring-framework300.src" value="" />
     <property name="libs.PojoSELib.src" value="C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\soa\modules\ext\sun-pojo-engine-api-src.jar" />
     <property name="libs.jstl.src" value="" />
-    <property name="empty.dir" value="C:\Users\martin\Documents\NetBeansProjects\NiceViewTest\build\empty" />
+    <property name="empty.dir" value="C:\Users\martin\Documents\Git\02267-software-development-of-web-services-e15\NiceViewTest\build\empty" />
     <property name="version-output" value="java version &quot;1.8" />
     <property name="test.binarytestincludes" value="" />
     <property name="libs.hibernate4-persistencemodelgen.src" value="" />
@@ -214,14 +214,14 @@
     <property name="libs.jsp-compiler.classpath" value="C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\enterprise\ant\extra\jspcompile.jar" />
     <property name="javac.processorpath" value="" />
     <property name="javac.compilerargs" value="" />
-    <property name="ant.file" value="C:\Users\martin\Documents\NetBeansProjects\NiceViewTest\build.xml" />
+    <property name="ant.file" value="C:\Users\martin\Documents\Git\02267-software-development-of-web-services-e15\NiceViewTest\build.xml" />
     <property name="libs.beans-binding.maven-pom" value="" />
     <property name="libs.hibernate4-support.javadoc" value="C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\java\modules\ext\docs\javax.persistence-2.1.0-doc.zip" />
     <property name="libs.jsf12.classpath" value="C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\enterprise\modules\ext\jsf-1_2\commons-beanutils.jar;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\enterprise\modules\ext\jsf-1_2\commons-collections.jar;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\enterprise\modules\ext\jsf-1_2\commons-digester.jar;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\enterprise\modules\ext\jsf-1_2\commons-logging.jar;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\enterprise\modules\ext\jsf-1_2\jsf-api.jar;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\enterprise\modules\ext\jsf-1_2\jsf-impl.jar" />
     <property name="libs.Java-EE-GlassFish-v3-Prelude.classpath" value="C:\Users\martin\Desktop\glassfish4\glassfish\modules\endorsed\javax.annotation-api.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\endorsed\jaxb-api.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\endorsed\webservices-api-osgi.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\bean-validator.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.batch-api.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.ejb-api.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.el.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.enterprise.concurrent-api.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.enterprise.concurrent.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.enterprise.deploy-api.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.faces.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.inject.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.interceptor-api.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.jms-api.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.json.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.mail.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.management.j2ee-api.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.persistence.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.resource-api.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.security.auth.message-api.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.security.jacc-api.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.servlet-api.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.servlet.jsp-api.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.servlet.jsp.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.servlet.jsp.jstl-api.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.servlet.jsp.jstl.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.transaction-api.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.websocket-api.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.ws.rs-api.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.xml.registry-api.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\javax.xml.rpc-api.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\jaxb-osgi.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\webservices-osgi.jar;C:\Users\martin\Desktop\glassfish4\glassfish\modules\weld-osgi-bundle.jar;C:\Users\martin\Desktop\glassfish4\mq\lib\jaxm-api.jar" />
     <property name="libs.Encoder-HL7.src" value="" />
     <property name="libs.jstl.maven-pom" value="" />
-    <property name="ant.file.NiceViewTest" value="C:\Users\martin\Documents\NetBeansProjects\NiceViewTest\build.xml" />
+    <property name="ant.file.NiceViewTest" value="C:\Users\martin\Documents\Git\02267-software-development-of-web-services-e15\NiceViewTest\build.xml" />
     <property name="libs.restapi.maven-pom" value="" />
     <property name="libs.beans-binding.src" value="" />
     <property name="java.vm.specification.vendor" value="Oracle Corporation" />
@@ -296,7 +296,7 @@
     <property name="libs.testng.maven-pom" value="" />
     <property name="libs.jaxb.src" value="" />
     <property name="libs.Encoder-HL7.maven-pom" value="" />
-    <property name="work.dir" value="C:\Users\martin\Documents\NetBeansProjects\NiceViewTest" />
+    <property name="work.dir" value="C:\Users\martin\Documents\Git\02267-software-development-of-web-services-e15\NiceViewTest" />
     <property name="libs.jaxb.classpath" value="C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\ide\modules\ext\jaxb\jaxb-impl.jar;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\ide\modules\ext\jaxb\jaxb-xjc.jar;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\ide\modules\ext\jaxb\jaxb1-impl.jar;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\ide\modules\ext\jaxb\activation.jar;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\ide\modules\ext\jaxb\api\jaxb-api.jar;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\ide\modules\ext\jaxb\api\jsr173_1.0_api.jar" />
     <property name="do.depend" value="false" />
     <property name="dist.javadoc.dir" value="dist/javadoc" />
@@ -315,7 +315,7 @@
     <property name="user.country.format" value="DK" />
     <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_60\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_60\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_60\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_60\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_60\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_60\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_60\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_60\jre\classes" />
     <property name="javac.target" value="1.8" />
-    <property name="built-jar.properties" value="C:\Users\martin\Documents\NetBeansProjects\NiceViewTest\build\built-jar.properties" />
+    <property name="built-jar.properties" value="C:\Users\martin\Documents\Git\02267-software-development-of-web-services-e15\NiceViewTest\build\built-jar.properties" />
     <property name="build.test.classes.dir" value="build/test/classes" />
     <property name="libs.Encoder-Framework.maven-pom" value="" />
     <property name="src.dir" value="src" />
@@ -360,7 +360,7 @@
     <property name="libs.metro.classpath" value="C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\ide\modules\ext\jaxb\activation.jar;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\enterprise\modules\ext\metro\webservices-api.jar;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\enterprise\modules\ext\metro\webservices-extra-api.jar;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\enterprise\modules\ext\metro\webservices-extra.jar;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\enterprise\modules\ext\metro\webservices-rt.jar;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\enterprise\modules\ext\metro\webservices-tools.jar" />
     <property name="libs.restlib.maven-pom" value="" />
     <property name="libs.jpa2-persistence.javadoc" value="C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\java\modules\ext\docs\javax.persistence-2.1.0-doc.zip" />
-    <property name="java.class.path" value="C:\Users\martin\Documents\NetBeansProjects\NiceViewTest\build\classes;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\platform\modules\ext\junit-4.10.jar;C:\Users\martin\Documents\NetBeansProjects\NiceViewTest\build\test\classes;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\extide\ant\lib\ant-launcher.jar;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\extide\ant\lib\ant.jar;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\extide\ant\lib\ant-junit.jar;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\extide\ant\lib\ant-junit4.jar" />
+    <property name="java.class.path" value="C:\Users\martin\Documents\Git\02267-software-development-of-web-services-e15\NiceViewTest\build\classes;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\platform\modules\ext\junit-4.10.jar;C:\Users\martin\Documents\Git\02267-software-development-of-web-services-e15\NiceViewTest\build\test\classes;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\extide\ant\lib\ant-launcher.jar;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\extide\ant\lib\ant.jar;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\extide\ant\lib\ant-junit.jar;C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\extide\ant\lib\ant-junit4.jar" />
     <property name="do.mkdist" value="true" />
     <property name="libs.absolutelayout.src" value="" />
     <property name="libs.jpa20-persistence.classpath" value="C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\java\modules\ext\eclipselink\javax.persistence_2.1.0.v201304241213.jar" />
@@ -370,7 +370,7 @@
     <property name="libs.javaee-api-7.0.maven-pom" value="" />
     <property name="main.class.available" value="true" />
     <property name="sun.awt.enableExtraMouseButtons" value="true" />
-    <property name="ant.file.NiceViewTest-impl" value="C:\Users\martin\Documents\NetBeansProjects\NiceViewTest\nbproject\build-impl.xml" />
+    <property name="ant.file.NiceViewTest-impl" value="C:\Users\martin\Documents\Git\02267-software-development-of-web-services-e15\NiceViewTest\nbproject\build-impl.xml" />
     <property name="sun.desktop" value="windows" />
     <property name="libs.PojoSELib.maven-pom" value="" />
     <property name="compile.on.save.unsupported.jaxws" value="true" />
@@ -416,7 +416,7 @@
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
     <property name="libs.javaee-web-api-7.0.javadoc" value="C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\enterprise\docs\javaee-doc-api.jar" />
   </properties>
-  <testcase classname="NiceView.ws.test.getHotelsTest" name="getHotelsTest" time="0.297" />
+  <testcase classname="NiceView.ws.test.getHotelsTest" name="getHotelsTest" time="0.296" />
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

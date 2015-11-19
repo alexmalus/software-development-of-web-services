@@ -5,12 +5,12 @@
  */
 package NiceView.ws;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.jws.WebService;
+import javax.xml.ws.WebServiceRef;
 import ws.niceview.AddressType;
 import ws.niceview.BookHotelFault;
 import ws.niceview.CancelHotelFault;
@@ -23,6 +23,7 @@ import ws.niceview.HotelType;
  */
 @WebService(serviceName = "NiceViewService", portName = "NiceViewPortTypeBindingPort", endpointInterface = "ws.niceview.NiceViewPortType", targetNamespace = "http://NiceView.ws", wsdlLocation = "WEB-INF/wsdl/NiceViewWebService/NiceView.wsdl")
 public class NiceViewWebService {
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/fastmoney.imm.dtu.dk_8080/BankService.wsdl")
     List<HotelType> hotels = new ArrayList<>();
     int bookingNumber = 1;
     Map<String, HotelType> bookings = new HashMap<>();
@@ -34,7 +35,7 @@ public class NiceViewWebService {
         hotel1.setCancellable(true);
         hotel1.setCreditCardGuarentee(true);
         hotel1.setHotelReservationServiceName("NiceView");
-        hotel1.setPrice(new BigInteger("1000"));
+        hotel1.setPrice(1000);
         AddressType address1 = new AddressType();
         address1.setCity("Bangladesh");
         address1.setCountry("India");
@@ -49,7 +50,7 @@ public class NiceViewWebService {
         hotel2.setCancellable(false);
         hotel2.setCreditCardGuarentee(false);
         hotel2.setHotelReservationServiceName("NiceView");
-        hotel2.setPrice(new BigInteger("2000"));
+        hotel2.setPrice(2000);
         AddressType address2 = new AddressType();
         address2.setCity("Everywhere");
         address2.setCountry("All of them");
@@ -92,5 +93,7 @@ public class NiceViewWebService {
         //TODO implement this method
         throw new UnsupportedOperationException("Not implemented yet.");
     }
+
+
     
 }

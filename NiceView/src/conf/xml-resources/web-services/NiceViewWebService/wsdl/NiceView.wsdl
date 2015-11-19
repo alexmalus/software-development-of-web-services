@@ -8,7 +8,7 @@
             <xsd:complexType name="HotelType">
                 <xsd:sequence>
                     <xsd:element name="name" type="xsd:string"></xsd:element>
-                    <xsd:element name="price" type="xsd:integer"></xsd:element>
+                    <xsd:element name="price" type="xsd:int"></xsd:element>
                     <xsd:element name="bookingNumber" type="xsd:string"></xsd:element>
                     <xsd:element name="cancellable" type="xsd:boolean"></xsd:element>
                     <xsd:element name="address" type="tns:AddressType"></xsd:element>
@@ -56,7 +56,14 @@
                 <xsd:sequence>
                     <xsd:element name="creditCardNumber" type="xsd:integer"></xsd:element>
                     <xsd:element name="name" type="xsd:string"></xsd:element>
-                    <xsd:element name="expirationDate" type="xsd:date"></xsd:element>
+                    <xsd:element name="expirationDate">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="month" type="xsd:int"></xsd:element>
+                                <xsd:element name="year" type="xsd:int"></xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
                 </xsd:sequence>
             </xsd:complexType>
             <xsd:element name="bookHotelResponse">
