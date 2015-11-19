@@ -5,6 +5,7 @@
  */
 package NiceView.ws.test;
 
+import dk.dtu.imm.fastmoney.types.CreditCardInfoType;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -14,7 +15,6 @@ import ws.niceview.BookHotelFault;
 import ws.niceview.BookHotelResponse;
 import ws.niceview.CancelHotelFault;
 import ws.niceview.CancelHotelResponse;
-import ws.niceview.CreditCardType;
 import ws.niceview.GetHotels;
 import ws.niceview.GetHotelsResponse;
 
@@ -23,36 +23,36 @@ import ws.niceview.GetHotelsResponse;
  * @author martin
  */
 public class bookTest {
-    private final CreditCardType creditCardJoachim; //10000 cash
-    private final CreditCardType creditCardInge; //1000 cash
-    private final CreditCardType creditCardAnne;
+    private final CreditCardInfoType creditCardJoachim; //10000 cash
+    private final CreditCardInfoType creditCardInge; //1000 cash
+    private final CreditCardInfoType creditCardAnne;
     
     public bookTest() {
-        creditCardJoachim = new CreditCardType();
+        creditCardJoachim = new CreditCardInfoType();
         creditCardJoachim.setName("Tick Joachim");
-        CreditCardType.ExpirationDate expiration = new CreditCardType.ExpirationDate();
+        CreditCardInfoType.ExpirationDate expiration = new CreditCardInfoType.ExpirationDate();
         expiration.setMonth(2);
         expiration.setYear(11);
         creditCardJoachim.setExpirationDate(expiration);
-        creditCardJoachim.setCreditCardNumber(50408824);
+        creditCardJoachim.setNumber("50408824");
         
         
         
-        creditCardInge = new CreditCardType();
+        creditCardInge = new CreditCardInfoType();
         creditCardInge.setName("Tobiasen Inge");
-        CreditCardType.ExpirationDate expirationInge = new CreditCardType.ExpirationDate();
+        CreditCardInfoType.ExpirationDate expirationInge = new CreditCardInfoType.ExpirationDate();
         expirationInge.setMonth(9);
         expirationInge.setYear(10);
         creditCardInge.setExpirationDate(expirationInge);
-        creditCardInge.setCreditCardNumber(50408823);
+        creditCardInge.setNumber("50408823");
         
-        creditCardAnne = new CreditCardType();
+        creditCardAnne = new CreditCardInfoType();
         creditCardAnne.setName("Dirach Anne-Louise");
-        CreditCardType.ExpirationDate expirationAnne = new CreditCardType.ExpirationDate();
+        CreditCardInfoType.ExpirationDate expirationAnne = new CreditCardInfoType.ExpirationDate();
         expirationAnne.setMonth(1);
         expirationAnne.setYear(10);
         creditCardAnne.setExpirationDate(expirationAnne);
-        creditCardAnne.setCreditCardNumber(50408819);
+        creditCardAnne.setNumber("50408819");
         
     }
     
@@ -73,7 +73,7 @@ public class bookTest {
         
         BookHotel bookRequest = new BookHotel();
         bookRequest.setBookingNumber(hotels.getHotels().get(0).getBookingNumber());
-        bookRequest.setCreditCard(creditCardJoachim);
+        bookRequest.setCreditCardInfo(creditCardJoachim);
         
         try {
             boolean response = bookHotel(bookRequest).isResponse();
@@ -93,7 +93,7 @@ public class bookTest {
         
         BookHotel bookRequest = new BookHotel();
         bookRequest.setBookingNumber(hotels.getHotels().get(0).getBookingNumber());
-        bookRequest.setCreditCard(creditCardInge);
+        bookRequest.setCreditCardInfo(creditCardInge);
         
         try {
             assertTrue(bookHotel(bookRequest).isResponse());
@@ -113,7 +113,7 @@ public class bookTest {
         
         BookHotel bookRequest = new BookHotel();
         bookRequest.setBookingNumber(hotels.getHotels().get(0).getBookingNumber());
-        bookRequest.setCreditCard(creditCardAnne);
+        bookRequest.setCreditCardInfo(creditCardAnne);
         
         try {
             assertTrue(bookHotel(bookRequest).isResponse());
@@ -132,10 +132,10 @@ public class bookTest {
         
         BookHotel bookRequest = new BookHotel();
         bookRequest.setBookingNumber(hotels.getHotels().get(0).getBookingNumber());
-        CreditCardType.ExpirationDate expirationDate = creditCardAnne.getExpirationDate();
+        CreditCardInfoType.ExpirationDate expirationDate = creditCardAnne.getExpirationDate();
         expirationDate.setMonth(3);
         creditCardAnne.setExpirationDate(expirationDate);
-        bookRequest.setCreditCard(creditCardAnne);
+        bookRequest.setCreditCardInfo(creditCardAnne);
         
         try {
             assertFalse(bookHotel(bookRequest).isResponse());

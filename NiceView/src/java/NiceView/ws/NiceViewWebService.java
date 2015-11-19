@@ -7,6 +7,8 @@ package NiceView.ws;
 
 import dk.dtu.imm.fastmoney.BankService;
 import dk.dtu.imm.fastmoney.CreditCardFaultMessage;
+import dk.dtu.imm.fastmoney.CreditCardFaultType;
+import dk.dtu.imm.fastmoney.types.AccountType;
 import dk.dtu.imm.fastmoney.types.CreditCardInfoType;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,8 +20,9 @@ import ws.niceview.AddressType;
 import ws.niceview.BookHotelFault;
 import ws.niceview.BookHotelResponse;
 import ws.niceview.CancelHotelFault;
-import ws.niceview.CreditCardType;
+import ws.niceview.CancelHotelResponse;
 import ws.niceview.GetHotelsResponse;
+import ws.niceview.HotelFaultType;
 import ws.niceview.HotelType;
 /**
  *
@@ -35,6 +38,7 @@ public class NiceViewWebService {
     int bookingNumber = 1;
     Map<String, HotelType> bookings = new HashMap<>();
     private static final int GROUP_NUMBER = 16;
+    private final String NICEVIEW_ACCOUNT_NUMBER = "50308815";
     
     public NiceViewWebService(){
         HotelType hotel1 = new HotelType();
@@ -90,21 +94,12 @@ public class NiceViewWebService {
         if(bookings.containsKey(part1.getBookingNumber())){
             HotelType hotel = bookings.get(part1.getBookingNumber());
             if(hotel.isCreditCardGuarentee()){
-                CreditCardType creditCard = part1.getCreditCard();
-                dk.dtu.imm.fastmoney.types.CreditCardInfoType cdi = new dk.dtu.imm.fastmoney.types.CreditCardInfoType();
-                cdi.setName(creditCard.getName());
-                cdi.setNumber(Integer.toString(creditCard.getCreditCardNumber()));
                 
-                CreditCardType.ExpirationDate expirationIn = creditCard.getExpirationDate();
-                CreditCardInfoType.ExpirationDate expirationOut = new CreditCardInfoType.ExpirationDate();
-                expirationOut.setMonth(expirationIn.getMonth());
-                expirationOut.setYear(expirationIn.getYear());
-                cdi.setExpirationDate(expirationOut);
-                
+                CreditCardInfoType creditCard = part1.getCreditCardInfo();
                 int amount = bookings.get(part1.getBookingNumber()).getPrice();
                 
                 try {
-                    response.setResponse(validateCreditCard(GROUP_NUMBER, cdi, amount));
+                    response.setResponse(validateCreditCard(GROUP_NUMBER, creditCard, amount));
                     return response;
                 } catch (CreditCardFaultMessage ex) {
                     System.out.println("Fault when booking " + hotel.getName() + " by " + creditCard.getName());
@@ -122,8 +117,37 @@ public class NiceViewWebService {
     }
 
     public ws.niceview.CancelHotelResponse cancelHotel(ws.niceview.CancelHotel part1) throws CancelHotelFault {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        CancelHotelResponse response = new CancelHotelResponse();
+        AccountType NiceView_account = new AccountType();
+        NiceView_account.setName("NiceView");
+        NiceView_account.setNumber(NICEVIEW_ACCOUNT_NUMBER);
+        
+        String booking_number = part1.getBookingNumber();
+        HotelType hotel = bookings.get(booking_number);
+        
+        int refund_money = hotel.getPrice();
+        if (hotel == null) {
+            throw cancelHotelFault("No flights found using provided Booking no:" + booking_number);
+        }
+        if(!hotel.isCancellable()){
+            throw cancelHotelFault("Hotel cannot be cancelled using provided Booking no:" + booking_number);
+        }
+        
+        try {
+            refundCreditCard(GROUP_NUMBER, part1.getCreditCardInfo(), refund_money, NiceView_account);
+            //booked_flights.remove(flight_info);
+        } catch (CreditCardFaultMessage ex) {
+            CreditCardFaultType fault = ex.getFaultInfo();
+            if (fault != null) {
+                throw cancelHotelFault("Error processing the credit card: " + fault.getMessage());
+            } else {
+                throw cancelHotelFault("Error processing the credit card: Credit card info is invalid");
+            }
+        }
+        
+//      if at this step no error is thrown, it means that the cancelling of flight is successful
+        response.setResponse(true);
+        return response;
     }
 
     private boolean validateCreditCard(int group, dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCardInfo, int amount) throws CreditCardFaultMessage {
@@ -134,6 +158,20 @@ public class NiceViewWebService {
             return port.validateCreditCard(group, creditCardInfo, amount);
         }
     }
+
+    private static boolean refundCreditCard(int group, dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCardInfo, int amount, dk.dtu.imm.fastmoney.types.AccountType account) throws CreditCardFaultMessage {
+        dk.dtu.imm.fastmoney.BankService service = new dk.dtu.imm.fastmoney.BankService();
+        dk.dtu.imm.fastmoney.BankPortType port = service.getBankPort();
+        return port.refundCreditCard(group, creditCardInfo, amount, account);
+    }
+
+    private CancelHotelFault cancelHotelFault(String message) {
+        HotelFaultType hotelFault = new HotelFaultType();
+        hotelFault.setMessage(message);
+        return new CancelHotelFault(message, hotelFault);
+    }
+
+
 
 
     
