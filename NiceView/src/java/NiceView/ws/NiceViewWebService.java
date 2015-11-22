@@ -36,7 +36,7 @@ public class NiceViewWebService {
 
     List<HotelType> hotels = new ArrayList<>();
     int bookingNumber = 1;
-    Map<String, HotelType> bookings = new HashMap<>();
+    Map<String, HotelReservation> bookings = new HashMap<>();
     private static final int GROUP_NUMBER = 16;
     private final String NICEVIEW_ACCOUNT_NUMBER = "50308815";
     
@@ -83,7 +83,7 @@ public class NiceViewWebService {
                     .equals(part1.getCity())){
                 hotel.setBookingNumber(Integer.toString(bookingNumber++));
                 hotelList.add(hotel);
-                bookings.put(hotel.getBookingNumber(), hotel);
+                bookings.put(hotel.getBookingNumber(), new HotelReservation(hotel, part1.getArrivalDate(), part1.getDepatureDate()));
             }
         }
         return response;
@@ -91,29 +91,35 @@ public class NiceViewWebService {
 
     public ws.niceview.BookHotelResponse bookHotel(ws.niceview.BookHotel part1) throws BookHotelFault {
         BookHotelResponse response = new BookHotelResponse();
-        if(bookings.containsKey(part1.getBookingNumber())){
-            HotelType hotel = bookings.get(part1.getBookingNumber());
+        String booking_number = part1.getBookingNumber();
+        if(bookings.containsKey(booking_number)){
+            HotelReservation hotelReservation = bookings.get(part1.getBookingNumber());
+            if (hotelReservation == null) {
+                throw bookHotelFault("No reservations found using provided Booking no:" + booking_number);
+            }
+            HotelType hotel = hotelReservation.getHotel();
             if(hotel.isCreditCardGuarentee()){
                 
                 CreditCardInfoType creditCard = part1.getCreditCardInfo();
-                int amount = bookings.get(part1.getBookingNumber()).getPrice();
+                int amount = hotel.getPrice();
+                if(hotelReservation.isBooked()){
+                    throw bookHotelFault("The reservation with the given booking number is already booked.");
+                }
                 
                 try {
                     response.setResponse(validateCreditCard(GROUP_NUMBER, creditCard, amount));
                     return response;
                 } catch (CreditCardFaultMessage ex) {
                     System.out.println("Fault when booking " + hotel.getName() + " by " + creditCard.getName());
-                    ws.niceview.HotelFaultType faultInfo = new ws.niceview.HotelFaultType();
-                    faultInfo.setMessage(ex.getMessage());
-                    BookHotelFault fault = new BookHotelFault(ex.getMessage(), faultInfo);
-                    throw fault;
+                    throw bookHotelFault(ex.getMessage());
                 }
             }
+            hotelReservation.BookHotel();
             System.out.println("Booking hotel " + hotel.getName());
             response.setResponse(true);
             return response;
         }
-        throw new BookHotelFault("No bookings with this booking number.", null);
+        throw bookHotelFault("No bookings with this booking number.");
     }
 
     public ws.niceview.CancelHotelResponse cancelHotel(ws.niceview.CancelHotel part1) throws CancelHotelFault {
@@ -123,14 +129,19 @@ public class NiceViewWebService {
         NiceView_account.setNumber(NICEVIEW_ACCOUNT_NUMBER);
         
         String booking_number = part1.getBookingNumber();
-        HotelType hotel = bookings.get(booking_number);
+        
+        HotelReservation reservation = bookings.get(booking_number);
+        if (reservation == null) {
+            throw cancelHotelFault("No reservations found using provided Booking no:" + booking_number);
+        }
+        HotelType hotel = reservation.getHotel();
         
         int refund_money = hotel.getPrice();
-        if (hotel == null) {
-            throw cancelHotelFault("No flights found using provided Booking no:" + booking_number);
-        }
         if(!hotel.isCancellable()){
             throw cancelHotelFault("Hotel cannot be cancelled using provided Booking no:" + booking_number);
+        }
+        if(reservation.isCancelled()){
+            throw cancelHotelFault("Hotel with the given booking number has already been cancelled:" + booking_number);
         }
         
         try {
@@ -170,7 +181,11 @@ public class NiceViewWebService {
         hotelFault.setMessage(message);
         return new CancelHotelFault(message, hotelFault);
     }
-
+    private BookHotelFault bookHotelFault(String message) {
+        HotelFaultType hotelFault = new HotelFaultType();
+        hotelFault.setMessage(message);
+        return new BookHotelFault(message, hotelFault);
+    }
 
 
 
