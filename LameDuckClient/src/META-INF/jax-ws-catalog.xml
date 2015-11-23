@@ -2,4 +2,5 @@
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="file:/C:/Users/Alex/Documents/NetBeansProjects/TravelGood_project/LameDuck/src/java/LameDuckWSDL.wsdl" uri="wsdl/LameDuckWSDL.wsdl"/>
     <system systemId="http://fastmoney.imm.dtu.dk:8080/BankServiceTypes.xsd" uri="wsdl/fastmoney.imm.dtu.dk_8080/BankServiceTypes.xsd"/>
+    <system systemId="http://yolo:8080/LameDuck/LameDuckWSDLService?wsdl" uri="wsdl/yolo_8080/LameDuck/LameDuckWSDLService.wsdl"/>
 </catalog>

@@ -1,78 +1,75 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<definitions name="LameDuckWSDL" targetNamespace="http://LameDuck.ws"
-    xmlns="http://schemas.xmlsoap.org/wsdl/"
-    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://LameDuck.ws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.1-b419 (branches/2.3.1.x-7937; 2014-08-04T08:11:03+0000) JAXWS-RI/2.2.10-b140803.1500 JAXWS-API/2.2.11 JAXB-RI/2.2.10-b140802.1033 JAXB-API/2.2.12-b140109.1041 svn-revision#unknown. --><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://LameDuck.ws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="LameDuckWSDL" targetNamespace="http://LameDuck.ws">
     <types>
-        <xsd:schema targetNamespace="http://LameDuck.ws" xmlns:tns="http://LameDuck.ws" xmlns:ns1="http://types.fastmoney.imm.dtu.dk">
+        <xsd:schema xmlns:tns="http://LameDuck.ws" xmlns:ns1="http://types.fastmoney.imm.dtu.dk" targetNamespace="http://LameDuck.ws">
             <xsd:import schemaLocation="http://fastmoney.imm.dtu.dk:8080/BankServiceTypes.xsd" namespace="http://types.fastmoney.imm.dtu.dk"/>
             <xsd:complexType name="FlightInfoType">
                 <xsd:sequence minOccurs="1" maxOccurs="1">
-                    <xsd:element name="bookingNumber" type="xsd:string"></xsd:element>
-                    <xsd:element name="flightPrice" type="xsd:int"></xsd:element>
-                    <xsd:element name="airlineReservationServiceName" type="xsd:string"></xsd:element>
-                    <xsd:element name="flight" type="tns:FlightType"></xsd:element>
+                    <xsd:element name="bookingNumber" type="xsd:string"/>
+                    <xsd:element name="flightPrice" type="xsd:int"/>
+                    <xsd:element name="airlineReservationServiceName" type="xsd:string"/>
+                    <xsd:element name="flight" type="tns:FlightType"/>
+                    <xsd:element name="cancellable" type="xsd:boolean"/>
                 </xsd:sequence>
             </xsd:complexType>
             <xsd:complexType name="FlightType">
                 <xsd:sequence>
-                    <xsd:element name="startAirport" type="xsd:string"></xsd:element>
-                    <xsd:element name="destinationAirport" type="xsd:string"></xsd:element>
-                    <xsd:element name="liftoffDate" type="xsd:date"></xsd:element>
-                    <xsd:element name="landingDate" type="xsd:date"></xsd:element>
-                    <xsd:element name="carrierName" type="xsd:string"></xsd:element>
+                    <xsd:element name="startAirport" type="xsd:string"/>
+                    <xsd:element name="destinationAirport" type="xsd:string"/>
+                    <xsd:element name="liftoffDate" type="xsd:date"/>
+                    <xsd:element name="landingDate" type="xsd:date"/>
+                    <xsd:element name="carrierName" type="xsd:string"/>
                 </xsd:sequence>
             </xsd:complexType>
             <xsd:complexType name="FlightFaultType">
                 <xsd:sequence>
-                    <xsd:element name="fault_message" type="xsd:string"></xsd:element>
+                    <xsd:element name="fault_message" type="xsd:string"/>
                 </xsd:sequence>
             </xsd:complexType>
-            <xsd:element name="FlightFault" type="tns:FlightFaultType"></xsd:element>
+            <xsd:element name="FlightFault" type="tns:FlightFaultType"/>
             <xsd:element name="getFlightsRequest">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="startDestination" type="xsd:string"></xsd:element>
-                        <xsd:element name="finalDestination" type="xsd:string"></xsd:element>
-                        <xsd:element name="dateFlight" type="xsd:date"></xsd:element>
+                        <xsd:element name="startDestination" type="xsd:string"/>
+                        <xsd:element name="finalDestination" type="xsd:string"/>
+                        <xsd:element name="dateFlight" type="xsd:date"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="bookFlightRequest">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="bookingNumber" type="xsd:string"></xsd:element>
-                        <xsd:element name="CreditCardInfo" type="ns1:creditCardInfoType"></xsd:element>
+                        <xsd:element name="bookingNumber" type="xsd:string"/>
+                        <xsd:element name="CreditCardInfo" type="ns1:creditCardInfoType"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="cancelFlightRequest">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="bookingNumber" type="xsd:string"></xsd:element>
-                        <xsd:element name="price" type="xsd:int"></xsd:element>
-                        <xsd:element name="CreditCardInfo" type="ns1:creditCardInfoType"></xsd:element>
+                        <xsd:element name="bookingNumber" type="xsd:string"/>
+                        <xsd:element name="price" type="xsd:int"/>
+                        <xsd:element name="CreditCardInfo" type="ns1:creditCardInfoType"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="bookFlightResponse">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="response" type="xsd:boolean"></xsd:element>
+                        <xsd:element name="response" type="xsd:boolean"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="cancelFlightResponse">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="response" type="xsd:boolean"></xsd:element>
+                        <xsd:element name="response" type="xsd:boolean"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="getFlightsResponse">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="FlightInfoList" type="tns:FlightInfoType" maxOccurs="unbounded" minOccurs="0"></xsd:element>
+                        <xsd:element name="FlightInfoList" type="tns:FlightInfoType" maxOccurs="unbounded" minOccurs="0"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
@@ -156,7 +153,7 @@
     </binding>
     <service name="LameDuckWSDLService">
         <port name="LameDuckBindingPort" binding="tns:LameDuckBinding">
-            <soap:address location="http://localhost:${HttpDefaultPort}/service"/>
+            <soap:address location="http://yolo:8080/LameDuck/LameDuckWSDLService"/>
         </port>
     </service>
 </definitions>
