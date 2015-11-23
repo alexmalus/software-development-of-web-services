@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="Martin-laptop" name="NiceView.ws.test.bookTest" skipped="0" tests="4" time="0.819" timestamp="2015-11-19T15:12:28">
+<testsuite errors="0" failures="0" hostname="Martin-laptop" name="NiceView.ws.test.bookTest" skipped="0" tests="4" time="3.398" timestamp="2015-11-22T10:14:24">
   <properties>
     <property name="libs.jsp-compiler.javadoc" value="" />
     <property name="netbeans.autoupdate.country" value="GB" />
@@ -58,7 +58,7 @@
     <property name="copylibs.rebase" value="true" />
     <property name="libs.spring-webmvc3.0.maven-pom" value="" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner NiceView.ws.test.bookTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\martin\Documents\Git\02267-software-development-of-web-services-e15\NiceViewTest\build\test\results\TEST-NiceView.ws.test.bookTest.xml crashfile=C:\Users\martin\Documents\Git\02267-software-development-of-web-services-e15\NiceViewTest\build\junitvmwatcher5338243005722973329.properties propsfile=C:\Users\martin\Documents\Git\02267-software-development-of-web-services-e15\NiceViewTest\build\junit2067164576136219107.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner NiceView.ws.test.bookTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\martin\Documents\Git\02267-software-development-of-web-services-e15\NiceViewTest\build\test\results\TEST-NiceView.ws.test.bookTest.xml crashfile=C:\Users\martin\Documents\Git\02267-software-development-of-web-services-e15\NiceViewTest\build\junitvmwatcher8568648949992137454.properties propsfile=C:\Users\martin\Documents\Git\02267-software-development-of-web-services-e15\NiceViewTest\build\junit2800708279342975579.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="build.sysclasspath" value="ignore" />
     <property name="ap.supported.internal" value="true" />
@@ -253,7 +253,7 @@
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
     <property name="ant.project.name" value="NiceViewTest" />
     <property name="libs.PojoSELib.javadoc" value="C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\soa\modules\ext\sun-pojo-engine-api-javadoc.jar" />
-    <property name="netbeans.hash.code" value="unique=0bdf2236b-9325-41f4-bff3-29630650d4a7_fce43078-eab5-4263-9321-71d88b2ded37" />
+    <property name="netbeans.hash.code" value="unique=0bdf2236b-9325-41f4-bff3-29630650d4a7_a3c557d9-6ac8-4017-8704-d8150dc7c1d3" />
     <property name="netbeans.default_userdir_root" value="" />
     <property name="libs.jsp-compilation-syscp.maven-pom" value="" />
     <property name="sun.cpu.isalist" value="amd64" />
@@ -418,10 +418,10 @@
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
     <property name="libs.javaee-web-api-7.0.javadoc" value="C:\Users\martin\Desktop\OpenESB-SE-3.0.5\OE-Studio\netbeans\enterprise\docs\javaee-doc-api.jar" />
   </properties>
-  <testcase classname="NiceView.ws.test.bookTest" name="testBookHotelAnne" time="0.385" />
-  <testcase classname="NiceView.ws.test.bookTest" name="testBookHotelInge" time="0.085" />
-  <testcase classname="NiceView.ws.test.bookTest" name="testBookHotelJoachim" time="0.131" />
-  <testcase classname="NiceView.ws.test.bookTest" name="testBookHotelAnneChangedExpiration" time="0.133" />
+  <testcase classname="NiceView.ws.test.bookTest" name="testBookHotelInge" time="2.436" />
+  <testcase classname="NiceView.ws.test.bookTest" name="testBookHotelJoachim" time="0.207" />
+  <testcase classname="NiceView.ws.test.bookTest" name="testBookHotelAnne" time="0.199" />
+  <testcase classname="NiceView.ws.test.bookTest" name="testBookHotelAnneChangedExpiration" time="0.3" />
   <system-out><![CDATA[Credit card does not exist
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>

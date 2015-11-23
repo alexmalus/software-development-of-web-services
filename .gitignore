@@ -15,7 +15,11 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /NiceView/build/
+/NiceView/nbproject/private/
 /NiceView/dist/
+/NiceViewTest/build/
+/NiceViewTest/nbproject/private/
+/NiceViewTest/dist/
 /LameDuckTest/nbproject/private/
 /LameDuckClient/nbproject/private/
 /LameDuckClient/build/

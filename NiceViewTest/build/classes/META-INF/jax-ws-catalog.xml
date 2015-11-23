@@ -3,4 +3,6 @@
     <system systemId="http://martin-laptop:8080/NiceView/NiceViewService?wsdl" uri="wsdl/martin-laptop_8080/NiceView/NiceViewService.wsdl"/>
     <system systemId="http://localhost:8080/web/NiceViewService?wsdl" uri="wsdl/localhost_8080/web/NiceViewService.wsdl"/>
     <system systemId="http://localhost:8080/NiceView/NiceViewService?wsdl" uri="wsdl/localhost_8080/NiceView/NiceViewService.wsdl"/>
+    <system systemId="http://localhost:8080/NiceView/NiceViewService?null" uri="wsdl/localhost_8080/NiceView/NiceViewService.null.xml"/>
+    <system systemId="http://fastmoney.imm.dtu.dk:8080/BankServiceTypes.xsd" uri="wsdl/fastmoney.imm.dtu.dk_8080/BankServiceTypes.xsd"/>
 </catalog>

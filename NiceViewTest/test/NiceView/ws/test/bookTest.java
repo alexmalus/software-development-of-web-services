@@ -5,52 +5,54 @@
  */
 package NiceView.ws.test;
 
-import niceviewtest.BookHotelFault;
-import niceviewtest.BookHotelRequest;
-import niceviewtest.CancelHotelFault;
-import niceviewtest.CreditCardType;
-import niceviewtest.GetHotelRequestType;
-import niceviewtest.GetHotelsResponse;
+import dk.dtu.imm.fastmoney.types.CreditCardInfoType;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import ws.niceview.BookHotel;
+import ws.niceview.BookHotelFault;
+import ws.niceview.BookHotelResponse;
+import ws.niceview.CancelHotelFault;
+import ws.niceview.CancelHotelResponse;
+import ws.niceview.GetHotels;
+import ws.niceview.GetHotelsResponse;
 
 /**
  *
  * @author martin
  */
 public class bookTest {
-    private final CreditCardType creditCardJoachim; //10000 cash
-    private final CreditCardType creditCardInge; //1000 cash
-    private final CreditCardType creditCardAnne;
+    private final CreditCardInfoType creditCardJoachim; //10000 cash
+    private final CreditCardInfoType creditCardInge; //1000 cash
+    private final CreditCardInfoType creditCardAnne;
     
     public bookTest() {
-        creditCardJoachim = new CreditCardType();
+        creditCardJoachim = new CreditCardInfoType();
         creditCardJoachim.setName("Tick Joachim");
-        CreditCardType.ExpirationDate expiration = new CreditCardType.ExpirationDate();
+        CreditCardInfoType.ExpirationDate expiration = new CreditCardInfoType.ExpirationDate();
         expiration.setMonth(2);
         expiration.setYear(11);
         creditCardJoachim.setExpirationDate(expiration);
-        creditCardJoachim.setCreditCardNumber(50408824);
+        creditCardJoachim.setNumber("50408824");
         
         
         
-        creditCardInge = new CreditCardType();
+        creditCardInge = new CreditCardInfoType();
         creditCardInge.setName("Tobiasen Inge");
-        CreditCardType.ExpirationDate expirationInge = new CreditCardType.ExpirationDate();
+        CreditCardInfoType.ExpirationDate expirationInge = new CreditCardInfoType.ExpirationDate();
         expirationInge.setMonth(9);
         expirationInge.setYear(10);
         creditCardInge.setExpirationDate(expirationInge);
-        creditCardInge.setCreditCardNumber(50408823);
+        creditCardInge.setNumber("50408823");
         
-        creditCardAnne = new CreditCardType();
+        creditCardAnne = new CreditCardInfoType();
         creditCardAnne.setName("Dirach Anne-Louise");
-        CreditCardType.ExpirationDate expirationAnne = new CreditCardType.ExpirationDate();
+        CreditCardInfoType.ExpirationDate expirationAnne = new CreditCardInfoType.ExpirationDate();
         expirationAnne.setMonth(1);
         expirationAnne.setYear(10);
         creditCardAnne.setExpirationDate(expirationAnne);
-        creditCardAnne.setCreditCardNumber(50408819);
+        creditCardAnne.setNumber("50408819");
         
     }
     
@@ -64,17 +66,18 @@ public class bookTest {
 
     @Test 
     public void testBookHotelJoachim(){
-        GetHotelRequestType request = new GetHotelRequestType();
+        GetHotels request = new GetHotels();
         request.setCity("Bangladesh");
-        GetHotelsResponse hotels = getHotels_1(request);
-        assertTrue(hotels.getNewElement().get(0).isCreditCardGuarentee());
+        GetHotelsResponse hotels = getHotels(request);
+        assertTrue(hotels.getHotels().get(0).isCreditCardGuarentee());
         
-        BookHotelRequest bookRequest = new BookHotelRequest();
-        bookRequest.setBookingNumber(hotels.getNewElement().get(0).getBookingNumber());
-        bookRequest.setCreditCard(creditCardJoachim);
+        BookHotel bookRequest = new BookHotel();
+        bookRequest.setBookingNumber(hotels.getHotels().get(0).getBookingNumber());
+        bookRequest.setCreditCardInfo(creditCardJoachim);
         
         try {
-            assertTrue(bookHotel(bookRequest));
+            boolean response = bookHotel(bookRequest).isResponse();
+            assertTrue(response);
         } catch (BookHotelFault ex) {
             System.out.println(ex.getMessage());
             assertFalse(true);
@@ -83,17 +86,17 @@ public class bookTest {
     
     @Test 
     public void testBookHotelInge(){
-        GetHotelRequestType request = new GetHotelRequestType();
+        GetHotels request = new GetHotels();
         request.setCity("Bangladesh");
-        GetHotelsResponse hotels = getHotels_1(request);
-        assertTrue(hotels.getNewElement().get(0).isCreditCardGuarentee());
+        GetHotelsResponse hotels = getHotels(request);
+        assertTrue(hotels.getHotels().get(0).isCreditCardGuarentee());
         
-        BookHotelRequest bookRequest = new BookHotelRequest();
-        bookRequest.setBookingNumber(hotels.getNewElement().get(0).getBookingNumber());
-        bookRequest.setCreditCard(creditCardInge);
+        BookHotel bookRequest = new BookHotel();
+        bookRequest.setBookingNumber(hotels.getHotels().get(0).getBookingNumber());
+        bookRequest.setCreditCardInfo(creditCardInge);
         
         try {
-            assertTrue(bookHotel(bookRequest));
+            assertTrue(bookHotel(bookRequest).isResponse());
         } catch (BookHotelFault ex) {
             System.out.println("Inge failed:");
             System.out.println(ex.getMessage());
@@ -103,17 +106,17 @@ public class bookTest {
     
     @Test 
     public void testBookHotelAnne(){
-        GetHotelRequestType request = new GetHotelRequestType();
+        GetHotels request = new GetHotels();
         request.setCity("Bangladesh");
-        GetHotelsResponse hotels = getHotels_1(request);
-        assertTrue(hotels.getNewElement().get(0).isCreditCardGuarentee());
+        GetHotelsResponse hotels = getHotels(request);
+        assertTrue(hotels.getHotels().get(0).isCreditCardGuarentee());
         
-        BookHotelRequest bookRequest = new BookHotelRequest();
-        bookRequest.setBookingNumber(hotels.getNewElement().get(0).getBookingNumber());
-        bookRequest.setCreditCard(creditCardAnne);
+        BookHotel bookRequest = new BookHotel();
+        bookRequest.setBookingNumber(hotels.getHotels().get(0).getBookingNumber());
+        bookRequest.setCreditCardInfo(creditCardAnne);
         
         try {
-            assertTrue(bookHotel(bookRequest));
+            assertTrue(bookHotel(bookRequest).isResponse());
         } catch (BookHotelFault ex) {
             System.out.println(ex.getMessage());
             assertFalse(true);
@@ -122,41 +125,43 @@ public class bookTest {
     
     @Test 
     public void testBookHotelAnneChangedExpiration(){
-        GetHotelRequestType request = new GetHotelRequestType();
+        GetHotels request = new GetHotels();
         request.setCity("Bangladesh");
-        GetHotelsResponse hotels = getHotels_1(request);
-        assertTrue(hotels.getNewElement().get(0).isCreditCardGuarentee());
+        GetHotelsResponse hotels = getHotels(request);
+        assertTrue(hotels.getHotels().get(0).isCreditCardGuarentee());
         
-        BookHotelRequest bookRequest = new BookHotelRequest();
-        bookRequest.setBookingNumber(hotels.getNewElement().get(0).getBookingNumber());
-        CreditCardType.ExpirationDate expirationDate = creditCardAnne.getExpirationDate();
+        BookHotel bookRequest = new BookHotel();
+        bookRequest.setBookingNumber(hotels.getHotels().get(0).getBookingNumber());
+        CreditCardInfoType.ExpirationDate expirationDate = creditCardAnne.getExpirationDate();
         expirationDate.setMonth(3);
         creditCardAnne.setExpirationDate(expirationDate);
-        bookRequest.setCreditCard(creditCardAnne);
+        bookRequest.setCreditCardInfo(creditCardAnne);
         
         try {
-            assertFalse(bookHotel(bookRequest));
+            assertFalse(bookHotel(bookRequest).isResponse());
         } catch (BookHotelFault ex) {
             System.out.println(ex.getMessage());
             assertTrue(true);
         }
     }
-    
-    private static boolean bookHotel(niceviewtest.BookHotelRequest part1) throws BookHotelFault {
-        niceviewtest.NiceViewService service = new niceviewtest.NiceViewService();
-        niceviewtest.NiceViewPortType port = service.getNiceViewPortTypeBindingPort();
+
+    private static BookHotelResponse bookHotel(ws.niceview.BookHotel part1) throws BookHotelFault {
+        ws.niceview.NiceViewService service = new ws.niceview.NiceViewService();
+        ws.niceview.NiceViewPortType port = service.getNiceViewPortTypeBindingPort();
         return port.bookHotel(part1);
     }
 
-    private static boolean cancelHotel(niceviewtest.CancelHotelRequest part1) throws CancelHotelFault {
-        niceviewtest.NiceViewService service = new niceviewtest.NiceViewService();
-        niceviewtest.NiceViewPortType port = service.getNiceViewPortTypeBindingPort();
+    private static CancelHotelResponse cancelHotel(ws.niceview.CancelHotel part1) throws CancelHotelFault {
+        ws.niceview.NiceViewService service = new ws.niceview.NiceViewService();
+        ws.niceview.NiceViewPortType port = service.getNiceViewPortTypeBindingPort();
         return port.cancelHotel(part1);
     }
 
-    private static GetHotelsResponse getHotels_1(niceviewtest.GetHotelRequestType part1) {
-        niceviewtest.NiceViewService service = new niceviewtest.NiceViewService();
-        niceviewtest.NiceViewPortType port = service.getNiceViewPortTypeBindingPort();
+    private static GetHotelsResponse getHotels(ws.niceview.GetHotels part1) {
+        ws.niceview.NiceViewService service = new ws.niceview.NiceViewService();
+        ws.niceview.NiceViewPortType port = service.getNiceViewPortTypeBindingPort();
         return port.getHotels(part1);
     }
+
+    
 }
