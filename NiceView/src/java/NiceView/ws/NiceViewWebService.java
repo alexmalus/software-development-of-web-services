@@ -119,7 +119,7 @@ public class NiceViewWebService {
             response.setResponse(true);
             return response;
         }
-        throw bookHotelFault("No bookings with this booking number.");
+        throw bookHotelFault("No bookings with booking no:" + booking_number);
     }
 
     public ws.niceview.CancelHotelResponse cancelHotel(ws.niceview.CancelHotel part1) throws CancelHotelFault {
