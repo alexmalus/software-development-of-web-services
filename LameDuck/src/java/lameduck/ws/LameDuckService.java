@@ -13,9 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.jws.WebService;
 import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.ws.WebServiceRef;
+//import javax.xml.ws.WebServiceRef;
 //import lameduck.ws.FlightsDatabase.DateUtils;
 import dateutils.DateUtils;
+import dk.dtu.imm.fastmoney.BankPortType;
 import ws.lameduck.BookFlightResponse;
 import ws.lameduck.FlightInfoType;
 import ws.lameduck.GetFlightsResponse;
@@ -33,15 +34,14 @@ import ws.lameduck.GetFlightsRequest;
  */
 @WebService(serviceName = "LameDuckWSDLService", portName = "LameDuckBindingPort", endpointInterface = "ws.lameduck.LameDuck", targetNamespace = "http://LameDuck.ws", wsdlLocation = "WEB-INF/wsdl/LameDuckService/LameDuckWSDL.wsdl")
 public class LameDuckService {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/fastmoney.imm.dtu.dk_8080/BankService.wsdl")
-    private BankService service;
-//    used when we communicate with the Bank Service
+//    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/fastmoney.imm.dtu.dk_8080/BankService.wsdl")
+    private BankService bank_service = new BankService();
+    private BankPortType port = bank_service.getBankPort();
+
     static final int GROUP_NUMBER = 16;
-//    used when we add flights
     private List<FlightInfoType> booked_flights = new ArrayList();
 //    has all the demo flights
     private final FlightsDatabase flight_db = new FlightsDatabase();
-//    used for transactions with the Bank Service
     static final String LAMEDUCK_ACCOUNT_NUMBER = "50208812";
     
     public GetFlightsResponse getFlights(GetFlightsRequest request) {
@@ -68,7 +68,7 @@ public class LameDuckService {
     public BookFlightResponse bookFlight(BookFlightRequest request) throws BookFlightFault {
         BookFlightResponse response = new BookFlightResponse();
         AccountType LameDuck_account = new AccountType();
-        LameDuck_account.setName("LAMEDUCK");
+        LameDuck_account.setName("LameDuck");
         LameDuck_account.setNumber(LAMEDUCK_ACCOUNT_NUMBER);
         
         String booking_number = request.getBookingNumber();
@@ -91,8 +91,8 @@ public class LameDuckService {
         
         int flight_price = flight_info.getFlightPrice();
         try {
-            validateCreditCard(GROUP_NUMBER, request.getCreditCardInfo(), flight_price);
-            chargeCreditCard(GROUP_NUMBER, request.getCreditCardInfo(), flight_price, LameDuck_account);
+            port.validateCreditCard(GROUP_NUMBER, request.getCreditCardInfo(), flight_price);
+            port.chargeCreditCard(GROUP_NUMBER, request.getCreditCardInfo(), flight_price, LameDuck_account);
             booked_flights.add(flight_info);
         } catch (CreditCardFaultMessage ex) {
             CreditCardFaultType fault = ex.getFaultInfo();
@@ -111,7 +111,7 @@ public class LameDuckService {
     public CancelFlightResponse cancelFlight(CancelFlightRequest request) throws CancelFlightFault {
         CancelFlightResponse response = new CancelFlightResponse();
         AccountType LameDuck_account = new AccountType();
-        LameDuck_account.setName("LAMEDUCK");
+        LameDuck_account.setName("LameDuck");
         LameDuck_account.setNumber(LAMEDUCK_ACCOUNT_NUMBER);
           
         int refund_money = request.getPrice() / 2;
@@ -131,7 +131,7 @@ public class LameDuckService {
         } 
         
         try {
-            refundCreditCard(GROUP_NUMBER, request.getCreditCardInfo(), refund_money, LameDuck_account);
+            port.refundCreditCard(GROUP_NUMBER, request.getCreditCardInfo(), refund_money, LameDuck_account);
             booked_flights.remove(flight_info);
         } catch (CreditCardFaultMessage ex) {
             CreditCardFaultType fault = ex.getFaultInfo();
@@ -169,27 +169,33 @@ public class LameDuckService {
         return new CancelFlightFault(faultInfo, flightFault);
     }
     
-//    TODO: implement resetFlights called when an order is being cancelled
-//    public 
+    public boolean resetFlights(boolean request) {
+        booked_flights.clear();
+        return true;
+    }
 
     private boolean chargeCreditCard(int group, dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCardInfo, int amount, dk.dtu.imm.fastmoney.types.AccountType account) throws CreditCardFaultMessage {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        dk.dtu.imm.fastmoney.BankPortType port = service.getBankPort();
+        dk.dtu.imm.fastmoney.BankService service_main = new dk.dtu.imm.fastmoney.BankService();
+        dk.dtu.imm.fastmoney.BankPortType port = service_main.getBankPort();
         return port.chargeCreditCard(group, creditCardInfo, amount, account);
     }
 
     private boolean refundCreditCard(int group, dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCardInfo, int amount, dk.dtu.imm.fastmoney.types.AccountType account) throws CreditCardFaultMessage {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        dk.dtu.imm.fastmoney.BankPortType port = service.getBankPort();
+        dk.dtu.imm.fastmoney.BankService service_main = new dk.dtu.imm.fastmoney.BankService();
+        dk.dtu.imm.fastmoney.BankPortType port = service_main.getBankPort();
         return port.refundCreditCard(group, creditCardInfo, amount, account);
     }
 
     private boolean validateCreditCard(int group, dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCardInfo, int amount) throws CreditCardFaultMessage {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        dk.dtu.imm.fastmoney.BankPortType port = service.getBankPort();
+        dk.dtu.imm.fastmoney.BankService service_main = new dk.dtu.imm.fastmoney.BankService();
+        dk.dtu.imm.fastmoney.BankPortType port = service_main.getBankPort();
         return port.validateCreditCard(group, creditCardInfo, amount);
     }
+
 }

@@ -77,18 +77,8 @@
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
-            <xsd:element name="resetFlightsRequest">
-                <xsd:complexType>
-                    <xsd:sequence/>
-                </xsd:complexType>
-            </xsd:element>
-            <xsd:element name="resetFlightsResponse">
-                <xsd:complexType>
-                    <xsd:sequence>
-                        <xsd:element name="response" type="xsd:boolean"></xsd:element>
-                    </xsd:sequence>
-                </xsd:complexType>
-            </xsd:element>
+            <xsd:element name="reset_request_flag" type="xsd:boolean"></xsd:element>
+            <xsd:element name="reset_response_flag" type="xsd:boolean"></xsd:element>
         </xsd:schema>
     </types>
     <message name="getFlightsRequest">
@@ -115,6 +105,12 @@
     <message name="cancelFlightFault">
         <part name="fault_message" element="tns:FlightFault"/>
     </message>
+    <message name="resetRequest">
+        <part name="request" element="tns:reset_request_flag"/>
+    </message>
+    <message name="resetResponse">
+        <part name="response" element="tns:reset_response_flag"/>
+    </message>
     <portType name="LameDuck">
         <operation name="getFlights">
             <input name="input1" message="tns:getFlightsRequest"/>
@@ -129,6 +125,10 @@
             <input name="input3" message="tns:cancelFlightRequest"/>
             <output name="output3" message="tns:cancelFlightResponse"/>
             <fault name="fault1" message="tns:cancelFlightFault"/>
+        </operation>
+        <operation name="resetFlights">
+            <input name="input4" message="tns:resetRequest"/>
+            <output name="output4" message="tns:resetResponse"/>
         </operation>
     </portType>
     <binding name="LameDuckBinding" type="tns:LameDuck">
@@ -166,10 +166,19 @@
                 <soap:fault name="fault1" use="literal"/>
             </fault>
         </operation>
+        <operation name="resetFlights">
+            <soap:operation/>
+            <input name="input4">
+                <soap:body use="literal"/>
+            </input>
+            <output name="output4">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
     </binding>
     <service name="LameDuckWSDLService">
         <port name="LameDuckBindingPort" binding="tns:LameDuckBinding">
-            <soap:address location="http://localhost:${HttpDefaultPort}/service"/>
+            <soap:address location="http://localhost:8080/service"/>
         </port>
     </service>
 </definitions>

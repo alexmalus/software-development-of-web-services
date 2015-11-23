@@ -9,3 +9,4 @@ https://docs.google.com/document/d/107drldSQd5Bh0pGpZykprIB6eE_RxQdgw5u0tettnyg/
 
 Bank Service link:
 http://fastmoney.imm.dtu.dk:8080/
+http://fastmoney.imm.dtu.dk:8080/BankService?wsdl

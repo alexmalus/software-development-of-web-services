@@ -153,7 +153,11 @@
     </binding>
     <service name="LameDuckWSDLService">
         <port name="LameDuckBindingPort" binding="tns:LameDuckBinding">
+<<<<<<< HEAD:LameDuckClient/src/META-INF/LameDuckWSDLService.xml
             <soap:address location="http://yolo:8080/LameDuck/LameDuckWSDLService"/>
+=======
+            <soap:address location="http://localhost:8080/LameDuck/LameDuckWSDLService"/>
+>>>>>>> 2715379cdcbb3397f9d5a43234df9d51414b8edf:LameDuckClient/src/META-INF/LameDuckWSDLService.xml
         </port>
     </service>
 </definitions>

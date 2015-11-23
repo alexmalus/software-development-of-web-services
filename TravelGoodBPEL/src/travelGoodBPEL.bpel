@@ -18,6 +18,5 @@
         <partnerLink name="NiceView_PartnerLink" xmlns:tns="http://enterprise.netbeans.org/bpel/NiceViewWrapper" partnerLinkType="tns:NiceViewLinkType" partnerRole="NiceViewRole"/>
         <partnerLink name="LameDuck_PartnerLink" xmlns:tns="http://enterprise.netbeans.org/bpel/LameDuckWSDLWrapper" partnerLinkType="tns:LameDuckLinkType" partnerRole="LameDuckRole"/>
     </partnerLinks>
-    <sequence>
-   </sequence>
+    <sequence></sequence>
 </process>
