@@ -43,6 +43,22 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/dk/dtu/imm/fastmoney"/>
         <delete dir="${build.generated.dir}/jax-wsCache/BankService"/>
     </target>
+    <target name="wsimport-client-BankService_1" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/BankService_1"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/BankService_1" destdir="${build.generated.dir}/jax-wsCache/BankService_1" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/BankService_1/wsdl/fastmoney.imm.dtu.dk_8080/BankService.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://fastmoney.imm.dtu.dk:8080/BankService?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/BankService_1/wsdl/fastmoney.imm.dtu.dk_8080/BankService.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/BankService_1"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/BankService_1">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-BankService_1" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/dk/dtu/imm/fastmoney"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/BankService_1"/>
+    </target>
     <target name="wsimport-service-LameDuckService" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/LameDuckService"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/LameDuckService" destdir="${build.generated.dir}/jax-wsCache/service/LameDuckService" wsdl="${basedir}/${conf-dir}xml-resources/web-services/LameDuckService/wsdl/LameDuckWSDL.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" xnocompile="true" xendorsed="true">
@@ -62,6 +78,6 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/ws/lameduck"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/LameDuckService"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-BankService"/>
+    <target name="wsimport-client-generate" depends="wsimport-client-BankService, wsimport-client-BankService_1"/>
     <target name="wsimport-service-generate" depends="wsimport-service-LameDuckService"/>
 </project>

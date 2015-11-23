@@ -10,6 +10,14 @@
     xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
     xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
     xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling">
+    <import namespace="http://enterprise.netbeans.org/bpel/LameDuckWSDLWrapper" location="LameDuckWSDLWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://LameDuck.ws" location="LameDuck/LameDuckWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/NiceViewWrapper" location="NiceViewWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://NiceView.ws" location="NiceView/NiceView.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="NiceView_PartnerLink" xmlns:tns="http://enterprise.netbeans.org/bpel/NiceViewWrapper" partnerLinkType="tns:NiceViewLinkType" partnerRole="NiceViewRole"/>
+        <partnerLink name="LameDuck_PartnerLink" xmlns:tns="http://enterprise.netbeans.org/bpel/LameDuckWSDLWrapper" partnerLinkType="tns:LameDuckLinkType" partnerRole="LameDuckRole"/>
+    </partnerLinks>
     <sequence>
    </sequence>
 </process>

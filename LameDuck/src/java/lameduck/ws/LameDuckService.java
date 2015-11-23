@@ -170,6 +170,7 @@ public class LameDuckService {
     }
     
 //    TODO: implement resetFlights called when an order is being cancelled
+//    public 
 
     private boolean chargeCreditCard(int group, dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCardInfo, int amount, dk.dtu.imm.fastmoney.types.AccountType account) throws CreditCardFaultMessage {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.

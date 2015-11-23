@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="1" failures="0" hostname="YOLO" name="NiceView.ws.test.NiceViewJUnitTest" skipped="0" tests="1" time="0.428" timestamp="2015-11-20T14:02:53">
+<testsuite errors="1" failures="0" hostname="YOLO" name="NiceView.ws.test.NiceViewJUnitTest" skipped="0" tests="1" time="1.646" timestamp="2015-11-23T08:01:39">
   <properties>
     <property name="libs.jsp-compiler.javadoc" value="" />
     <property name="netbeans.autoupdate.country" value="US" />
@@ -59,7 +59,7 @@
     <property name="copylibs.rebase" value="true" />
     <property name="libs.spring-webmvc3.0.maven-pom" value="" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner NiceView.ws.test.NiceViewJUnitTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Alex\Documents\NetBeansProjects\TravelGood_project\NiceViewTest\build\test\results\TEST-NiceView.ws.test.NiceViewJUnitTest.xml crashfile=C:\Users\Alex\Documents\NetBeansProjects\TravelGood_project\NiceViewTest\build\junitvmwatcher7948421223664798011.properties propsfile=C:\Users\Alex\Documents\NetBeansProjects\TravelGood_project\NiceViewTest\build\junit4205904419117408678.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner NiceView.ws.test.NiceViewJUnitTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Alex\Documents\NetBeansProjects\TravelGood_project\NiceViewTest\build\test\results\TEST-NiceView.ws.test.NiceViewJUnitTest.xml crashfile=C:\Users\Alex\Documents\NetBeansProjects\TravelGood_project\NiceViewTest\build\junitvmwatcher2150173938498458377.properties propsfile=C:\Users\Alex\Documents\NetBeansProjects\TravelGood_project\NiceViewTest\build\junit7536809509876742190.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="build.sysclasspath" value="ignore" />
     <property name="ap.supported.internal" value="true" />
@@ -101,7 +101,7 @@
     <property name="file.separator" value="\" />
     <property name="libs.Java-EE-GlassFish-v3-Prelude.maven-pom" value="" />
     <property name="wsdl-NiceViewService" value="C:\Users\Alex\Documents\NetBeansProjects\TravelGood_project\NiceViewTest\xml-resources\web-service-references\NiceViewService\wsdl\localhost_8080\NiceView\NiceViewService.wsdl" />
-    <property name="javac.includesfile.binary" value="C:\Users\Alex\Documents\NetBeansProjects\TravelGood_project\NiceViewTest\null1277389482" />
+    <property name="javac.includesfile.binary" value="C:\Users\Alex\Documents\NetBeansProjects\TravelGood_project\NiceViewTest\null267406861" />
     <property name="libs.junit_4.maven-pom" value="" />
     <property name="mkdist.disabled" value="false" />
     <property name="javac.test.processorpath" value="E:\DTU\2015_an_3_sem_1\02267_Software_Development_of_Web_Services_E15\OpenESB_v2\OpenESB-SE-3.0.5\OE-Studio\netbeans\platform\modules\ext\junit-4.10.jar:build/classes:E:\DTU\2015_an_3_sem_1\02267_Software_Development_of_Web_Services_E15\OpenESB_v2\OpenESB-SE-3.0.5\OE-Studio\netbeans\platform\modules\ext\junit-4.10.jar" />
@@ -420,24 +420,18 @@
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
     <property name="libs.javaee-web-api-7.0.javadoc" value="E:\DTU\2015_an_3_sem_1\02267_Software_Development_of_Web_Services_E15\OpenESB_v2\OpenESB-SE-3.0.5\OE-Studio\netbeans\enterprise\docs\javaee-doc-api.jar" />
   </properties>
-  <testcase classname="NiceView.ws.test.NiceViewJUnitTest" name="testGetHotels" time="0.36">
-    <error message="The server sent HTTP status code 404: Not Found" type="com.sun.xml.internal.ws.client.ClientTransportException">com.sun.xml.internal.ws.client.ClientTransportException: The server sent HTTP status code 404: Not Found
-	at com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.checkStatusCode(HttpTransportPipe.java:310)
-	at com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.createResponsePacket(HttpTransportPipe.java:259)
-	at com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.process(HttpTransportPipe.java:217)
-	at com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.processRequest(HttpTransportPipe.java:130)
-	at com.sun.xml.internal.ws.transport.DeferredTransportPipe.processRequest(DeferredTransportPipe.java:95)
-	at com.sun.xml.internal.ws.api.pipe.Fiber.__doRun(Fiber.java:1121)
-	at com.sun.xml.internal.ws.api.pipe.Fiber._doRun(Fiber.java:1035)
-	at com.sun.xml.internal.ws.api.pipe.Fiber.doRun(Fiber.java:1004)
-	at com.sun.xml.internal.ws.api.pipe.Fiber.runSync(Fiber.java:862)
-	at com.sun.xml.internal.ws.client.Stub.process(Stub.java:448)
-	at com.sun.xml.internal.ws.client.sei.SEIStub.doProcess(SEIStub.java:178)
-	at com.sun.xml.internal.ws.client.sei.SyncMethodHandler.invoke(SyncMethodHandler.java:93)
+  <testcase classname="NiceView.ws.test.NiceViewJUnitTest" name="testGetHotels" time="1.564">
+    <error message="Client received SOAP Fault from server: ws.niceview.GetHotelsResponse.getHotels()Ljava/util/List; Please see the server log to find more detail regarding exact cause of the failure." type="com.sun.xml.internal.ws.fault.ServerSOAPFaultException">com.sun.xml.internal.ws.fault.ServerSOAPFaultException: Client received SOAP Fault from server: ws.niceview.GetHotelsResponse.getHotels()Ljava/util/List; Please see the server log to find more detail regarding exact cause of the failure.
+	at com.sun.xml.internal.ws.fault.SOAP11Fault.getProtocolException(SOAP11Fault.java:178)
+	at com.sun.xml.internal.ws.fault.SOAPFaultBuilder.createException(SOAPFaultBuilder.java:116)
+	at com.sun.xml.internal.ws.client.sei.StubHandler.readResponse(StubHandler.java:238)
+	at com.sun.xml.internal.ws.db.DatabindingImpl.deserializeResponse(DatabindingImpl.java:189)
+	at com.sun.xml.internal.ws.db.DatabindingImpl.deserializeResponse(DatabindingImpl.java:276)
+	at com.sun.xml.internal.ws.client.sei.SyncMethodHandler.invoke(SyncMethodHandler.java:104)
 	at com.sun.xml.internal.ws.client.sei.SyncMethodHandler.invoke(SyncMethodHandler.java:77)
 	at com.sun.xml.internal.ws.client.sei.SEIStub.invoke(SEIStub.java:147)
 	at com.sun.proxy.$Proxy34.getHotels(Unknown Source)
-	at NiceView.ws.test.NiceViewJUnitTest.getHotels_1(NiceViewJUnitTest.java:72)
+	at NiceView.ws.test.NiceViewJUnitTest.getHotels(NiceViewJUnitTest.java:67)
 	at NiceView.ws.test.NiceViewJUnitTest.testGetHotels(NiceViewJUnitTest.java:46)
 </error>
   </testcase>
