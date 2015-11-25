@@ -17,22 +17,21 @@ import javax.xml.datatype.XMLGregorianCalendar;
 //import lameduck.ws.FlightsDatabase.DateUtils;
 import dateutils.DateUtils;
 import dk.dtu.imm.fastmoney.BankPortType;
-import ws.lameduck.BookFlightResponse;
-import ws.lameduck.FlightInfoType;
-import ws.lameduck.GetFlightsResponse;
+import lameduckschema.FlightInfoType;
+import lameduckschema.GetFlightsResponse;
 import ws.lameduck.BookFlightFault;
-import ws.lameduck.BookFlightRequest;
+import lameduckschema.BookFlightRequest;
 import ws.lameduck.CancelFlightFault;
-import ws.lameduck.CancelFlightRequest;
-import ws.lameduck.CancelFlightResponse;
-import ws.lameduck.FlightFaultType;
-import ws.lameduck.GetFlightsRequest;
+import lameduckschema.CancelFlightRequest;
+import lameduckschema.FlightFaultType;
+import lameduckschema.GetFlightsRequest;
 
 /**
  *
  * @author Alex
  */
-@WebService(serviceName = "LameDuckWSDLService", portName = "LameDuckBindingPort", endpointInterface = "ws.lameduck.LameDuck", targetNamespace = "http://LameDuck.ws", wsdlLocation = "WEB-INF/wsdl/LameDuckService/LameDuckWSDL.wsdl")
+
+@WebService(serviceName = "LameDuckService", portName = "LameDuckPortTypeBindingPort", endpointInterface = "ws.lameduck.LameDuckPortType", targetNamespace = "LameDuck.ws", wsdlLocation = "WEB-INF/wsdl/LameDuckService/LameDuck.wsdl")
 public class LameDuckService {
 //    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/fastmoney.imm.dtu.dk_8080/BankService.wsdl")
     private BankService bank_service = new BankService();
@@ -65,8 +64,7 @@ public class LameDuckService {
         return matched_flights;        
     }
 
-    public BookFlightResponse bookFlight(BookFlightRequest request) throws BookFlightFault {
-        BookFlightResponse response = new BookFlightResponse();
+    public boolean bookFlight(BookFlightRequest request) throws BookFlightFault {
         AccountType LameDuck_account = new AccountType();
         LameDuck_account.setName("LameDuck");
         LameDuck_account.setNumber(LAMEDUCK_ACCOUNT_NUMBER);
@@ -104,12 +102,10 @@ public class LameDuckService {
         }
         
 //      if at this step no error is thrown, it means that the booking of flight is successful
-        response.setResponse(true);
-        return response;
+        return true;
     }
 
-    public CancelFlightResponse cancelFlight(CancelFlightRequest request) throws CancelFlightFault {
-        CancelFlightResponse response = new CancelFlightResponse();
+    public boolean cancelFlight(CancelFlightRequest request) throws CancelFlightFault {
         AccountType LameDuck_account = new AccountType();
         LameDuck_account.setName("LameDuck");
         LameDuck_account.setNumber(LAMEDUCK_ACCOUNT_NUMBER);
@@ -143,8 +139,7 @@ public class LameDuckService {
         }
         
 //      if at this step no error is thrown, it means that the cancelling of flight is successful
-        response.setResponse(true);
-        return response;
+        return true;
     }
     
     private boolean flight_already_booked(FlightInfoType flightInfo) {

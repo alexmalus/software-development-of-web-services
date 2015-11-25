@@ -1,14 +1,13 @@
 package lameduck.ws;
 
-import java.text.ParseException;
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
+//import java.text.ParseException;
+//import javax.xml.datatype.DatatypeConfigurationException;
+//import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-import ws.lameduck.FlightInfoType;
-import ws.lameduck.FlightType;
-import ws.lameduck.GetFlightsResponse;
+import lameduckschema.FlightInfoType;
+import lameduckschema.FlightType;
+import lameduckschema.GetFlightsResponse;
 import dateutils.DateUtils;
-import java.util.List;
 /**
  *
  * @author Alex

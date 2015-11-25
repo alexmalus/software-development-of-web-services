@@ -2,14 +2,24 @@
 <definitions name="TravelGoodBPELWSDL" targetNamespace="http://TravelGoodBPELWSDL.ws"
     xmlns="http://schemas.xmlsoap.org/wsdl/"
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://TravelGoodBPELWSDL.ws" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
-    <types/>
-    <message name="TravelGoodBPELWSDLOperationRequest">
-        <part name="part1" type="xsd:string"/>
-    </message>
-    <message name="TravelGoodBPELWSDLOperationResponse">
-        <part name="part1" type="xsd:string"/>
-    </message>
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://TravelGoodBPELWSDL.ws" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:ns0="http://LameDuck.ws" xmlns:ns1="http://NiceView.ws">
+    <types>
+        <xsd:schema targetNamespace="http://TravelGoodBPELWSDL.ws" xmlns:tns="http://TravelGoodBPELWSDL.ws">
+            <xsd:complexType name="ItineraryType">
+                <xsd:sequence>
+                    <xsd:element name="itineraryID" type="xsd:string"></xsd:element>
+                    <xsd:element name="itineraryStatus" type="xsd:string"></xsd:element>
+                    <xsd:element name="customerID" type="xsd:string"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ItineraryFaultType">
+                <xsd:sequence>
+                    <xsd:element name="fault_message" type="xsd:string"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="ItineraryFault" type="tns:ItineraryFaultType"></xsd:element>
+        </xsd:schema>
+    </types>
     <portType name="TravelGoodBPELWSDLPortType">
         <operation name="TravelGoodBPELWSDLOperation">
             <input name="input1" message="tns:TravelGoodBPELWSDLOperationRequest"/>

@@ -7,8 +7,8 @@ package LameDuckTest;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
-import ws.lameduck.FlightInfoType;
-import ws.lameduck.GetFlightsResponse;
+import lameduckschema.FlightInfoType;
+import lameduckschema.GetFlightsResponse;
 import dateutils.DateUtils;
 import static dateutils.DateUtils.convertDateTimeToGregCal;
 import dk.dtu.imm.fastmoney.types.CreditCardInfoType;
@@ -17,13 +17,11 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import ws.lameduck.BookFlightFault;
-import ws.lameduck.BookFlightRequest;
-import ws.lameduck.BookFlightResponse;
+import lameduckschema.BookFlightRequest;
 import ws.lameduck.CancelFlightFault;
-import ws.lameduck.CancelFlightRequest;
-import ws.lameduck.CancelFlightResponse;
-import ws.lameduck.FlightType;
-import ws.lameduck.GetFlightsRequest;
+import lameduckschema.CancelFlightRequest;
+import lameduckschema.FlightType;
+import lameduckschema.GetFlightsRequest;
 
 /**
  *
@@ -115,7 +113,7 @@ public class LameDucktest {
         book_request.setCreditCardInfo(creditCardTest_10000);
         
         try {
-            assertTrue(bookFlight(book_request).isResponse());
+            assertTrue(bookFlight(book_request));
         } catch (BookFlightFault ex) {
             System.out.println(ex.getMessage());
             assertFalse(true);
@@ -130,7 +128,7 @@ public class LameDucktest {
         book_request.setCreditCardInfo(creditCardTest_1000);
         
         try {
-            assertTrue(bookFlight(book_request).isResponse());
+            assertTrue(bookFlight(book_request));
             System.out.println("Booking successfully for bookingNumber:" + book_request.getBookingNumber());
         } catch (BookFlightFault ex) {
             System.out.println(ex.getMessage());
@@ -147,7 +145,7 @@ public class LameDucktest {
         book_request.setCreditCardInfo(creditCardTest_10000);
         
         try {
-            assertTrue(bookFlight(book_request).isResponse());
+            assertTrue(bookFlight(book_request));
         } catch (BookFlightFault ex) {
             System.out.println(ex.getMessage());
             assertFalse(true);
@@ -162,7 +160,7 @@ public class LameDucktest {
         book_request.setCreditCardInfo(creditCardTest_0);
         
         try {
-            assertTrue(bookFlight(book_request).isResponse());
+            assertTrue(bookFlight(book_request));
         } catch (BookFlightFault ex) {
             System.out.println(ex.getMessage());
             assertFalse(true);
@@ -177,7 +175,7 @@ public class LameDucktest {
         book_request.setCreditCardInfo(creditCardTest_wrong);
         
         try {
-            assertTrue(bookFlight(book_request).isResponse());
+            assertTrue(bookFlight(book_request));
         } catch (BookFlightFault ex) {
             System.out.println(ex.getMessage());
             assertFalse(true);
@@ -192,7 +190,7 @@ public class LameDucktest {
         book_request.setCreditCardInfo(creditCardTest_10000);
         
         try {
-            assertTrue(bookFlight(book_request).isResponse());
+            assertTrue(bookFlight(book_request));
         } catch (BookFlightFault ex) {
             System.out.println(ex.getMessage());
             assertFalse(true);
@@ -207,7 +205,7 @@ public class LameDucktest {
         book_request.setCreditCardInfo(creditCardTest_1000);
         
         try {
-            assertTrue(bookFlight(book_request).isResponse());
+            assertTrue(bookFlight(book_request));
         } catch (BookFlightFault ex) {
             System.out.println("Refund booking failed: " + ex.getMessage());
             assertFalse(true);
@@ -219,7 +217,7 @@ public class LameDucktest {
         int flight_price = getFlightInfoByBookingNumber(book_request.getBookingNumber()).getFlightPrice();
         cancel_request.setPrice(flight_price);
         try {
-            assertTrue(cancelFlight(cancel_request).isResponse());
+            assertTrue(cancelFlight(cancel_request));
         } catch (CancelFlightFault ex) {
             System.out.println("Cancelling failed: " + ex.getMessage());
             assertFalse(true);
@@ -278,28 +276,30 @@ public class LameDucktest {
         return default_response;
     }
 
-    private static BookFlightResponse bookFlight(ws.lameduck.BookFlightRequest request) throws BookFlightFault {
-        ws.lameduck.LameDuckWSDLService service = new ws.lameduck.LameDuckWSDLService();
-        ws.lameduck.LameDuck port = service.getLameDuckBindingPort();
-        return port.bookFlight(request);
+    private static boolean bookFlight(lameduckschema.BookFlightRequest bookFlightRequest) throws BookFlightFault {
+        ws.lameduck.LameDuckService service = new ws.lameduck.LameDuckService();
+        ws.lameduck.LameDuckPortType port = service.getLameDuckPortTypeBindingPort();
+        return port.bookFlight(bookFlightRequest);
     }
 
-    private static CancelFlightResponse cancelFlight(ws.lameduck.CancelFlightRequest request) throws CancelFlightFault {
-        ws.lameduck.LameDuckWSDLService service = new ws.lameduck.LameDuckWSDLService();
-        ws.lameduck.LameDuck port = service.getLameDuckBindingPort();
-        return port.cancelFlight(request);
+    private static boolean cancelFlight(lameduckschema.CancelFlightRequest cancelFlightRequest) throws CancelFlightFault {
+        ws.lameduck.LameDuckService service = new ws.lameduck.LameDuckService();
+        ws.lameduck.LameDuckPortType port = service.getLameDuckPortTypeBindingPort();
+        return port.cancelFlight(cancelFlightRequest);
     }
 
-    private static GetFlightsResponse getFlights(ws.lameduck.GetFlightsRequest request) {
-        ws.lameduck.LameDuckWSDLService service = new ws.lameduck.LameDuckWSDLService();
-        ws.lameduck.LameDuck port = service.getLameDuckBindingPort();
-        return port.getFlights(request);
+    private static GetFlightsResponse getFlights(lameduckschema.GetFlightsRequest getFlightsInput) {
+        ws.lameduck.LameDuckService service = new ws.lameduck.LameDuckService();
+        ws.lameduck.LameDuckPortType port = service.getLameDuckPortTypeBindingPort();
+        return port.getFlights(getFlightsInput);
     }
 
-    private static boolean resetFlights(boolean request) {
-        ws.lameduck.LameDuckWSDLService service = new ws.lameduck.LameDuckWSDLService();
-        ws.lameduck.LameDuck port = service.getLameDuckBindingPort();
-        return port.resetFlights(request);
+    private static boolean resetFlights(boolean resetFlightsRequest) {
+        ws.lameduck.LameDuckService service = new ws.lameduck.LameDuckService();
+        ws.lameduck.LameDuckPortType port = service.getLameDuckPortTypeBindingPort();
+        return port.resetFlights(resetFlightsRequest);
     }
+
+   
 
 }

@@ -6,4 +6,5 @@
  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="mainclientconfig" 
  >
     <import location="LameDuckWSDLService.xml" namespace="http://LameDuck.ws"/>
+    <import location="LameDuck.xml" namespace="LameDuck.ws"/>
 </definitions>
