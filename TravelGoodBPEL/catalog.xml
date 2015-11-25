@@ -3,4 +3,5 @@
     <nextCatalog catalog="nbproject/private/retriever/catalog.xml"/>
     <system systemId="LameDuck/LameDuckWSDL.wsdl" uri="nb-uri:LameDuck#src/java/LameDuckWSDL.wsdl"/>
     <system systemId="NiceView/NiceView.wsdl" uri="nb-uri:NiceView#src/java/NiceView.wsdl"/>
+    <system systemId="LameDuck/LameDuckSchema.xsd" uri="nb-uri:LameDuck#src/java/LameDuckSchema.xsd"/>
 </catalog>

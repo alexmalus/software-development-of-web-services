@@ -2,28 +2,94 @@
 <definitions name="TravelGoodBPELWSDL" targetNamespace="http://TravelGoodBPELWSDL.ws"
     xmlns="http://schemas.xmlsoap.org/wsdl/"
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://TravelGoodBPELWSDL.ws" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:ns0="http://LameDuck.ws" xmlns:ns1="http://NiceView.ws">
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://TravelGoodBPELWSDL.ws" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:ns0="http://LameDuck.ws" xmlns:ns1="http://NiceView.ws" xmlns:ns2="TravelGoodSchema.ws">
     <types>
-        <xsd:schema targetNamespace="http://TravelGoodBPELWSDL.ws" xmlns:tns="http://TravelGoodBPELWSDL.ws">
-            <xsd:complexType name="ItineraryType">
-                <xsd:sequence>
-                    <xsd:element name="itineraryID" type="xsd:string"></xsd:element>
-                    <xsd:element name="itineraryStatus" type="xsd:string"></xsd:element>
-                    <xsd:element name="customerID" type="xsd:string"></xsd:element>
-                </xsd:sequence>
-            </xsd:complexType>
-            <xsd:complexType name="ItineraryFaultType">
-                <xsd:sequence>
-                    <xsd:element name="fault_message" type="xsd:string"></xsd:element>
-                </xsd:sequence>
-            </xsd:complexType>
-            <xsd:element name="ItineraryFault" type="tns:ItineraryFaultType"></xsd:element>
+        <xsd:schema targetNamespace="http://TravelGoodBPELWSDL.ws">
+            <xsd:import schemaLocation="TravelGoodSchema.xsd" namespace="TravelGoodSchema.ws"/>
         </xsd:schema>
     </types>
+    <message name="createItineraryRequest">
+        <part name="part1" type="xsd:string"/>
+    </message>
+    <message name="createItineraryResponse">
+        <part name="part1" type="xsd:string"/>
+    </message>
+    <message name="getItineraryRequest">
+        <part name="part1" type="xsd:string"/>
+    </message>
+    <message name="getItineraryResponse">
+        <part name="part1" type="xsd:string"/>
+    </message>
+    <message name="cancelItineraryRequest">
+        <part name="part1" type="xsd:string"/>
+    </message>
+    <message name="cancelItineraryResponse">
+        <part name="part1" type="xsd:string"/>
+    </message>
+    <message name="cancelItineraryFault">
+        <part name="fault_message" type="xsd:string"/>
+    </message>
+    <message name="bookItineraryRequest">
+        <part name="part1" type="xsd:string"/>
+    </message>
+    <message name="bookItineraryResponse">
+        <part name="part1" type="xsd:string"/>
+    </message>
+    <message name="bookItineraryFault">
+        <part name="fault_message" type="xsd:string"/>
+    </message>
+    <message name="cancelBookingRequest">
+        <part name="part1" type="xsd:string"/>
+    </message>
+    <message name="cancelBookingResponse">
+        <part name="part1" type="xsd:string"/>
+    </message>
+    <message name="cancelBookingFault">
+        <part name="fault_message" type="xsd:string"/>
+    </message>
+    <message name="addItineraryFlightRequest">
+        <part name="part1" type="xsd:string"/>
+    </message>
+    <message name="addItineraryFlightResponse">
+        <part name="part1" type="xsd:string"/>
+    </message>
+    <message name="addItineraryHotelRequest">
+        <part name="part1" type="xsd:string"/>
+    </message>
+    <message name="addItineraryHotelResponse">
+        <part name="part1" type="xsd:string"/>
+    </message>
     <portType name="TravelGoodBPELWSDLPortType">
-        <operation name="TravelGoodBPELWSDLOperation">
-            <input name="input1" message="tns:TravelGoodBPELWSDLOperationRequest"/>
-            <output name="output1" message="tns:TravelGoodBPELWSDLOperationResponse"/>
+        <operation name="createItinerary">
+            <input name="input1" message="tns:createItineraryRequest"/>
+            <output name="output1" message="tns:createItineraryResponse"/>
+        </operation>
+        <operation name="getItinerary">
+            <input name="input2" message="tns:getItineraryRequest"/>
+            <output name="output2" message="tns:getItineraryResponse"/>
+        </operation>
+        <operation name="cancelItinerary">
+            <input name="input3" message="tns:cancelItineraryRequest"/>
+            <output name="output3" message="tns:cancelItineraryResponse"/>
+            <fault name="fault1" message="tns:cancelItineraryFault"/>
+        </operation>
+        <operation name="bookItinerary">
+            <input name="input4" message="tns:bookItineraryRequest"/>
+            <output name="output4" message="tns:bookItineraryResponse"/>
+            <fault name="fault1" message="tns:bookItineraryFault"/>
+        </operation>
+        <operation name="cancelBooking">
+            <input name="input5" message="tns:cancelBookingRequest"/>
+            <output name="output5" message="tns:cancelBookingResponse"/>
+            <fault name="fault1" message="tns:cancelBookingFault"/>
+        </operation>
+        <operation name="addItineraryFlight">
+            <input name="input6" message="tns:addItineraryFlightRequest"/>
+            <output name="output6" message="tns:addItineraryFlightResponse"/>
+        </operation>
+        <operation name="addItineraryHotel">
+            <input name="input7" message="tns:addItineraryHotelRequest"/>
+            <output name="output7" message="tns:addItineraryHotelResponse"/>
         </operation>
     </portType>
     <plnk:partnerLinkType name="TravelGoodBPELWSDL">
