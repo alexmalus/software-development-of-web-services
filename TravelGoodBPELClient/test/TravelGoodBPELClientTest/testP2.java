@@ -15,6 +15,11 @@ import static org.junit.Assert.*;
 public class testP2 {
     
     public testP2() {
+        /*
+        (cancel planning) Plan a trip by first getting a list of ights and then adding a 
+        flight to the itinerary.
+        Then cancel planning.
+        */
     }
     
 }
