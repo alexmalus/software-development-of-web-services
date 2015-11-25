@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions name="LameDuck" targetNamespace="LameDuck.ws"
+<definitions name="LameDuck" targetNamespace="http://LameDuck.ws"
     xmlns="http://schemas.xmlsoap.org/wsdl/"
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="LameDuck.ws" xmlns:ld="urn:LameDuckSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:tns="http://LameDuck.ws"
+    xmlns:ld="urn:LameDuckSchema"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
     <types>
-        <xsd:schema targetNamespace="LameDuck.ws">
+        <xsd:schema targetNamespace="http://LameDuck.ws">
             <xsd:import namespace="urn:LameDuckSchema" schemaLocation="LameDuckSchema.xsd" />
         </xsd:schema>
     </types>
