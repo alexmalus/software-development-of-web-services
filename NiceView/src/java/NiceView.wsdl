@@ -7,7 +7,7 @@
     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
     xmlns:ns1="urn:NiceViewSchema">
     <types>
-        <xsd:schema targetNamespace="http://NiceView.ws" xmlns:tns="http://NiceView.ws">
+        <xsd:schema targetNamespace="http://NiceView.ws">
             <xsd:import namespace="urn:NiceViewSchema" schemaLocation="NiceViewTypes.xsd"/>
         </xsd:schema>
     </types>

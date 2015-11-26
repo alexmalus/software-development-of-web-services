@@ -1,7 +1,7 @@
 package NiceView.ws;
 
 import javax.xml.datatype.XMLGregorianCalendar;
-import ws.niceview.HotelType;
+import niceviewschema.HotelType;
 
 /**
  *
