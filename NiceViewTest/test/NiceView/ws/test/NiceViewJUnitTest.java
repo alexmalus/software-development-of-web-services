@@ -12,11 +12,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import ws.niceview.BookHotelFault;
-import ws.niceview.BookHotelResponse;
+import niceviewschema.BookHotelResponse;
 import ws.niceview.CancelHotelFault;
-import ws.niceview.CancelHotelResponse;
-import ws.niceview.GetHotels;
-import ws.niceview.GetHotelsResponse;
+import niceviewschema.CancelHotelResponse;
+import niceviewschema.GetHotels;
+import niceviewschema.GetHotelsResponse;
 
 /**
  *
@@ -49,21 +49,23 @@ public class NiceViewJUnitTest {
         assertEquals(1, hotels.getHotels().size());
     }
 
-    private static BookHotelResponse bookHotel(ws.niceview.BookHotel part1) throws BookHotelFault {
+    private static BookHotelResponse bookHotel(niceviewschema.BookHotel part1) throws BookHotelFault {
         ws.niceview.NiceViewService service = new ws.niceview.NiceViewService();
         ws.niceview.NiceViewPortType port = service.getNiceViewPortTypeBindingPort();
         return port.bookHotel(part1);
     }
 
-    private static CancelHotelResponse cancelHotel(ws.niceview.CancelHotel part1) throws CancelHotelFault {
+    private static CancelHotelResponse cancelHotel(niceviewschema.CancelHotel part1) throws CancelHotelFault {
         ws.niceview.NiceViewService service = new ws.niceview.NiceViewService();
         ws.niceview.NiceViewPortType port = service.getNiceViewPortTypeBindingPort();
         return port.cancelHotel(part1);
     }
 
-    private static GetHotelsResponse getHotels(ws.niceview.GetHotels part1) {
+    private static GetHotelsResponse getHotels(niceviewschema.GetHotels part1) {
         ws.niceview.NiceViewService service = new ws.niceview.NiceViewService();
         ws.niceview.NiceViewPortType port = service.getNiceViewPortTypeBindingPort();
         return port.getHotels(part1);
     }
+
+
 }

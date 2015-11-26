@@ -1,97 +1,32 @@
-<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.1-b419 (branches/2.3.1.x-7937; 2014-08-04T08:11:03+0000) JAXWS-RI/2.2.10-b140803.1500 JAXWS-API/2.2.11 JAXB-RI/2.2.10-b140802.1033 JAXB-API/2.2.12-b140109.1041 svn-revision#unknown. --><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://NiceView.ws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns4="http://types.fastmoney.imm.dtu.dk" name="NiceView" targetNamespace="http://NiceView.ws">
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.1-b419 (branches/2.3.1.x-7937; 2014-08-04T08:11:03+0000) JAXWS-RI/2.2.10-b140803.1500 JAXWS-API/2.2.11 JAXB-RI/2.2.10-b140802.1033 JAXB-API/2.2.12-b140109.1041 svn-revision#unknown. --><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://NiceView.ws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="urn:NiceViewSchema" name="NiceView" targetNamespace="http://NiceView.ws">
     <types>
         <xsd:schema xmlns:tns="http://NiceView.ws" targetNamespace="http://NiceView.ws">
-            <xsd:import schemaLocation="http://fastmoney.imm.dtu.dk:8080/BankServiceTypes.xsd" namespace="http://types.fastmoney.imm.dtu.dk"/>
-            <xsd:complexType name="HotelType">
-                <xsd:sequence>
-                    <xsd:element name="name" type="xsd:string"/>
-                    <xsd:element name="price" type="xsd:int"/>
-                    <xsd:element name="bookingNumber" type="xsd:string"/>
-                    <xsd:element name="cancellable" type="xsd:boolean"/>
-                    <xsd:element name="address" type="tns:AddressType"/>
-                    <xsd:element name="creditCardGuarentee" type="xsd:boolean"/>
-                    <xsd:element name="hotelReservationServiceName" type="xsd:string"/>
-                </xsd:sequence>
-            </xsd:complexType>
-            <xsd:complexType name="AddressType">
-                <xsd:sequence>
-                    <xsd:element name="street" type="xsd:string"/>
-                    <xsd:element name="zipCode" type="xsd:string"/>
-                    <xsd:element name="city" type="xsd:string"/>
-                    <xsd:element name="country" type="xsd:string"/>
-                </xsd:sequence>
-            </xsd:complexType>
-            <xsd:complexType name="HotelFaultType">
-                <xsd:sequence>
-                    <xsd:element name="message" type="xsd:string"/>
-                </xsd:sequence>
-            </xsd:complexType>
-            <xsd:element name="getHotelsRequest" type="tns:getHotels"/>
-            <xsd:complexType name="getHotels">
-                <xsd:sequence>
-                    <xsd:element name="city" type="xsd:string"/>
-                    <xsd:element name="arrivalDate" type="xsd:date"/>
-                    <xsd:element name="depatureDate" type="xsd:date"/>
-                </xsd:sequence>
-            </xsd:complexType>
-            <xsd:element name="getHotelsResponse" type="tns:getHotelsResponse"/>
-            <xsd:element name="bookHotelRequest" type="tns:bookHotel"/>
-            <xsd:element name="bookHotelResponse" type="tns:bookHotelResponse"/>
-            <xsd:element name="cancelHotelRequest" type="tns:cancelHotel"/>
-            <xsd:element name="cancelHotelResponse" type="tns:cancelHotelResponse"/>
-            <xsd:element name="faultElement" type="tns:HotelFaultType"/>
-            <xsd:complexType name="bookHotel">
-                <xsd:sequence>
-                    <xsd:element name="bookingNumber" type="xsd:string"/>
-                    <xsd:element name="creditCardInfo" type="ns4:creditCardInfoType"/>
-                </xsd:sequence>
-            </xsd:complexType>
-            <xsd:complexType name="bookHotelResponse">
-                <xsd:sequence>
-                    <xsd:element name="response" type="xsd:boolean"/>
-                </xsd:sequence>
-            </xsd:complexType>
-            <xsd:complexType name="cancelHotel">
-                <xsd:sequence>
-                    <xsd:element name="bookingNumber" type="xsd:string"/>
-                    <xsd:element name="creditCardInfo" type="ns4:creditCardInfoType"/>
-                </xsd:sequence>
-            </xsd:complexType>
-            <xsd:complexType name="cancelHotelResponse">
-                <xsd:sequence>
-                    <xsd:element name="response" type="xsd:boolean"/>
-                </xsd:sequence>
-            </xsd:complexType>
-            <xsd:complexType name="getHotelsResponse">
-                <xsd:sequence>
-                    <xsd:element name="hotels" type="tns:HotelType" maxOccurs="unbounded" minOccurs="0"/>
-                </xsd:sequence>
-            </xsd:complexType>
+            <xsd:import namespace="urn:NiceViewSchema" schemaLocation="http://localhost:8080/NiceView/NiceViewService?xsd=1"/>
         </xsd:schema>
     </types>
     <message name="getHotelsRequest">
-        <part name="part1" element="tns:getHotelsRequest"/>
+        <part name="part1" element="ns1:getHotelsRequest"/>
     </message>
     <message name="getHotelsResponse">
-        <part name="part1" element="tns:getHotelsResponse"/>
+        <part name="part1" element="ns1:getHotelsResponse"/>
     </message>
     <message name="bookHotelRequest">
-        <part name="part1" element="tns:bookHotelRequest"/>
+        <part name="part1" element="ns1:bookHotelRequest"/>
     </message>
     <message name="bookHotelResponse">
-        <part name="part1" element="tns:bookHotelResponse"/>
+        <part name="part1" element="ns1:bookHotelResponse"/>
     </message>
     <message name="bookHotelFault">
-        <part name="part1" element="tns:faultElement"/>
+        <part name="part1" element="ns1:faultElement"/>
     </message>
     <message name="cancelHotelRequest">
-        <part name="part1" element="tns:cancelHotelRequest"/>
+        <part name="part1" element="ns1:cancelHotelRequest"/>
     </message>
     <message name="cancelHotelResponse">
-        <part name="part1" element="tns:cancelHotelResponse"/>
+        <part name="part1" element="ns1:cancelHotelResponse"/>
     </message>
     <message name="cancelHotelFault">
-        <part name="part1" element="tns:faultElement"/>
+        <part name="part1" element="ns1:faultElement"/>
     </message>
     <portType name="NiceViewPortType">
         <operation name="getHotels">
