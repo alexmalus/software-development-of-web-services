@@ -4,7 +4,7 @@
             targetNamespace="urn:LameDuckSchema"
     xmlns:tns="urn:LameDuckSchema"
     elementFormDefault="qualified" xmlns:ns0="http://types.fastmoney.imm.dtu.dk">
-    <xsd:import namespace="http://types.fastmoney.imm.dtu.dk" schemaLocation="http://fastmoney.imm.dtu.dk:8080/BankService?xsd=1"/>
+    <xsd:import namespace="http://types.fastmoney.imm.dtu.dk" schemaLocation="http://fastmoney.imm.dtu.dk:8080/BankServiceTypes.xsd"/>
     <xsd:complexType name="FlightFaultType">
         <xsd:sequence>
             <xsd:element name="fault_message" type="xsd:string"></xsd:element>

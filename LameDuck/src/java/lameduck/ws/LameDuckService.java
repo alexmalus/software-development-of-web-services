@@ -31,7 +31,7 @@ import lameduckschema.GetFlightsRequest;
  * @author Alex
  */
 
-@WebService(serviceName = "LameDuckService", portName = "LameDuckPortTypeBindingPort", endpointInterface = "ws.lameduck.LameDuckPortType", targetNamespace = "LameDuck.ws", wsdlLocation = "WEB-INF/wsdl/LameDuckService/LameDuck.wsdl")
+@WebService(serviceName = "LameDuckService", portName = "LameDuckPortTypeBindingPort", endpointInterface = "ws.lameduck.LameDuckPortType", targetNamespace = "http://LameDuck.ws", wsdlLocation = "WEB-INF/wsdl/LameDuckService/LameDuck.wsdl")
 public class LameDuckService {
 //    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/fastmoney.imm.dtu.dk_8080/BankService.wsdl")
     private BankService bank_service = new BankService();
