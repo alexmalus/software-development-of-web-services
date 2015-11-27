@@ -69,7 +69,7 @@ public class bookTest {
         GetHotels request = new GetHotels();
         request.setCity("Bangladesh");
         GetHotelsResponse hotels = getHotels(request);
-        assertTrue(hotels.getHotels().get(0).isCreditCardGuarentee());
+        assertTrue(hotels.getHotels().get(0).getHotel().isCreditCardGuarentee());
         
         BookHotel bookRequest = new BookHotel();
         bookRequest.setBookingNumber(hotels.getHotels().get(0).getBookingNumber());
@@ -89,7 +89,7 @@ public class bookTest {
         GetHotels request = new GetHotels();
         request.setCity("Bangladesh");
         GetHotelsResponse hotels = getHotels(request);
-        assertTrue(hotels.getHotels().get(0).isCreditCardGuarentee());
+        assertTrue(hotels.getHotels().get(0).getHotel().isCreditCardGuarentee());
         
         BookHotel bookRequest = new BookHotel();
         bookRequest.setBookingNumber(hotels.getHotels().get(0).getBookingNumber());
@@ -109,7 +109,7 @@ public class bookTest {
         GetHotels request = new GetHotels();
         request.setCity("Bangladesh");
         GetHotelsResponse hotels = getHotels(request);
-        assertTrue(hotels.getHotels().get(0).isCreditCardGuarentee());
+        assertTrue(hotels.getHotels().get(0).getHotel().isCreditCardGuarentee());
         
         BookHotel bookRequest = new BookHotel();
         bookRequest.setBookingNumber(hotels.getHotels().get(0).getBookingNumber());
@@ -128,7 +128,7 @@ public class bookTest {
         GetHotels request = new GetHotels();
         request.setCity("Bangladesh");
         GetHotelsResponse hotels = getHotels(request);
-        assertTrue(hotels.getHotels().get(0).isCreditCardGuarentee());
+        assertTrue(hotels.getHotels().get(0).getHotel().isCreditCardGuarentee());
         
         BookHotel bookRequest = new BookHotel();
         bookRequest.setBookingNumber(hotels.getHotels().get(0).getBookingNumber());

@@ -42,6 +42,7 @@ public class NiceViewWebService {
     Map<String, HotelReservation> bookings = new HashMap<>();
     private static final int GROUP_NUMBER = 16;
     private final String NICEVIEW_ACCOUNT_NUMBER = "50308815";
+    private final String RESERVATION_SERVICE_NAME = "NiceView";
     
     public NiceViewWebService(){
         HotelType hotel1 = new HotelType();
@@ -49,7 +50,6 @@ public class NiceViewWebService {
         //hotel1.setBookingNumber("000001");
         hotel1.setCancellable(true);
         hotel1.setCreditCardGuarentee(true);
-        hotel1.setHotelReservationServiceName("NiceView");
         hotel1.setPrice(999);
         AddressType address1 = new AddressType();
         address1.setCity("Bangladesh");
@@ -64,7 +64,6 @@ public class NiceViewWebService {
         //hotel2.setBookingNumber("000002");
         hotel2.setCancellable(false);
         hotel2.setCreditCardGuarentee(false);
-        hotel2.setHotelReservationServiceName("NiceView");
         hotel2.setPrice(2000);
         AddressType address2 = new AddressType();
         address2.setCity("Everywhere");
@@ -80,13 +79,16 @@ public class NiceViewWebService {
     
     public GetHotelsResponse getHotels(GetHotels part1) {
         GetHotelsResponse response = new GetHotelsResponse();
-        ArrayList<HotelType> hotelList = (ArrayList)response.getHotels();
+        ArrayList<HotelReservation> hotelList = (ArrayList)response.getHotels();
         for (HotelType hotel : hotels) {
             if(hotel.getAddress().getCity()
                     .equals(part1.getCity())){
-                hotel.setBookingNumber(Integer.toString(bookingNumber++));
-                hotelList.add(hotel);
-                bookings.put(hotel.getBookingNumber(), new HotelReservation(hotel, part1.getArrivalDate(), part1.getDepatureDate()));
+                HotelReservation reservation = new HotelReservation(hotel, part1.getArrivalDate(), part1.getDepatureDate());
+                
+                reservation.setBookingNumber(Integer.toString(bookingNumber++));
+                reservation.setHotelReservationServiceName(RESERVATION_SERVICE_NAME);
+                hotelList.add(reservation);
+                bookings.put(reservation.getBookingNumber(), new HotelReservation(hotel, part1.getArrivalDate(), part1.getDepatureDate()));
             }
         }
         return response;

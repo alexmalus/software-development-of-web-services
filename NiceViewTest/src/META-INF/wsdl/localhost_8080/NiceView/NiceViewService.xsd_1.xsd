@@ -5,11 +5,9 @@
         <xsd:sequence>
             <xsd:element name="name" type="xsd:string"/>
             <xsd:element name="price" type="xsd:int"/>
-            <xsd:element name="bookingNumber" type="xsd:string"/>
-            <xsd:element name="cancellable" type="xsd:boolean"/>
             <xsd:element name="address" type="tns:AddressType"/>
             <xsd:element name="creditCardGuarentee" type="xsd:boolean"/>
-            <xsd:element name="hotelReservationServiceName" type="xsd:string"/>
+            <xsd:element name="cancellable" type="xsd:boolean"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:complexType name="AddressType">
@@ -63,7 +61,16 @@
     </xsd:complexType>
     <xsd:complexType name="getHotelsResponse">
         <xsd:sequence>
-            <xsd:element name="hotels" type="tns:HotelType" maxOccurs="unbounded" minOccurs="0"/>
+            <xsd:element name="hotels" type="tns:HotelReservationType" maxOccurs="unbounded" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="HotelReservationType">
+        <xsd:sequence>
+            <xsd:element name="hotelReservationServiceName" type="xsd:string"/>
+            <xsd:element name="bookingNumber" type="xsd:string"/>
+            <xsd:element name="hotel" type="tns:HotelType"/>
+            <xsd:element name="arrivalDate" type="xsd:date"/>
+            <xsd:element name="departureDate" type="xsd:date"/>
         </xsd:sequence>
     </xsd:complexType>
 </xsd:schema>
