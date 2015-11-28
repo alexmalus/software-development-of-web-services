@@ -1,56 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn://TravelGoodBPEL" xmlns:tv="TravelGoodSchema.ws" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="TravelGoodBPEL" targetNamespace="urn://TravelGoodBPEL">
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="TravelGoodBPEL.ws" xmlns:tv="TravelGoodSchema.ws" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="TravelGoodBPEL" targetNamespace="TravelGoodBPEL.ws">
   <types>
-    <xsd:schema targetNamespace="urn://TravelGoodBPEL">
+    <xsd:schema targetNamespace="TravelGoodBPEL.ws">
             <xsd:import namespace="TravelGoodSchema.ws" schemaLocation="http://10.16.174.235:9080/TravelGoodBPELApp-sun-http-binding/TravelGoodBPEL/TravelGoodSchema.xsd"/>
         </xsd:schema>
   </types>
-  <message name="createItineraryResponse">
-    <part element="tv:createItineraryResponse" name="part1">
-    </part>
-  </message>
-  <message name="getFlightResponse">
-    <part element="tv:getFlightsResponse" name="part1">
-    </part>
-  </message>
-  <message name="getItineraryResponse">
-    <part element="tv:getItineraryResponse" name="part1">
-    </part>
-  </message>
-  <message name="bookItineraryFault">
-    <part element="tv:bookItineraryFault" name="fault">
-    </part>
-  </message>
-  <message name="bookItineraryRequest">
-    <part element="tv:bookItineraryRequest" name="part1">
-    </part>
-  </message>
-  <message name="cancelItineraryResponse">
-    <part element="tv:cancelItineraryResponse" name="part1">
-    </part>
-  </message>
-  <message name="getFlightsRequest">
-    <part element="tv:getFlightsRequest" name="part1">
-    </part>
-  </message>
-  <message name="cancelBookingResponse">
-    <part element="tv:cancelBookingResponse" name="part1">
-    </part>
-  </message>
-  <message name="cancelBookingFault">
-    <part element="tv:cancelBookingFault" name="fault">
-    </part>
-  </message>
-  <message name="getHotelsResponse">
-    <part element="tv:getHotelsResponse" name="part1">
-    </part>
-  </message>
-  <message name="addItineraryHotelRequest">
-    <part element="tv:addItineraryHotelRequest" name="part1">
-    </part>
-  </message>
-  <message name="getHotelsRequest">
-    <part element="tv:getHotelsRequest" name="part1">
+  <message name="getItineraryRequest">
+    <part element="tv:getItineraryRequest" name="part1">
     </part>
   </message>
   <message name="createItineraryRequest">
@@ -69,8 +25,28 @@
     <part element="tv:addItineraryHotelResponse" name="part1">
     </part>
   </message>
-  <message name="getItineraryRequest">
-    <part element="tv:getItineraryRequest" name="part1">
+  <message name="getHotelsRequest">
+    <part element="tv:getHotelsRequest" name="part1">
+    </part>
+  </message>
+  <message name="addItineraryHotelRequest">
+    <part element="tv:addItineraryHotelRequest" name="part1">
+    </part>
+  </message>
+  <message name="cancelBookingFault">
+    <part element="tv:cancelBookingFault" name="fault">
+    </part>
+  </message>
+  <message name="getHotelsResponse">
+    <part element="tv:getHotelsResponse" name="part1">
+    </part>
+  </message>
+  <message name="cancelItineraryFault">
+    <part element="tv:cancelItineraryFault" name="fault">
+    </part>
+  </message>
+  <message name="addItineraryFlightRequest">
+    <part element="tv:addItineraryFlightRequest" name="part1">
     </part>
   </message>
   <message name="bookItineraryResponse">
@@ -81,12 +57,36 @@
     <part element="tv:addItineraryFlightResponse" name="part1">
     </part>
   </message>
-  <message name="addItineraryFlightRequest">
-    <part element="tv:addItineraryFlightRequest" name="part1">
+  <message name="cancelItineraryResponse">
+    <part element="tv:cancelItineraryResponse" name="part1">
     </part>
   </message>
-  <message name="cancelItineraryFault">
-    <part element="tv:cancelItineraryFault" name="fault">
+  <message name="getFlightsRequest">
+    <part element="tv:getFlightsRequest" name="part1">
+    </part>
+  </message>
+  <message name="bookItineraryRequest">
+    <part element="tv:bookItineraryRequest" name="part1">
+    </part>
+  </message>
+  <message name="getItineraryResponse">
+    <part element="tv:getItineraryResponse" name="part1">
+    </part>
+  </message>
+  <message name="bookItineraryFault">
+    <part element="tv:bookItineraryFault" name="fault">
+    </part>
+  </message>
+  <message name="createItineraryResponse">
+    <part element="tv:createItineraryResponse" name="part1">
+    </part>
+  </message>
+  <message name="getFlightResponse">
+    <part element="tv:getFlightsResponse" name="part1">
+    </part>
+  </message>
+  <message name="cancelBookingResponse">
+    <part element="tv:cancelBookingResponse" name="part1">
     </part>
   </message>
   <portType name="TravelGoodBPELPortType">
@@ -140,7 +140,7 @@
     </operation>
   </portType>
   <binding name="TravelGoodBPELPortTypeBinding" type="tns:TravelGoodBPELPortType">
-    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <operation name="createItinerary">
       <soap:operation/>
       <input name="input1">

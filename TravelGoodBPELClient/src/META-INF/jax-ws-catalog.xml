@@ -13,4 +13,6 @@
     <system systemId="http://localhost:8080/LameDuck/LameDuckService?xsd=1" uri="wsdl/localhost_8080/LameDuck/LameDuckService.xsd_1.xsd"/>
     <system systemId="http://10.16.174.235:9080/TravelGoodBPELApp-sun-http-binding/TravelGoodBPEL/TravelGoodSchema.xsd" uri="wsdl/10.16.174.235_9080/TravelGoodBPELApp-sun-http-binding/TravelGoodBPEL/TravelGoodSchema.xsd"/>
     <system systemId="http://localhost:8080/LameDuck/LameDuckService?wsdl" uri="wsdl/localhost_8080/LameDuck/LameDuckService.wsdl"/>
+    <system systemId="file:/C:/Users/martin/Documents/Git/02267-software-development-of-web-services-e15/TravelGoodBPEL/src/TravelGoodBPEL.wsdl" uri="wsdl/TravelGoodBPEL.wsdl"/>
+    <system systemId="file:/C:/Users/martin/Documents/Git/02267-software-development-of-web-services-e15/TravelGoodBPEL/src/TravelGoodSchema.xsd" uri="wsdl/TravelGoodSchema.xsd"/>
 </catalog>

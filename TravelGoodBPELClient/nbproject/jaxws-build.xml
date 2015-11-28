@@ -67,22 +67,22 @@
         <delete dir="${build.generated.dir}/jax-wsCache/LameDuckService"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/ws/lameduck"/>
     </target>
-    <target name="wsimport-client-TravelGoodBPELPortType" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/TravelGoodBPELPortType"/>
-        <property name="wsdl-TravelGoodBPELPortType" location="xml-resources/web-service-references/TravelGoodBPELPortType/wsdl/localhost_9080/service/TravelGoodBPELPortType.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/TravelGoodBPELPortType" destdir="${build.generated.dir}/jax-wsCache/TravelGoodBPELPortType" wsdl="${wsdl-TravelGoodBPELPortType}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:9080/service/TravelGoodBPELPortType?wsdl" xnocompile="true" xendorsed="true">
-            <depends file="${wsdl-TravelGoodBPELPortType}"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/TravelGoodBPELPortType"/>
+    <target name="wsimport-client-TravelGoodBPEL" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/TravelGoodBPEL"/>
+        <property name="wsdl-TravelGoodBPEL" location="xml-resources/web-service-references/TravelGoodBPEL/wsdl/localhost_9080/service/TravelGoodBPELPortType.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/TravelGoodBPEL" destdir="${build.generated.dir}/jax-wsCache/TravelGoodBPEL" wsdl="${wsdl-TravelGoodBPEL}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:9080/service/TravelGoodBPELPortType?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-TravelGoodBPEL}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/TravelGoodBPEL"/>
         </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/TravelGoodBPELPortType">
+            <fileset dir="${build.generated.dir}/jax-wsCache/TravelGoodBPEL">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
     </target>
-    <target name="wsimport-client-clean-TravelGoodBPELPortType" depends="-init-project">
-        <delete dir="${build.generated.dir}/jax-wsCache/TravelGoodBPELPortType"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/travelgoodbpel"/>
+    <target name="wsimport-client-clean-TravelGoodBPEL" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/TravelGoodBPEL"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ws/travelgoodbpel"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-NiceViewService, wsimport-client-BankService, wsimport-client-LameDuckService, wsimport-client-TravelGoodBPELPortType"/>
+    <target name="wsimport-client-generate" depends="wsimport-client-NiceViewService, wsimport-client-BankService, wsimport-client-LameDuckService, wsimport-client-TravelGoodBPEL"/>
 </project>

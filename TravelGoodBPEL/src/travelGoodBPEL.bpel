@@ -10,22 +10,22 @@
     xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
     xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
     xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" xmlns:sxxf="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/XPathFunctions">
-    <import namespace="urn://TravelGoodBPEL" location="TravelGoodBPEL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="TravelGoodBPEL.ws" location="TravelGoodBPEL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <partnerLinks>
-        <partnerLink name="PartnerLink1" xmlns:tns="urn://TravelGoodBPEL" partnerLinkType="tns:TravelGoodBPEL" myRole="TravelGoodBPELPortTypeRole"/>
+        <partnerLink name="PartnerLink1" xmlns:tns="TravelGoodBPEL.ws" partnerLinkType="tns:TravelGoodBPEL" myRole="TravelGoodBPELPortTypeRole"/>
     </partnerLinks>
     <variables>
-        <variable name="CreateItineraryOut" xmlns:tns="urn://TravelGoodBPEL" messageType="tns:createItineraryResponse"/>
-        <variable name="CreateItineraryIn" xmlns:tns="urn://TravelGoodBPEL" messageType="tns:createItineraryRequest"/>
+        <variable name="CreateItineraryOut" xmlns:tns="TravelGoodBPEL.ws" messageType="tns:createItineraryResponse"/>
+        <variable name="CreateItineraryIn" xmlns:tns="TravelGoodBPEL.ws" messageType="tns:createItineraryRequest"/>
     </variables>
     <sequence name="Sequence1">
-        <receive name="Receive1" createInstance="yes" partnerLink="PartnerLink1" operation="createItinerary" xmlns:tns="urn://TravelGoodBPEL" portType="tns:TravelGoodBPELPortType" variable="CreateItineraryIn"/>
+        <receive name="Receive1" createInstance="yes" partnerLink="PartnerLink1" operation="createItinerary" xmlns:tns="TravelGoodBPEL.ws" portType="tns:TravelGoodBPELPortType" variable="CreateItineraryIn"/>
         <assign name="Assign1">
             <copy>
                 <from>sxxf:getGUID()</from>
                 <to variable="CreateItineraryOut" part="part1"/>
             </copy>
         </assign>
-        <reply name="Reply1" partnerLink="PartnerLink1" operation="createItinerary" xmlns:tns="urn://TravelGoodBPEL" portType="tns:TravelGoodBPELPortType" variable="CreateItineraryOut"/>
+        <reply name="Reply1" partnerLink="PartnerLink1" operation="createItinerary" xmlns:tns="TravelGoodBPEL.ws" portType="tns:TravelGoodBPELPortType" variable="CreateItineraryOut"/>
     </sequence>
 </process>

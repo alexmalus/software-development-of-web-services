@@ -38,7 +38,7 @@ public class ClientTest {
         
 //        to be sure that below tests will succeed or fail(they depend on a itinerary),
 //        after this test passes, create itinerary in setupClass
-        
+        System.out.print(createItinerary(null));
     }
     
     @Test
@@ -91,6 +91,12 @@ public class ClientTest {
     @Test
     public void cancel_itinerary_test(){
 //        destroy itinerary if it fulfills the requirements
+    }
+
+    private static String createItinerary(java.lang.Object part1) {
+        ws.travelgoodbpel.TravelGoodBPELService service = new ws.travelgoodbpel.TravelGoodBPELService();
+        ws.travelgoodbpel.TravelGoodBPELPortType port = service.getTravelGoodBPELPortTypeBindingPort();
+        return port.createItinerary(part1);
     }
     
 }

@@ -108,7 +108,7 @@
         </operation>
     </portType>
     <binding name="TravelGoodBPELPortTypeBinding" type="tns:TravelGoodBPELPortType">
-        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="createItinerary">
             <soap:operation/>
             <input name="input1">

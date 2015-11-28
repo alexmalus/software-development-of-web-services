@@ -98,10 +98,10 @@
         </wsimport-option>
       </wsimport-options>
     </client>
-    <client name="TravelGoodBPELPortType">
+    <client name="TravelGoodBPEL">
       <wsdl-url>http://localhost:9080/service/TravelGoodBPELPortType?wsdl</wsdl-url>
       <local-wsdl-file>localhost_9080/service/TravelGoodBPELPortType.wsdl</local-wsdl-file>
-      <package-name>travelgoodbpel</package-name>
+      <package-name>ws.travelgoodbpel</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>

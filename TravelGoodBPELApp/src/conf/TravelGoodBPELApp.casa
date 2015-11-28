@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="urn://TravelGoodBPEL" xmlns:ns2="http://enterprise.netbeans.org/bpel/TravelGoodBPEL2/travelGoodBPEL2" xmlns:xlink="http://www.w3.org/2000/xlink">
+<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="TravelGoodBPEL.ws" xmlns:ns2="http://enterprise.netbeans.org/bpel/TravelGoodBPEL2/travelGoodBPEL2" xmlns:xlink="http://www.w3.org/2000/xlink">
     <endpoints>
         <endpoint endpoint-name="TravelGoodBPELPortTypeBindingPort" interface-name="ns1:TravelGoodBPELPortType" name="endpoint1" service-name="ns1:TravelGoodBPELService"/>
         <endpoint display-name="PartnerLink1" endpoint-name="TravelGoodBPELPortTypeRole_myRole" file-path="travelGoodBPEL.bpel" interface-name="ns1:TravelGoodBPELPortType" name="endpoint2" process-name="travelGoodBPEL" service-name="ns2:PartnerLink1"/>
