@@ -142,6 +142,11 @@ public class LameDuckService {
         return true;
     }
     
+    public boolean resetFlights(boolean request) {
+        booked_flights.clear();
+        return true;
+    }
+    
     private boolean flight_already_booked(FlightInfoType flightInfo) {
         String booking_number = flightInfo.getBookingNumber();
         for (FlightInfoType temp_bookedFlight : booked_flights) {
@@ -162,11 +167,6 @@ public class LameDuckService {
         FlightFaultType flightFault = new FlightFaultType();
         flightFault.setFaultMessage(faultInfo);
         return new CancelFlightFault(faultInfo, flightFault);
-    }
-    
-    public boolean resetFlights(boolean request) {
-        booked_flights.clear();
-        return true;
     }
 
     private boolean chargeCreditCard(int group, dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCardInfo, int amount, dk.dtu.imm.fastmoney.types.AccountType account) throws CreditCardFaultMessage {
