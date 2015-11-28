@@ -30,28 +30,28 @@
         <correlationSet name="itineraryCorrelation" properties="ns0:itineraryID"/>
     </correlationSets>
     <sequence name="Sequence1">
-        <receive name="Receive1" createInstance="yes" partnerLink="PartnerLink1" operation="createItinerary" xmlns:tns="TravelGoodBPEL.ws" portType="tns:TravelGoodBPELPortType" variable="CreateItineraryIn">
-            <correlations>
-                <correlation set="itineraryCorrelation" initiate="yes"/>
-            </correlations>
-        </receive>
+        <receive name="Receive1" createInstance="yes" partnerLink="PartnerLink1" operation="createItinerary" xmlns:tns="TravelGoodBPEL.ws" portType="tns:TravelGoodBPELPortType" variable="CreateItineraryIn"></receive>
         <assign name="Assign2">
             <copy>
                 <from>'unconfirmed'</from>
                 <to>$Itinerary/ns1:ItineraryInfo/ns1:itineraryStatus</to>
             </copy>
             <copy>
-                <from variable="CreateItineraryOut" part="part1"/>
+                <from>sxxf:getGUID()</from>
                 <to>$Itinerary/ns1:ItineraryInfo/ns1:itineraryID</to>
             </copy>
         </assign>
         <assign name="Assign3">
             <copy>
-                <from variable="CreateItineraryIn" property="ns0:itineraryID"/>
+                <from>$Itinerary/ns1:ItineraryInfo/ns1:itineraryID</from>
                 <to variable="CreateItineraryOut" part="part1"/>
             </copy>
         </assign>
-        <reply name="Reply1" partnerLink="PartnerLink1" operation="createItinerary" portType="ns0:TravelGoodBPELPortType" variable="CreateItineraryOut"/>
+        <reply name="Reply1" partnerLink="PartnerLink1" operation="createItinerary" portType="ns0:TravelGoodBPELPortType" variable="CreateItineraryOut">
+            <correlations>
+                <correlation set="itineraryCorrelation" initiate="yes"/>
+            </correlations>
+        </reply>
         <pick name="Pick1">
             <onMessage partnerLink="PartnerLink1" operation="getItinerary" portType="ns0:TravelGoodBPELPortType" variable="GetItineraryIn">
                 <correlations>
