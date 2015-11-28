@@ -194,8 +194,8 @@ A partner link type characterizes the conversational relationship between two se
         <plnk:role name="TravelGoodBPELPortTypeRole" portType="tns:TravelGoodBPELPortType"/>
     </plnk:partnerLinkType>
     <vprop:property name="itineraryID" type="tv:itineraryIDType"/>
-    <vprop:propertyAlias propertyName="tns:itineraryID" type="tv:itineraryIDType"/>
-    <vprop:propertyAlias propertyName="tns:itineraryID" messageType="tns:createItineraryResponse" part="part1"/>
     <vprop:propertyAlias propertyName="tns:itineraryID" messageType="tns:createItineraryRequest" part="part1"/>
     <vprop:propertyAlias propertyName="tns:itineraryID" messageType="tns:getItineraryRequest" part="part1"/>
+    <vprop:propertyAlias propertyName="tns:itineraryID" messageType="tns:addItineraryFlightRequest" part="part1"/>
+    <vprop:propertyAlias propertyName="tns:itineraryID" messageType="tns:addItineraryHotelRequest" part="part1"/>
 </definitions>

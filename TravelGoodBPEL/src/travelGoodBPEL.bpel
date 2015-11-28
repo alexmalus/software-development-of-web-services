@@ -9,13 +9,18 @@
     xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
     xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
     xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
-    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" xmlns:sxxf="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/XPathFunctions" xmlns:ns0="TravelGoodBPEL.ws" xmlns:ns1="TravelGoodSchema.ws" xmlns:ns2="http://enterprise.netbeans.org/bpel/WizardCorrelationProperties">
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" xmlns:sxxf="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/XPathFunctions" xmlns:ns0="TravelGoodBPEL.ws" xmlns:ns1="TravelGoodSchema.ws">
     <import namespace="TravelGoodBPEL.ws" location="TravelGoodBPEL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="TravelGoodSchema.ws" location="TravelGoodSchema.xsd" importType="http://www.w3.org/2001/XMLSchema"/>
     <partnerLinks>
         <partnerLink name="PartnerLink1" xmlns:tns="TravelGoodBPEL.ws" partnerLinkType="tns:TravelGoodBPEL" myRole="TravelGoodBPELPortTypeRole"/>
     </partnerLinks>
     <variables>
+        <variable name="AddItineraryHotelOut" messageType="ns0:addItineraryHotelResponse"/>
+        <variable name="AddItineraryFlightOut" messageType="ns0:addItineraryFlightResponse"/>
+        <variable name="GetItineraryOut" messageType="ns0:getItineraryResponse"/>
+        <variable name="AddItineraryHotelIn" messageType="ns0:addItineraryHotelRequest"/>
+        <variable name="AddItineraryFlightIn" messageType="ns0:addItineraryFlightRequest"/>
         <variable name="ItineraryID" type="ns1:itineraryIDType"/>
         <variable name="GetItineraryIn" messageType="ns0:getItineraryRequest"/>
         <variable name="CreateItineraryOut" xmlns:tns="TravelGoodBPEL.ws" messageType="tns:createItineraryResponse"/>
@@ -25,16 +30,31 @@
         <correlationSet name="itineraryCorrelation" properties="ns0:itineraryID"/>
     </correlationSets>
     <sequence name="Sequence1">
-        <receive name="Receive1" createInstance="yes" partnerLink="PartnerLink1" operation="createItinerary" xmlns:tns="TravelGoodBPEL.ws" portType="tns:TravelGoodBPELPortType" variable="CreateItineraryIn"></receive>
-        <reply name="Reply1" partnerLink="PartnerLink1" operation="createItinerary" xmlns:tns="TravelGoodBPEL.ws" portType="tns:TravelGoodBPELPortType" variable="CreateItineraryOut">
+        <receive name="Receive1" createInstance="yes" partnerLink="PartnerLink1" operation="createItinerary" xmlns:tns="TravelGoodBPEL.ws" portType="tns:TravelGoodBPELPortType" variable="CreateItineraryIn">
             <correlations>
                 <correlation set="itineraryCorrelation" initiate="yes"/>
             </correlations>
-        </reply>
-        <receive name="Receive2" partnerLink="PartnerLink1" operation="getItinerary" portType="ns0:TravelGoodBPELPortType" createInstance="no" variable="GetItineraryIn">
-            <correlations>
-                <correlation set="itineraryCorrelation" initiate="no"/>
-            </correlations>
         </receive>
+        <reply name="Reply1" partnerLink="PartnerLink1" operation="createItinerary" portType="ns0:TravelGoodBPELPortType" variable="CreateItineraryOut"/>
+        <pick name="Pick1">
+            <onMessage partnerLink="PartnerLink1" operation="getItinerary" portType="ns0:TravelGoodBPELPortType" variable="GetItineraryIn">
+                <correlations>
+                    <correlation set="itineraryCorrelation" initiate="no"/>
+                </correlations>
+                <reply name="Reply2" partnerLink="PartnerLink1" operation="getItinerary" portType="ns0:TravelGoodBPELPortType" variable="GetItineraryOut"/>
+            </onMessage>
+            <onMessage partnerLink="PartnerLink1" operation="addItineraryFlight" portType="ns0:TravelGoodBPELPortType" variable="AddItineraryFlightIn">
+                <correlations>
+                    <correlation set="itineraryCorrelation" initiate="no"/>
+                </correlations>
+                <reply name="Reply3" partnerLink="PartnerLink1" operation="addItineraryFlight" portType="ns0:TravelGoodBPELPortType" variable="AddItineraryFlightOut"/>
+            </onMessage>
+            <onMessage partnerLink="PartnerLink1" operation="addItineraryHotel" portType="ns0:TravelGoodBPELPortType" variable="AddItineraryHotelIn">
+                <correlations>
+                    <correlation set="itineraryCorrelation" initiate="no"/>
+                </correlations>
+                <reply name="Reply4" partnerLink="PartnerLink1" operation="addItineraryHotel" portType="ns0:TravelGoodBPELPortType" variable="AddItineraryHotelOut"/>
+            </onMessage>
+        </pick>
     </sequence>
 </process>
