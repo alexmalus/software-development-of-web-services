@@ -1,23 +1,21 @@
 package NiceView.ws;
 
 import javax.xml.datatype.XMLGregorianCalendar;
-import ws.niceview.HotelType;
+import niceviewschema.HotelReservationType;
+import niceviewschema.HotelType;
 
 /**
  *
  * @author martin
  */
-public class HotelReservation {
-    private final HotelType hotel;
-    private final XMLGregorianCalendar departure;
-    private final XMLGregorianCalendar arrival;
+public class HotelReservation extends HotelReservationType{
     private boolean booked = false;
     private boolean cancelled = false;
     
     public HotelReservation(HotelType hotel, XMLGregorianCalendar arrival, XMLGregorianCalendar departure){
-        this.hotel = hotel;
-        this.arrival = arrival;
-        this.departure = departure;
+        this.setHotel(hotel);
+        this.setArrivalDate(arrival);
+        this.setDepartureDate(departure);
     }
     
     public boolean BookHotel(){
@@ -43,14 +41,5 @@ public class HotelReservation {
         return true;
     }
     
-    public HotelType getHotel(){
-        return this.hotel;
-    }
-    public XMLGregorianCalendar getDepartureDate(){
-        return this.departure;
-    }
-    public XMLGregorianCalendar getArrivalDate(){
-        return this.arrival;
-    }
     
 }

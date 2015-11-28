@@ -16,14 +16,17 @@ import java.util.List;
 import java.util.Map;
 import javax.jws.WebService;
 import javax.xml.ws.WebServiceRef;
-import ws.niceview.AddressType;
+import niceviewschema.AddressType;
+import niceviewschema.BookHotel;
 import ws.niceview.BookHotelFault;
-import ws.niceview.BookHotelResponse;
+import niceviewschema.BookHotelResponse;
+import niceviewschema.CancelHotel;
 import ws.niceview.CancelHotelFault;
-import ws.niceview.CancelHotelResponse;
-import ws.niceview.GetHotelsResponse;
-import ws.niceview.HotelFaultType;
-import ws.niceview.HotelType;
+import niceviewschema.CancelHotelResponse;
+import niceviewschema.GetHotels;
+import niceviewschema.GetHotelsResponse;
+import niceviewschema.HotelFaultType;
+import niceviewschema.HotelType;
 /**
  *
  * @author martin
@@ -39,6 +42,7 @@ public class NiceViewWebService {
     Map<String, HotelReservation> bookings = new HashMap<>();
     private static final int GROUP_NUMBER = 16;
     private final String NICEVIEW_ACCOUNT_NUMBER = "50308815";
+    private final String RESERVATION_SERVICE_NAME = "NiceView";
     
     public NiceViewWebService(){
         HotelType hotel1 = new HotelType();
@@ -46,7 +50,6 @@ public class NiceViewWebService {
         //hotel1.setBookingNumber("000001");
         hotel1.setCancellable(true);
         hotel1.setCreditCardGuarentee(true);
-        hotel1.setHotelReservationServiceName("NiceView");
         hotel1.setPrice(999);
         AddressType address1 = new AddressType();
         address1.setCity("Bangladesh");
@@ -61,7 +64,6 @@ public class NiceViewWebService {
         //hotel2.setBookingNumber("000002");
         hotel2.setCancellable(false);
         hotel2.setCreditCardGuarentee(false);
-        hotel2.setHotelReservationServiceName("NiceView");
         hotel2.setPrice(2000);
         AddressType address2 = new AddressType();
         address2.setCity("Everywhere");
@@ -75,21 +77,24 @@ public class NiceViewWebService {
         
     }
     
-    public ws.niceview.GetHotelsResponse getHotels(ws.niceview.GetHotels part1) {
+    public GetHotelsResponse getHotels(GetHotels part1) {
         GetHotelsResponse response = new GetHotelsResponse();
-        ArrayList<HotelType> hotelList = (ArrayList)response.getHotels();
+        ArrayList<HotelReservation> hotelList = (ArrayList)response.getHotels();
         for (HotelType hotel : hotels) {
             if(hotel.getAddress().getCity()
                     .equals(part1.getCity())){
-                hotel.setBookingNumber(Integer.toString(bookingNumber++));
-                hotelList.add(hotel);
-                bookings.put(hotel.getBookingNumber(), new HotelReservation(hotel, part1.getArrivalDate(), part1.getDepatureDate()));
+                HotelReservation reservation = new HotelReservation(hotel, part1.getArrivalDate(), part1.getDepatureDate());
+                
+                reservation.setBookingNumber(Integer.toString(bookingNumber++));
+                reservation.setHotelReservationServiceName(RESERVATION_SERVICE_NAME);
+                hotelList.add(reservation);
+                bookings.put(reservation.getBookingNumber(), new HotelReservation(hotel, part1.getArrivalDate(), part1.getDepatureDate()));
             }
         }
         return response;
     }
 
-    public ws.niceview.BookHotelResponse bookHotel(ws.niceview.BookHotel part1) throws BookHotelFault {
+    public BookHotelResponse bookHotel(BookHotel part1) throws BookHotelFault {
         BookHotelResponse response = new BookHotelResponse();
         String booking_number = part1.getBookingNumber();
         if(bookings.containsKey(booking_number)){
@@ -122,7 +127,7 @@ public class NiceViewWebService {
         throw bookHotelFault("No bookings with booking no:" + booking_number);
     }
 
-    public ws.niceview.CancelHotelResponse cancelHotel(ws.niceview.CancelHotel part1) throws CancelHotelFault {
+    public CancelHotelResponse cancelHotel(CancelHotel part1) throws CancelHotelFault {
         CancelHotelResponse response = new CancelHotelResponse();
         AccountType NiceView_account = new AccountType();
         NiceView_account.setName("NiceView");
