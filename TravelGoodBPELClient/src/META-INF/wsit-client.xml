@@ -6,4 +6,5 @@
  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="mainclientconfig" 
  >
     <import location="TravelGoodBPEL.xml" namespace="TravelGoodBPEL.ws"/>
+    <import location="TravelGoodBPELPortType.xml" namespace="TravelGoodBPEL.ws"/>
 </definitions>

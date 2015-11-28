@@ -138,6 +138,12 @@
       <output message="tns:addItineraryHotelResponse" name="output7">
     </output>
     </operation>
+    <operation name="getHotels">
+      <input message="tns:getHotelsRequest" name="input8">
+    </input>
+      <output message="tns:getHotelsResponse" name="output8">
+    </output>
+    </operation>
   </portType>
   <binding name="TravelGoodBPELPortTypeBinding" type="tns:TravelGoodBPELPortType">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
@@ -213,6 +219,15 @@
         <soap:body use="literal"/>
       </output>
     </operation>
+    <operation name="getHotels">
+      <soap:operation/>
+      <input name="input8">
+        <soap:body use="literal"/>
+      </input>
+      <output name="output8">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
   </binding>
   <service name="TravelGoodBPELService">
     <port binding="tns:TravelGoodBPELPortTypeBinding" name="TravelGoodBPELPortTypeBindingPort">
@@ -230,4 +245,6 @@ A partner link type characterizes the conversational relationship between two se
     <vprop:propertyAlias messageType="tns:getItineraryRequest" part="part1" propertyName="tns:itineraryID"/>
     <vprop:propertyAlias messageType="tns:addItineraryFlightRequest" part="part1" propertyName="tns:itineraryID"/>
     <vprop:propertyAlias messageType="tns:addItineraryHotelRequest" part="part1" propertyName="tns:itineraryID"/>
+    <vprop:propertyAlias messageType="tns:createItineraryResponse" part="part1" propertyName="tns:itineraryID"/>
+    <vprop:propertyAlias messageType="tns:getHotelsRequest" part="part1" propertyName="tns:itineraryID"/>
 </definitions>

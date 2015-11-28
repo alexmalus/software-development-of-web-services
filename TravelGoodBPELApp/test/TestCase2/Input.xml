@@ -1,0 +1,12 @@
+<soapenv:Envelope xsi:schemaLocation="http://schemas.xmlsoap.org/soap/envelope/ http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:trav="TravelGoodSchema.ws" xmlns:urn="urn:NiceViewSchema">
+  <soapenv:Body>
+    <trav:getHotelsRequest>
+      <trav:itineraryId>10.16.174.235:1056aa0f:1514ee06f5b:-7586</trav:itineraryId>
+      <urn:getHotelsRequest>
+        <city>Everywhere</city>
+        <arrivalDate>2008-09-29</arrivalDate>
+        <depatureDate>2014-09-19</depatureDate>
+      </urn:getHotelsRequest>
+    </trav:getHotelsRequest>
+  </soapenv:Body>
+</soapenv:Envelope>

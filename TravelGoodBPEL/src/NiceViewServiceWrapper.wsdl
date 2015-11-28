@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    name="NiceViewServiceWrapper" 
+    targetNamespace="http://NiceView.ws" 
+    xmlns:tns="http://NiceView.ws" 
+    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+    xmlns:ns="http://NiceView.ws">
+    <import location="http://localhost:8080/NiceView/NiceViewService?wsdl" namespace="http://NiceView.ws"/>
+    <plnk:partnerLinkType name="NiceViewLinkType">
+        <plnk:role name="NiceViewRole" portType="ns:NiceViewPortType"/>
+    </plnk:partnerLinkType>
+</definitions>

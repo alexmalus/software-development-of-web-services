@@ -2,7 +2,7 @@
   <soapenv:Body>
     <trav:createItinerary>
       <part1>
-        <trav1:createItineraryRequest>?anyType?</trav1:createItineraryRequest>
+        <trav1:createItineraryRequest>True</trav1:createItineraryRequest>
       </part1>
     </trav:createItinerary>
   </soapenv:Body>

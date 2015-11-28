@@ -231,7 +231,7 @@
   </binding>
   <service name="TravelGoodBPELService">
     <port binding="tns:TravelGoodBPELPortTypeBinding" name="TravelGoodBPELPortTypeBindingPort">
-      <soap:address location="http://10.16.174.235:9080/service"/>
+      <soap:address location="http://localhost:9070/service"/>
     </port>
   </service>
     <plnk:partnerLinkType name="TravelGoodBPEL">

@@ -5,11 +5,19 @@
  */
 package TravelGoodBPELClientTest;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+import niceviewschema.GetHotels;
 import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.w3c.dom.Element;
+import ws.travelgoodschema.GetHotelsRequest;
+import ws.travelgoodschema.GetHotelsResponse;
 import ws.travelgoodschema.GetItineraryRequest;
 import ws.travelgoodschema.GetItineraryResponse;
 
@@ -18,6 +26,17 @@ import ws.travelgoodschema.GetItineraryResponse;
  * @author Alex
  */
 public class ClientTest {
+    private final XMLGregorianCalendar dateArrive;
+    private final XMLGregorianCalendar dateDepart;
+    
+    public ClientTest() throws DatatypeConfigurationException{
+        
+        GregorianCalendar c = new GregorianCalendar();
+        c.setTime(new Date(2015, 12, 18, 10, 0));
+        dateArrive = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+        c.setTime(new Date(2015, 12, 26, 18, 0));
+        dateDepart = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+    }
 
     @BeforeClass
     public static void setUpClass() {
@@ -42,12 +61,28 @@ public class ClientTest {
 //        after this test passes, create itinerary in setupClass
         
         String itineraryID = createItinerary(true);
-        System.out.print(itineraryID);
+        System.out.println(itineraryID);
 
-        GetItineraryResponse response = new GetItineraryResponse();
-        GetItineraryRequest request = new GetItineraryRequest();
-        request.setItineraryID(itineraryID);
-        response = getItinerary(request);
+        GetHotelsRequest getHotelsRequest = new GetHotelsRequest();
+        getHotelsRequest.setItineraryId(itineraryID);
+        
+        GetHotels hotelsRequest = new GetHotels();
+        hotelsRequest.setCity("Everywhere");
+        hotelsRequest.setArrivalDate(dateArrive);
+        hotelsRequest.setDepatureDate(dateDepart);
+                
+        
+        getHotelsRequest.setGetHotelsRequest(hotelsRequest);
+        
+        GetHotelsResponse hotelResponse = getHotels(getHotelsRequest);
+        
+        System.out.println(hotelResponse.getHotels().get(0).getBookingNumber());
+        
+        
+//        GetItineraryResponse response = new GetItineraryResponse();
+//        GetItineraryRequest request = new GetItineraryRequest();
+//        request.setItineraryID(itineraryID);
+//        response = getItinerary(request);
         
 
     }
@@ -114,6 +149,12 @@ public class ClientTest {
         ws.travelgoodbpel.TravelGoodBPELService service = new ws.travelgoodbpel.TravelGoodBPELService();
         ws.travelgoodbpel.TravelGoodBPELPortType port = service.getTravelGoodBPELPortTypeBindingPort();
         return port.createItinerary(part1);
+    }
+
+    private static GetHotelsResponse getHotels(ws.travelgoodschema.GetHotelsRequest part1) {
+        ws.travelgoodbpel.TravelGoodBPELService service = new ws.travelgoodbpel.TravelGoodBPELService();
+        ws.travelgoodbpel.TravelGoodBPELPortType port = service.getTravelGoodBPELPortTypeBindingPort();
+        return port.getHotels(part1);
     }
 
 }
