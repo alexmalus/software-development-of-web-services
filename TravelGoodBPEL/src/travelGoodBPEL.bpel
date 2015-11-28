@@ -16,12 +16,12 @@
         <partnerLink name="PartnerLink1" xmlns:tns="TravelGoodBPEL.ws" partnerLinkType="tns:TravelGoodBPEL" myRole="TravelGoodBPELPortTypeRole"/>
     </partnerLinks>
     <variables>
+        <variable name="Itinerary" element="ns1:Itinerary"/>
         <variable name="AddItineraryHotelOut" messageType="ns0:addItineraryHotelResponse"/>
         <variable name="AddItineraryFlightOut" messageType="ns0:addItineraryFlightResponse"/>
         <variable name="GetItineraryOut" messageType="ns0:getItineraryResponse"/>
         <variable name="AddItineraryHotelIn" messageType="ns0:addItineraryHotelRequest"/>
         <variable name="AddItineraryFlightIn" messageType="ns0:addItineraryFlightRequest"/>
-        <variable name="ItineraryID" type="ns1:itineraryIDType"/>
         <variable name="GetItineraryIn" messageType="ns0:getItineraryRequest"/>
         <variable name="CreateItineraryOut" xmlns:tns="TravelGoodBPEL.ws" messageType="tns:createItineraryResponse"/>
         <variable name="CreateItineraryIn" xmlns:tns="TravelGoodBPEL.ws" messageType="tns:createItineraryRequest"/>
@@ -35,13 +35,41 @@
                 <correlation set="itineraryCorrelation" initiate="yes"/>
             </correlations>
         </receive>
+        <assign name="Assign2">
+            <copy>
+                <from>'unconfirmed'</from>
+                <to>$Itinerary/ns1:ItineraryInfo/ns1:itineraryStatus</to>
+            </copy>
+            <copy>
+                <from variable="CreateItineraryOut" part="part1"/>
+                <to>$Itinerary/ns1:ItineraryInfo/ns1:itineraryID</to>
+            </copy>
+        </assign>
+        <assign name="Assign3">
+            <copy>
+                <from variable="CreateItineraryIn" property="ns0:itineraryID"/>
+                <to variable="CreateItineraryOut" part="part1"/>
+            </copy>
+        </assign>
         <reply name="Reply1" partnerLink="PartnerLink1" operation="createItinerary" portType="ns0:TravelGoodBPELPortType" variable="CreateItineraryOut"/>
         <pick name="Pick1">
             <onMessage partnerLink="PartnerLink1" operation="getItinerary" portType="ns0:TravelGoodBPELPortType" variable="GetItineraryIn">
                 <correlations>
                     <correlation set="itineraryCorrelation" initiate="no"/>
                 </correlations>
-                <reply name="Reply2" partnerLink="PartnerLink1" operation="getItinerary" portType="ns0:TravelGoodBPELPortType" variable="GetItineraryOut"/>
+                <sequence name="Sequence2">
+                    <assign name="Assign1">
+                        <copy>
+                            <from>$Itinerary/ns1:ItineraryBookingFlightList</from>
+                            <to>$GetItineraryOut.part1/ns1:flights</to>
+                        </copy>
+                        <copy>
+                            <from>$Itinerary/ns1:ItineraryBookingHotelList</from>
+                            <to>$GetItineraryOut.part1/ns1:hotels</to>
+                        </copy>
+                    </assign>
+                    <reply name="Reply2" partnerLink="PartnerLink1" operation="getItinerary" portType="ns0:TravelGoodBPELPortType" variable="GetItineraryOut"/>
+                </sequence>
             </onMessage>
             <onMessage partnerLink="PartnerLink1" operation="addItineraryFlight" portType="ns0:TravelGoodBPELPortType" variable="AddItineraryFlightIn">
                 <correlations>

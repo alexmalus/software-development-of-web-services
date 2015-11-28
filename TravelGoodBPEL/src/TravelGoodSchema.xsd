@@ -80,7 +80,7 @@
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
-    <xsd:element name="createItineraryRequest"></xsd:element>
+    <xsd:element name="createItineraryRequest" type="xsd:boolean"></xsd:element>
     <xsd:element name="createItineraryResponse" type="tns:itineraryIDType"></xsd:element>
     <xsd:element name="cancelItineraryRequest">
         <xsd:complexType>

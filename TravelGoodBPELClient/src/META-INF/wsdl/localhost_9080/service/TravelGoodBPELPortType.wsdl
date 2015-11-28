@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="TravelGoodBPEL.ws" xmlns:tv="TravelGoodSchema.ws" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="TravelGoodBPEL" targetNamespace="TravelGoodBPEL.ws">
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="TravelGoodBPEL.ws" xmlns:tv="TravelGoodSchema.ws" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="TravelGoodBPEL" targetNamespace="TravelGoodBPEL.ws">
   <types>
     <xsd:schema targetNamespace="TravelGoodBPEL.ws">
             <xsd:import namespace="TravelGoodSchema.ws" schemaLocation="http://10.16.174.235:9080/TravelGoodBPELApp-sun-http-binding/TravelGoodBPEL/TravelGoodSchema.xsd"/>
@@ -225,4 +225,9 @@ In a BPEL process, a partner link represents the interaction between the BPEL pr
 A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
         <plnk:role name="TravelGoodBPELPortTypeRole" portType="tns:TravelGoodBPELPortType"/>
     </plnk:partnerLinkType>
+    <vprop:property name="itineraryID" type="tv:itineraryIDType"/>
+    <vprop:propertyAlias messageType="tns:createItineraryRequest" part="part1" propertyName="tns:itineraryID"/>
+    <vprop:propertyAlias messageType="tns:getItineraryRequest" part="part1" propertyName="tns:itineraryID"/>
+    <vprop:propertyAlias messageType="tns:addItineraryFlightRequest" part="part1" propertyName="tns:itineraryID"/>
+    <vprop:propertyAlias messageType="tns:addItineraryHotelRequest" part="part1" propertyName="tns:itineraryID"/>
 </definitions>
