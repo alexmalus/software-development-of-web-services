@@ -9,6 +9,8 @@ import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
+import ws.travelgoodschema.GetItineraryRequest;
+import ws.travelgoodschema.GetItineraryResponse;
 
 /**
  *
@@ -38,7 +40,13 @@ public class ClientTest {
         
 //        to be sure that below tests will succeed or fail(they depend on a itinerary),
 //        after this test passes, create itinerary in setupClass
-        System.out.print(createItinerary(null));
+        String itineraryID = createItinerary(null);
+        System.out.print(itineraryID);
+        
+        GetItineraryResponse response = new GetItineraryResponse();
+        GetItineraryRequest request = new GetItineraryRequest();
+        request.setItineraryID(itineraryID);
+        response = getItinerary(request);
     }
     
     @Test
@@ -97,6 +105,12 @@ public class ClientTest {
         ws.travelgoodbpel.TravelGoodBPELService service = new ws.travelgoodbpel.TravelGoodBPELService();
         ws.travelgoodbpel.TravelGoodBPELPortType port = service.getTravelGoodBPELPortTypeBindingPort();
         return port.createItinerary(part1);
+    }
+
+    private static GetItineraryResponse getItinerary(ws.travelgoodschema.GetItineraryRequest part1) {
+        ws.travelgoodbpel.TravelGoodBPELService service = new ws.travelgoodbpel.TravelGoodBPELService();
+        ws.travelgoodbpel.TravelGoodBPELPortType port = service.getTravelGoodBPELPortTypeBindingPort();
+        return port.getItinerary(part1);
     }
     
 }

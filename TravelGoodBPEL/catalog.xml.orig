@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <nextCatalog catalog="nbproject/private/retriever/catalog.xml"/>
+<<<<<<< Updated upstream
+=======
+    <system systemId="http://localhost:8080/LameDuck/LameDuckService?wsdl" uri="src/localhost_8080/LameDuck/LameDuckService.wsdl"/>
+    <system systemId="http://localhost:8080/LameDuck/LameDuckService?xsd=1" uri="src/localhost_8080/LameDuck/LameDuckService.xsd_1.xsd"/>
+    <system systemId="NiceView/NiceViewTypes.xsd" uri="nb-uri:NiceView#src/java/NiceViewTypes.xsd"/>
+    <system systemId="LameDuck/WEB-INF/wsdl/LameDuckWebService/LameDuckSchema.xsd" uri="nb-uri:LameDuck#web/WEB-INF/wsdl/LameDuckWebService/LameDuckSchema.xsd"/>
+>>>>>>> Stashed changes
+</catalog>

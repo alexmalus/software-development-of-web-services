@@ -5,7 +5,7 @@
     xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
     xmlns:tns="TravelGoodBPEL.ws" 
     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
-    xmlns:tv="TravelGoodSchema.ws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">    
+    xmlns:tv="TravelGoodSchema.ws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop">    
     <types>
         <xsd:schema targetNamespace="TravelGoodBPEL.ws">
             <xsd:import schemaLocation="TravelGoodSchema.xsd" namespace="TravelGoodSchema.ws"/>
@@ -193,4 +193,15 @@ In a BPEL process, a partner link represents the interaction between the BPEL pr
 A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
         <plnk:role name="TravelGoodBPELPortTypeRole" portType="tns:TravelGoodBPELPortType"/>
     </plnk:partnerLinkType>
+    <vprop:property name="itineraryID" type="tv:itineraryIDType"/>
+    <vprop:propertyAlias propertyName="tns:itineraryID" element="tv:addItineraryFlightRequest"/>
+    <vprop:propertyAlias propertyName="tns:itineraryID" element="tv:addItineraryHotelRequest"/>
+    <vprop:propertyAlias propertyName="tns:itineraryID" element="tv:bookItineraryRequest"/>
+    <vprop:propertyAlias propertyName="tns:itineraryID" element="tv:cancelBookingRequest"/>
+    <vprop:propertyAlias propertyName="tns:itineraryID" element="tv:cancelItineraryRequest"/>
+    <vprop:propertyAlias propertyName="tns:itineraryID" element="tv:getFlightsRequest"/>
+    <vprop:propertyAlias propertyName="tns:itineraryID" element="tv:getHotelsRequest"/>
+    <vprop:propertyAlias propertyName="tns:itineraryID" element="tv:getItineraryRequest"/>
+    <vprop:propertyAlias propertyName="tns:itineraryID" element="tv:removeItineraryFlightRequest"/>
+    <vprop:propertyAlias propertyName="tns:itineraryID" element="tv:removeItineraryHotelRequest"/>
 </definitions>
