@@ -38,6 +38,7 @@ public class ClientTest {
         
 //        to be sure that below tests will succeed or fail(they depend on a itinerary),
 //        after this test passes, create itinerary in setupClass
+        
     }
     
     @Test

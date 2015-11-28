@@ -2,7 +2,7 @@
 <casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="urn://TravelGoodBPEL" xmlns:ns2="http://enterprise.netbeans.org/bpel/TravelGoodBPEL2/travelGoodBPEL2" xmlns:xlink="http://www.w3.org/2000/xlink">
     <endpoints>
         <endpoint endpoint-name="TravelGoodBPELPortTypeBindingPort" interface-name="ns1:TravelGoodBPELPortType" name="endpoint1" service-name="ns1:TravelGoodBPELService"/>
-        <endpoint display-name="PartnerLink1" endpoint-name="TravelGoodBPELPortTypeRole_myRole" file-path="travelGoodBPEL.bpel" interface-name="ns1:TravelGoodBPELPortType" name="endpoint2" process-name="travelGoodBPEL2" service-name="ns2:PartnerLink1"/>
+        <endpoint display-name="PartnerLink1" endpoint-name="TravelGoodBPELPortTypeRole_myRole" file-path="travelGoodBPEL.bpel" interface-name="ns1:TravelGoodBPELPortType" name="endpoint2" process-name="travelGoodBPEL" service-name="ns2:PartnerLink1"/>
     </endpoints>
     <service-units>
         <service-engine-service-unit artifacts-zip="TravelGoodBPEL.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="TravelGoodBPELApp-TravelGoodBPEL" unit-name="TravelGoodBPEL" unknown="false" x="144" y="99">
@@ -24,26 +24,17 @@
     <porttypes>
         <link xlink:href="../jbiServiceUnits/META-INF/TravelGoodBPEL/src/_references/_relative/nbproject/private/retriever/localhost_8080/LameDuck/LameDuckService.wsdl#xpointer(/definitions/portType[@name='LameDuckPortType'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/META-INF/TravelGoodBPEL/src/_references/_relative/nbproject/private/retriever/localhost_8080/NiceView/NiceViewService.wsdl#xpointer(/definitions/portType[@name='NiceViewPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/TravelGoodBPEL2/src/_references/_relative/nbproject/private/retriever/localhost_8080/LameDuck/LameDuckService.wsdl#xpointer(/definitions/portType[@name='LameDuckPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/TravelGoodBPEL2/src/_references/_relative/nbproject/private/retriever/localhost_8080/NiceView/NiceViewService.wsdl#xpointer(/definitions/portType[@name='NiceViewPortType'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/TravelGoodBPEL/TravelGoodBPEL.wsdl#xpointer(/definitions/portType[@name='TravelGoodBPELPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/TravelGoodBPEL2/TravelGoodBPEL.wsdl#xpointer(/definitions/portType[@name='TravelGoodBPELPortType'])" xlink:type="simple"/>
     </porttypes>
     <bindings>
         <link xlink:href="../jbiServiceUnits/META-INF/TravelGoodBPEL/src/_references/_relative/nbproject/private/retriever/localhost_8080/LameDuck/LameDuckService.wsdl#xpointer(/definitions/binding[@name='LameDuckPortTypeBinding'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/META-INF/TravelGoodBPEL/src/_references/_relative/nbproject/private/retriever/localhost_8080/NiceView/NiceViewService.wsdl#xpointer(/definitions/binding[@name='NiceViewPortTypeBinding'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/TravelGoodBPEL2/src/_references/_relative/nbproject/private/retriever/localhost_8080/LameDuck/LameDuckService.wsdl#xpointer(/definitions/binding[@name='LameDuckPortTypeBinding'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/TravelGoodBPEL2/src/_references/_relative/nbproject/private/retriever/localhost_8080/NiceView/NiceViewService.wsdl#xpointer(/definitions/binding[@name='NiceViewPortTypeBinding'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/TravelGoodBPEL/TravelGoodBPEL.wsdl#xpointer(/definitions/binding[@name='TravelGoodBPELPortTypeBinding'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/TravelGoodBPEL2/TravelGoodBPEL.wsdl#xpointer(/definitions/binding[@name='TravelGoodBPELPortTypeBinding'])" xlink:type="simple"/>
     </bindings>
     <services>
         <link xlink:href="../jbiServiceUnits/META-INF/TravelGoodBPEL/src/_references/_relative/nbproject/private/retriever/localhost_8080/LameDuck/LameDuckService.wsdl#xpointer(/definitions/service[@name='LameDuckService'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/META-INF/TravelGoodBPEL/src/_references/_relative/nbproject/private/retriever/localhost_8080/NiceView/NiceViewService.wsdl#xpointer(/definitions/service[@name='NiceViewService'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/TravelGoodBPEL2/src/_references/_relative/nbproject/private/retriever/localhost_8080/LameDuck/LameDuckService.wsdl#xpointer(/definitions/service[@name='LameDuckService'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/TravelGoodBPEL2/src/_references/_relative/nbproject/private/retriever/localhost_8080/NiceView/NiceViewService.wsdl#xpointer(/definitions/service[@name='NiceViewService'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/TravelGoodBPEL/TravelGoodBPEL.wsdl#xpointer(/definitions/service[@name='TravelGoodBPELService'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/TravelGoodBPEL2/TravelGoodBPEL.wsdl#xpointer(/definitions/service[@name='TravelGoodBPELService'])" xlink:type="simple"/>
     </services>
     <regions>
         <region name="WSDL Endpoints" width="150"/>

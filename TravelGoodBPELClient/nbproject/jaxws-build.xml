@@ -16,23 +16,6 @@
             <classpath path="${libs.jaxws21.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-client-LameDuckWSDLService" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/LameDuckWSDLService"/>
-        <property name="wsdl-LameDuckWSDLService" location="xml-resources/web-service-references/LameDuckWSDLService/wsdl/localhost_8080/LameDuck/LameDuckWSDLService.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/LameDuckWSDLService" destdir="${build.generated.dir}/jax-wsCache/LameDuckWSDLService" wsdl="${wsdl-LameDuckWSDLService}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/LameDuck/LameDuckWSDLService?wsdl" xnocompile="true" xendorsed="true">
-            <depends file="${wsdl-LameDuckWSDLService}"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/LameDuckWSDLService"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/LameDuckWSDLService">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
-    </target>
-    <target name="wsimport-client-clean-LameDuckWSDLService" depends="-init-project">
-        <delete dir="${build.generated.dir}/jax-wsCache/LameDuckWSDLService"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/ws/lameduck"/>
-    </target>
     <target name="wsimport-client-NiceViewService" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/NiceViewService"/>
         <property name="wsdl-NiceViewService" location="xml-resources/web-service-references/NiceViewService/wsdl/localhost_8080/NiceView/NiceViewService.wsdl"/>
@@ -67,5 +50,39 @@
         <delete dir="${build.generated.dir}/jax-wsCache/BankService"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/dk/dtu/imm/fastmoney"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-LameDuckWSDLService, wsimport-client-NiceViewService, wsimport-client-BankService"/>
+    <target name="wsimport-client-LameDuckService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/LameDuckService"/>
+        <property name="wsdl-LameDuckService" location="xml-resources/web-service-references/LameDuckService/wsdl/localhost_8080/LameDuck/LameDuckService.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/LameDuckService" destdir="${build.generated.dir}/jax-wsCache/LameDuckService" wsdl="${wsdl-LameDuckService}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/LameDuck/LameDuckService?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-LameDuckService}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/LameDuckService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/LameDuckService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-LameDuckService" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/LameDuckService"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ws/lameduck"/>
+    </target>
+    <target name="wsimport-client-TravelGoodBPELPortType" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/TravelGoodBPELPortType"/>
+        <property name="wsdl-TravelGoodBPELPortType" location="xml-resources/web-service-references/TravelGoodBPELPortType/wsdl/localhost_9080/service/TravelGoodBPELPortType.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/TravelGoodBPELPortType" destdir="${build.generated.dir}/jax-wsCache/TravelGoodBPELPortType" wsdl="${wsdl-TravelGoodBPELPortType}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:9080/service/TravelGoodBPELPortType?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-TravelGoodBPELPortType}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/TravelGoodBPELPortType"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/TravelGoodBPELPortType">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-TravelGoodBPELPortType" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/TravelGoodBPELPortType"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/travelgoodbpel"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-NiceViewService, wsimport-client-BankService, wsimport-client-LameDuckService, wsimport-client-TravelGoodBPELPortType"/>
 </project>

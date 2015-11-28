@@ -24,43 +24,55 @@
         <part name="part1" element="tv:getItineraryResponse"/>
     </message>
     <message name="cancelItineraryRequest">
-        <part name="part1" type="xsd:string"/>
+        <part name="part1" element="tv:cancelItineraryRequest"/>
     </message>
     <message name="cancelItineraryResponse">
-        <part name="part1" type="xsd:string"/>
+        <part name="part1" element="tv:cancelItineraryResponse"/>
     </message>
     <message name="cancelItineraryFault">
-        <part name="fault_message" type="xsd:string"/>
+        <part name="fault" element="tv:cancelItineraryFault"/>
     </message>
     <message name="bookItineraryRequest">
-        <part name="part1" type="xsd:string"/>
+        <part name="part1" element="tv:bookItineraryRequest"/>
     </message>
     <message name="bookItineraryResponse">
-        <part name="part1" type="xsd:string"/>
+        <part name="part1" element="tv:bookItineraryResponse"/>
     </message>
     <message name="bookItineraryFault">
-        <part name="fault_message" type="xsd:string"/>
+        <part name="fault" element="tv:bookItineraryFault"/>
     </message>
     <message name="cancelBookingRequest">
-        <part name="part1" type="xsd:string"/>
+        <part name="part1" element="tv:cancelBookingRequest"/>
     </message>
     <message name="cancelBookingResponse">
-        <part name="part1" type="xsd:string"/>
+        <part name="part1" element="tv:cancelBookingResponse"/>
     </message>
     <message name="cancelBookingFault">
-        <part name="fault_message" type="xsd:string"/>
+        <part name="fault" element="tv:cancelBookingFault"/>
     </message>
     <message name="addItineraryFlightRequest">
-        <part name="part1" type="xsd:string"/>
+        <part name="part1" element="tv:addItineraryFlightRequest"/>
     </message>
     <message name="addItineraryFlightResponse">
-        <part name="part1" type="xsd:string"/>
+        <part name="part1" element="tv:addItineraryFlightResponse"/>
     </message>
     <message name="addItineraryHotelRequest">
-        <part name="part1" type="xsd:string"/>
+        <part name="part1" element="tv:addItineraryHotelRequest"/>
     </message>
     <message name="addItineraryHotelResponse">
-        <part name="part1" type="xsd:string"/>
+        <part name="part1" element="tv:addItineraryHotelResponse"/>
+    </message>
+    <message name="getHotelsRequest">
+        <part name="part1" element="tv:getHotelsRequest"/>
+    </message>
+    <message name="getHotelsResponse">
+        <part name="part1" element="tv:getHotelsResponse"/>
+    </message>
+    <message name="getFlightsRequest">
+        <part name="part1" element="tv:getFlightsRequest"/>
+    </message>
+    <message name="getFlightResponse">
+        <part name="part1" element="tv:getFlightsResponse"/>
     </message>
     <portType name="TravelGoodBPELPortType">
         <operation name="createItinerary">
