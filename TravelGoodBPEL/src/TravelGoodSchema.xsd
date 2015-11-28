@@ -149,7 +149,7 @@
     <xsd:element name="getFlightsResponse">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element name="flights" type="ns0:FlightInfoType"></xsd:element>
+                <xsd:element name="flights" type="ns0:FlightInfoType" maxOccurs="unbounded" minOccurs="0"></xsd:element>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>

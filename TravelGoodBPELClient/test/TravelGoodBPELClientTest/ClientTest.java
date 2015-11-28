@@ -10,12 +10,14 @@ import java.util.GregorianCalendar;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import lameduckschema.GetFlightsRequest;
 import niceviewschema.GetHotels;
 import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.w3c.dom.Element;
+import ws.travelgoodschema.GetFlightsResponse;
 import ws.travelgoodschema.GetHotelsRequest;
 import ws.travelgoodschema.GetHotelsResponse;
 import ws.travelgoodschema.GetItineraryRequest;
@@ -78,6 +80,18 @@ public class ClientTest {
         
         System.out.println(hotelResponse.getHotels().get(0).getBookingNumber());
         
+        GetFlightsRequest flightsRequest = new GetFlightsRequest();
+        flightsRequest.setFinalDestination("LHR");
+        flightsRequest.setStartDestination("CPH");
+        XMLGregorianCalendar liftoffDate = convertDateTimeToGregCal("2015-11-18", "17:00");
+        flightsRequest.setDateFlight(liftoffDate);
+        
+        ws.travelgoodschema.GetFlightsRequest outerFlightsRequest = new ws.travelgoodschema.GetFlightsRequest();
+        outerFlightsRequest.setGetFlightsRequest(flightsRequest);
+        outerFlightsRequest.setItineraryId(itineraryID);
+        GetFlightsResponse flightsResponse = getFlights(outerFlightsRequest);
+        
+        System.out.println(flightsResponse.getFlights().get(0).getBookingNumber());
         
 //        GetItineraryResponse response = new GetItineraryResponse();
 //        GetItineraryRequest request = new GetItineraryRequest();
@@ -155,6 +169,32 @@ public class ClientTest {
         ws.travelgoodbpel.TravelGoodBPELService service = new ws.travelgoodbpel.TravelGoodBPELService();
         ws.travelgoodbpel.TravelGoodBPELPortType port = service.getTravelGoodBPELPortTypeBindingPort();
         return port.getHotels(part1);
+    }
+
+    private static GetFlightsResponse getFlights(ws.travelgoodschema.GetFlightsRequest part1) {
+        ws.travelgoodbpel.TravelGoodBPELService service = new ws.travelgoodbpel.TravelGoodBPELService();
+        ws.travelgoodbpel.TravelGoodBPELPortType port = service.getTravelGoodBPELPortTypeBindingPort();
+        return port.getFlights(part1);
+    }
+    
+    /**
+     *
+     * @param date will have the form YY-MM-DD
+     * @param time will have the form HH:MM
+     * @return an XMLGregorianCalendar with minutes, hours, days, months and year set
+     */
+    public static XMLGregorianCalendar convertDateTimeToGregCal(String date, String time) {
+        final String DATE_FORMAT = "%sT%s:00.000+00:00";
+        String date_time = String.format(DATE_FORMAT, date, time);
+        DatatypeFactory data_fact;
+        data_fact = null;
+        try {
+            data_fact = DatatypeFactory.newInstance();
+        } catch (DatatypeConfigurationException ex) {
+            throw new RuntimeException(ex);
+        }
+
+    return data_fact.newXMLGregorianCalendar(date_time);
     }
 
 }
