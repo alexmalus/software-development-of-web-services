@@ -5,7 +5,7 @@
     xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
     xmlns:tns="urn://TravelGoodBPEL" 
     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
-    xmlns:tv="TravelGoodSchema.ws">    
+    xmlns:tv="TravelGoodSchema.ws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">    
     <types>
         <xsd:schema targetNamespace="urn://TravelGoodBPEL">
             <xsd:import schemaLocation="TravelGoodSchema.xsd" namespace="TravelGoodSchema.ws"/>
@@ -95,6 +95,86 @@
             <output name="output7" message="tns:addItineraryHotelResponse"/>
         </operation>
     </portType>
+    <binding name="TravelGoodBPELPortTypeBinding" type="tns:TravelGoodBPELPortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="createItinerary">
+            <soap:operation/>
+            <input name="input1">
+                <soap:body use="literal"/>
+            </input>
+            <output name="output1">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="getItinerary">
+            <soap:operation/>
+            <input name="input2">
+                <soap:body use="literal"/>
+            </input>
+            <output name="output2">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="cancelItinerary">
+            <soap:operation/>
+            <input name="input3">
+                <soap:body use="literal"/>
+            </input>
+            <output name="output3">
+                <soap:body use="literal"/>
+            </output>
+            <fault name="fault1">
+                <soap:fault name="fault1" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="bookItinerary">
+            <soap:operation/>
+            <input name="input4">
+                <soap:body use="literal"/>
+            </input>
+            <output name="output4">
+                <soap:body use="literal"/>
+            </output>
+            <fault name="fault1">
+                <soap:fault name="fault1" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="cancelBooking">
+            <soap:operation/>
+            <input name="input5">
+                <soap:body use="literal"/>
+            </input>
+            <output name="output5">
+                <soap:body use="literal"/>
+            </output>
+            <fault name="fault1">
+                <soap:fault name="fault1" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="addItineraryFlight">
+            <soap:operation/>
+            <input name="input6">
+                <soap:body use="literal"/>
+            </input>
+            <output name="output6">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="addItineraryHotel">
+            <soap:operation/>
+            <input name="input7">
+                <soap:body use="literal"/>
+            </input>
+            <output name="output7">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="TravelGoodBPELService">
+        <port name="TravelGoodBPELPortTypeBindingPort" binding="tns:TravelGoodBPELPortTypeBinding">
+            <soap:address location="http://localhost:${HttpDefaultPort}/service"/>
+        </port>
+    </service>
     <plnk:partnerLinkType name="TravelGoodBPEL">
         <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
 In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
