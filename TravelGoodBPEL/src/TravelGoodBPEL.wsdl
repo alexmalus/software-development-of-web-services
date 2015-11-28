@@ -12,16 +12,16 @@
         </xsd:schema>
     </types>
     <message name="createItineraryRequest">
-        <part name="part1" type="xsd:string"/>
+        <part name="part1" element="tv:createItineraryRequest"/>
     </message>
     <message name="createItineraryResponse">
-        <part name="part1" type="xsd:string"/>
+        <part name="part1" element="tv:createItineraryResponse"/>
     </message>
     <message name="getItineraryRequest">
-        <part name="part1" type="xsd:string"/>
+        <part name="part1" element="tv:getItineraryRequest"/>
     </message>
     <message name="getItineraryResponse">
-        <part name="part1" type="xsd:string"/>
+        <part name="part1" element="tv:getItineraryResponse"/>
     </message>
     <message name="cancelItineraryRequest">
         <part name="part1" type="xsd:string"/>
