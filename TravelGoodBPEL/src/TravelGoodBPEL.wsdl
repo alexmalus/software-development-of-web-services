@@ -194,14 +194,8 @@ A partner link type characterizes the conversational relationship between two se
         <plnk:role name="TravelGoodBPELPortTypeRole" portType="tns:TravelGoodBPELPortType"/>
     </plnk:partnerLinkType>
     <vprop:property name="itineraryID" type="tv:itineraryIDType"/>
-    <vprop:propertyAlias propertyName="tns:itineraryID" element="tv:addItineraryFlightRequest"/>
-    <vprop:propertyAlias propertyName="tns:itineraryID" element="tv:addItineraryHotelRequest"/>
-    <vprop:propertyAlias propertyName="tns:itineraryID" element="tv:bookItineraryRequest"/>
-    <vprop:propertyAlias propertyName="tns:itineraryID" element="tv:cancelBookingRequest"/>
-    <vprop:propertyAlias propertyName="tns:itineraryID" element="tv:cancelItineraryRequest"/>
-    <vprop:propertyAlias propertyName="tns:itineraryID" element="tv:getFlightsRequest"/>
-    <vprop:propertyAlias propertyName="tns:itineraryID" element="tv:getHotelsRequest"/>
-    <vprop:propertyAlias propertyName="tns:itineraryID" element="tv:getItineraryRequest"/>
-    <vprop:propertyAlias propertyName="tns:itineraryID" element="tv:removeItineraryFlightRequest"/>
-    <vprop:propertyAlias propertyName="tns:itineraryID" element="tv:removeItineraryHotelRequest"/>
+    <vprop:propertyAlias propertyName="tns:itineraryID" type="tv:itineraryIDType"/>
+    <vprop:propertyAlias propertyName="tns:itineraryID" messageType="tns:createItineraryResponse" part="part1"/>
+    <vprop:propertyAlias propertyName="tns:itineraryID" messageType="tns:createItineraryRequest" part="part1"/>
+    <vprop:propertyAlias propertyName="tns:itineraryID" messageType="tns:getItineraryRequest" part="part1"/>
 </definitions>
