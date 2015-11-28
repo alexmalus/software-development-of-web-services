@@ -21,9 +21,12 @@
         <partnerLink name="PartnerLink1" xmlns:tns="urn://TravelGoodBPEL" partnerLinkType="tns:TravelGoodBPEL" myRole="TravelGoodBPELPortTypeRole"/>
 	</partnerLinks>
     <variables>
+        <variable name="CreateItineraryOut" xmlns:tns="urn://TravelGoodBPEL" messageType="tns:createItineraryResponse"/>
+        <variable name="CreateItineraryIn" xmlns:tns="urn://TravelGoodBPEL" messageType="tns:createItineraryRequest"/>
         <variable name="GetItineraryIn" xmlns:tns="urn://TravelGoodBPEL" messageType="tns:getItineraryRequest"/>
     </variables>
     <sequence>
-        <receive name="ReceiveCreateItinary" createInstance="yes" partnerLink="PartnerLink1" operation="createItinerary" xmlns:tns="urn://TravelGoodBPEL" portType="tns:TravelGoodBPELPortType" variable="CreateItineraryIn"/>
+        <receive name="Receive1" createInstance="yes" partnerLink="PartnerLink1" operation="createItinerary" xmlns:tns="urn://TravelGoodBPEL" portType="tns:TravelGoodBPELPortType" variable="CreateItineraryIn"/>
+        <reply name="Reply1" partnerLink="PartnerLink1" operation="createItinerary" xmlns:tns="urn://TravelGoodBPEL" portType="tns:TravelGoodBPELPortType" variable="CreateItineraryOut"/>
     </sequence>
 </process>
