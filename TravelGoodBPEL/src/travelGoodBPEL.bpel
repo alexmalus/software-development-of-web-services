@@ -24,6 +24,6 @@
         <variable name="GetItineraryIn" xmlns:tns="urn://TravelGoodBPEL" messageType="tns:getItineraryRequest"/>
     </variables>
     <sequence>
-        <receive name="ReceiveCreateItinary" createInstance="yes" partnerLink="PartnerLink1" operation="createItinerary" xmlns:tns="urn://TravelGoodBPEL" portType="tns:TravelGoodBPELPortType" variable="CreateItineraryIn"/>
+        <assign name="Assign1"/>
     </sequence>
 </process>
