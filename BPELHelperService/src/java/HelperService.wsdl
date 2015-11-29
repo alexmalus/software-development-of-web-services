@@ -58,6 +58,23 @@
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
+            <xsd:element name="selectItemRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="HotelList" type="ns0:ItineraryBookingHotelType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+                        <xsd:element name="FlightList" type="ns0:ItineraryBookingFlightType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+                        <xsd:element name="index" type="xsd:int"></xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="selectItemResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Flight" type="ns0:ItineraryBookingFlightType" minOccurs="0"></xsd:element>
+                        <xsd:element name="Hotel" type="ns0:ItineraryBookingHotelType" minOccurs="0"></xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
         </xsd:schema>
     </types>
     <message name="getItineraryRequest">
@@ -90,6 +107,12 @@
     <message name="createHelperItineraryResponse">
         <part name="part1" element="tns:createHelperItineraryResponse"/>
     </message>
+    <message name="selectItemRequest">
+        <part name="part1" element="tns:selectItemRequest"/>
+    </message>
+    <message name="selectItemResponse">
+        <part name="part1" element="tns:selectItemResponse"/>
+    </message>
     <portType name="HelperServicePortType">
         <operation name="getItinerary">
             <input name="input1" message="tns:getItineraryRequest"/>
@@ -110,6 +133,10 @@
         <operation name="addBookingsNumbers">
             <input name="input5" message="tns:addBookingNumbersRequest"/>
             <output name="output5" message="tns:addBookingNumbersResponse"/>
+        </operation>
+        <operation name="selectItem">
+            <input name="input6" message="tns:selectItemRequest"/>
+            <output name="output6" message="tns:selectItemResponse"/>
         </operation>
     </portType>
     <binding name="HelperServicePortTypeBinding" type="tns:HelperServicePortType">
@@ -156,6 +183,15 @@
                 <soap:body use="literal"/>
             </input>
             <output name="output5">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="selectItem">
+            <soap:operation style="document"/>
+            <input name="input6">
+                <soap:body use="literal"/>
+            </input>
+            <output name="output6">
                 <soap:body use="literal"/>
             </output>
         </operation>

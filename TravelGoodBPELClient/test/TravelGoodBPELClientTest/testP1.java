@@ -118,7 +118,7 @@ public class testP1 {
         lameduckschema.GetFlightsRequest flight_request_2 = new lameduckschema.GetFlightsRequest();
         flight_request_2.setStartDestination("LHR");
         flight_request_2.setFinalDestination("CPH");
-        XMLGregorianCalendar liftoffDate_2 = convertDateTimeToGregCal("2015-11-18", "17:00");
+        XMLGregorianCalendar liftoffDate_2 = convertDateTimeToGregCal("2015-11-19", "11:00");
         flight_request_2.setDateFlight(liftoffDate_2);
         
         ws.travelgoodschema.GetFlightsRequest outerFlightsRequest_2 = new ws.travelgoodschema.GetFlightsRequest();
@@ -140,7 +140,7 @@ public class testP1 {
         lameduckschema.GetFlightsRequest flight_request_3 = new lameduckschema.GetFlightsRequest();
         flight_request_3.setStartDestination("CPH");
         flight_request_3.setFinalDestination("XAN");
-        XMLGregorianCalendar liftoffDate_3 = convertDateTimeToGregCal("2015-11-18", "17:00");
+        XMLGregorianCalendar liftoffDate_3 = convertDateTimeToGregCal("2015-11-23", "17:00");
         flight_request_3.setDateFlight(liftoffDate_3);
         
         ws.travelgoodschema.GetFlightsRequest outerFlightsRequest_3 = new ws.travelgoodschema.GetFlightsRequest();

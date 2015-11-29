@@ -8,7 +8,7 @@
         <endpoint display-name="PartnerLink1" endpoint-name="TravelGoodBPELPortTypeRole_myRole" file-path="travelGoodBPEL.bpel" interface-name="ns4:TravelGoodBPELPortType" name="endpoint5" process-name="travelGoodBPEL" service-name="ns5:PartnerLink1"/>
         <endpoint display-name="PartnerLink2" endpoint-name="NiceViewRole_partnerRole" file-path="travelGoodBPEL.bpel" interface-name="ns2:NiceViewPortType" name="endpoint6" process-name="travelGoodBPEL" service-name="ns5:PartnerLink2"/>
         <endpoint display-name="PartnerLink3" endpoint-name="LameDuckRole_partnerRole" file-path="travelGoodBPEL.bpel" interface-name="ns1:LameDuckPortType" name="endpoint7" process-name="travelGoodBPEL" service-name="ns5:PartnerLink3"/>
-        <endpoint display-name="PartnerLink4" endpoint-name="HelperServicePortTypeRole_partnerRole" file-path="travelGoodBPEL.bpel" interface-name="ns3:HelperServicePortType" name="endpoint8" process-name="travelGoodBPEL" service-name="ns5:PartnerLink4"/>
+        <endpoint display-name="PartnerLink4" endpoint-name="HelperRole_partnerRole" file-path="travelGoodBPEL.bpel" interface-name="ns3:HelperServicePortType" name="endpoint8" process-name="travelGoodBPEL" service-name="ns5:PartnerLink4"/>
     </endpoints>
     <service-units>
         <service-engine-service-unit artifacts-zip="TravelGoodBPEL.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="TravelGoodBPELApp-TravelGoodBPEL" unit-name="TravelGoodBPEL" unknown="false" x="144" y="99">

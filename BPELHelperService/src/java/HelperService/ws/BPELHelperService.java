@@ -17,6 +17,8 @@ import ws.travelgoodschema.Itinerary;
 import ws.travelgoodschema.ItineraryBookingFlightType;
 import ws.travelgoodschema.ItineraryBookingHotelType;
 import ws.travelgoodschema.ItineraryInfoType;
+import javax.jws.WebService;
+import ws.helperservice.SelectItemResponse;
 
 /**
  *
@@ -64,10 +66,12 @@ public class BPELHelperService {
         
         
         for (ItineraryBookingFlightType flight : flights) {
-            if(flight.getFlightInfoList().getBookingNumber().equals(part1.getBookingNumber())){
-                flight.setBookingStatus(part1.getBookingStatus());
-                flight.setFlightInfoList(flightsBookingIds.get(part1.getItineraryID()));
-                return true;
+            if(flight.getFlightInfoList() != null && flight.getFlightInfoList().getBookingNumber() != null){
+                if(flight.getFlightInfoList().getBookingNumber().equals(part1.getBookingNumber())){
+                    flight.setBookingStatus(part1.getBookingStatus());
+                    flight.setFlightInfoList(flightsBookingIds.get(part1.getItineraryID()));
+                    return true;
+                }
             }
         }
         ItineraryBookingFlightType booking = new ItineraryBookingFlightType();
@@ -81,12 +85,16 @@ public class BPELHelperService {
         Itinerary itinerary = itineraries.get(part1.getItineraryID());
         ArrayList<ItineraryBookingHotelType> hotels = (ArrayList<ItineraryBookingHotelType>) itinerary.getItineraryBookingHotelList();
         
-        
         for (ItineraryBookingHotelType hotel : hotels) {
-            if(hotel.getHotelInfoList().getBookingNumber().equals(part1.getBookingNumber())){
-                hotel.setBookingStatus(part1.getBookingStatus());
-                hotel.setHotelInfoList(hotelsBookingIds.get(part1.getItineraryID()));
-                return true;
+            HotelReservationType hotelInfo = hotel.getHotelInfoList();
+            if(hotelInfo != null && hotelInfo.getBookingNumber() != null){
+                
+                String bookingNumber = hotelInfo.getBookingNumber();
+                if(bookingNumber.equals(part1.getBookingNumber())){
+                    hotel.setBookingStatus(part1.getBookingStatus());
+                    hotel.setHotelInfoList(hotelsBookingIds.get(part1.getItineraryID()));
+                    return true;
+                }
             }
         }
         ItineraryBookingHotelType booking = new ItineraryBookingHotelType();
@@ -105,6 +113,26 @@ public class BPELHelperService {
         }
         
         return true;
+    }
+
+    public ws.helperservice.SelectItemResponse selectItem(ws.helperservice.SelectItemRequest part1) {
+        System.out.println("Selecting an item");
+        int index = part1.getIndex();
+        SelectItemResponse response = new SelectItemResponse();
+        
+        if(part1.getFlightList() != null){
+            response.setFlight(part1.getFlightList().get(index));
+        }
+        else{
+            System.out.println("Flights are null");
+        }
+        if(part1.getHotelList() != null){
+            response.setHotel(part1.getHotelList().get(index));
+        }
+        else{
+            System.out.println("Hotels are null");
+        }
+        return response;
     }
     
 }

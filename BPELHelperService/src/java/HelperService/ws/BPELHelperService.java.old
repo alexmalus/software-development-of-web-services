@@ -10,11 +10,8 @@ import java.util.HashMap;
 import javax.jws.WebService;
 import lameduckschema.FlightInfoType;
 import niceviewschema.HotelReservationType;
-import ws.helperservice.AddBookingIds;
-import ws.helperservice.CreateItineraryResponse;
+import ws.helperservice.CreateHelperItineraryResponse;
 import ws.helperservice.GetItineraryResponse;
-import ws.helperservice.PutFlightRequest;
-import ws.helperservice.PutHotelRequest;
 import ws.travelgoodschema.BookingStatus;
 import ws.travelgoodschema.Itinerary;
 import ws.travelgoodschema.ItineraryBookingFlightType;
@@ -25,21 +22,25 @@ import ws.travelgoodschema.ItineraryInfoType;
  *
  * @author martin
  */
-@WebService(serviceName = "HelperServiceService", portName = "HelperServicePortTypeBindingPort", endpointInterface = "org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.HelperServicePortType", targetNamespace = "http://j2ee.netbeans.org/wsdl/BPELHelperService/java/HelperService", wsdlLocation = "WEB-INF/wsdl/BPELHelperService/HelperService.wsdl")
+@WebService(serviceName = "HelperServiceService", portName = "HelperServicePortTypeBindingPort", endpointInterface = "ws.helperservice.HelperServicePortType", targetNamespace = "http://HelperService.ws", wsdlLocation = "WEB-INF/wsdl/BPELHelperService/HelperService.wsdl")
 public class BPELHelperService {
     HashMap<String, Itinerary> itineraries = new HashMap<>();
     HashMap<String, FlightInfoType> flightsBookingIds = new HashMap<>();
     HashMap<String, HotelReservationType> hotelsBookingIds = new HashMap<>();
 
-    public GetItineraryResponse getItinerary(java.lang.String part1) {
+    public ws.helperservice.GetItineraryResponse getItinerary(java.lang.String part1) {
         //TODO implement this method
         GetItineraryResponse response = new GetItineraryResponse();
+        Itinerary itinerary = itineraries.get(part1);
         
-        response.setItinerary(itineraries.get(part1));
+        System.out.println(itinerary.getItineraryBookingFlightList().size());
+        System.out.println(itinerary.getItineraryBookingHotelList().size());
+        
+        response.setItinerary(itinerary);
         return response;
     }
 
-    public CreateItineraryResponse createItinerary(java.lang.String part1) {
+    public ws.helperservice.CreateHelperItineraryResponse createItinerary(java.lang.String part1) {
         System.out.println("Started creating Itinerary");
         Itinerary response = new ws.travelgoodschema.Itinerary();
         ItineraryInfoType info = new ItineraryInfoType();
@@ -52,21 +53,23 @@ public class BPELHelperService {
         
         itineraries.put(part1,response);
         System.out.println("Finished creating Itinerary");
-        CreateItineraryResponse response2 = new CreateItineraryResponse();
+        CreateHelperItineraryResponse response2 = new CreateHelperItineraryResponse();
         response2.setItinerary(response);
         return response2;
     }
 
-    public boolean putFlight(PutFlightRequest part1) {
+    public boolean putFlight(ws.helperservice.PutFlightRequest part1) {
         Itinerary itinerary = itineraries.get(part1.getItineraryID());
         ArrayList<ItineraryBookingFlightType> flights = (ArrayList<ItineraryBookingFlightType>) itinerary.getItineraryBookingFlightList();
         
         
         for (ItineraryBookingFlightType flight : flights) {
-            if(flight.getFlightInfoList().getBookingNumber().equals(part1.getBookingNumber())){
-                flight.setBookingStatus(part1.getBookingStatus());
-                flight.setFlightInfoList(flightsBookingIds.get(part1.getItineraryID()));
-                return true;
+            if(flight.getFlightInfoList() != null && flight.getFlightInfoList().getBookingNumber() != null){
+                if(flight.getFlightInfoList().getBookingNumber().equals(part1.getBookingNumber())){
+                    flight.setBookingStatus(part1.getBookingStatus());
+                    flight.setFlightInfoList(flightsBookingIds.get(part1.getItineraryID()));
+                    return true;
+                }
             }
         }
         ItineraryBookingFlightType booking = new ItineraryBookingFlightType();
@@ -76,16 +79,20 @@ public class BPELHelperService {
         return true;
     }
 
-    public boolean putHotel(PutHotelRequest part1) {
+    public boolean putHotel(ws.helperservice.PutHotelRequest part1) {
         Itinerary itinerary = itineraries.get(part1.getItineraryID());
         ArrayList<ItineraryBookingHotelType> hotels = (ArrayList<ItineraryBookingHotelType>) itinerary.getItineraryBookingHotelList();
         
-        
         for (ItineraryBookingHotelType hotel : hotels) {
-            if(hotel.getHotelInfoList().getBookingNumber().equals(part1.getBookingNumber())){
-                hotel.setBookingStatus(part1.getBookingStatus());
-                hotel.setHotelInfoList(hotelsBookingIds.get(part1.getItineraryID()));
-                return true;
+            HotelReservationType hotelInfo = hotel.getHotelInfoList();
+            if(hotelInfo != null && hotelInfo.getBookingNumber() != null){
+                
+                String bookingNumber = hotelInfo.getBookingNumber();
+                if(bookingNumber.equals(part1.getBookingNumber())){
+                    hotel.setBookingStatus(part1.getBookingStatus());
+                    hotel.setHotelInfoList(hotelsBookingIds.get(part1.getItineraryID()));
+                    return true;
+                }
             }
         }
         ItineraryBookingHotelType booking = new ItineraryBookingHotelType();
@@ -95,10 +102,7 @@ public class BPELHelperService {
         return true;
     }
 
-    public boolean addBookingsNumbers(AddBookingIds part1) {
-//        part1.getFlighstInfo()
-//        part1.getHotelInfo()
-//        part1.getItineraryID()
+    public boolean addBookingsNumbers(ws.helperservice.AddBookingIds part1) {
         for (HotelReservationType hotel : part1.getHotelInfo()) {
             hotelsBookingIds.put(part1.getItineraryID(), hotel);
         }
@@ -108,5 +112,7 @@ public class BPELHelperService {
         
         return true;
     }
+    
+    
     
 }
