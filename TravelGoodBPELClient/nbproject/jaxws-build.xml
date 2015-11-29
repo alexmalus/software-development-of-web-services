@@ -69,8 +69,8 @@
     </target>
     <target name="wsimport-client-TravelGoodBPEL" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/TravelGoodBPEL"/>
-        <property name="wsdl-TravelGoodBPEL" location="xml-resources/web-service-references/TravelGoodBPEL/wsdl/localhost_9070/service/TravelGoodBPELPortType.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/TravelGoodBPEL" destdir="${build.generated.dir}/jax-wsCache/TravelGoodBPEL" wsdl="${wsdl-TravelGoodBPEL}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:9070/service/TravelGoodBPELPortType?wsdl" xnocompile="true" xendorsed="true">
+        <property name="wsdl-TravelGoodBPEL" location="xml-resources/web-service-references/TravelGoodBPEL/wsdl/localhost_9080/service/TravelGoodBPELPortType.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/TravelGoodBPEL" destdir="${build.generated.dir}/jax-wsCache/TravelGoodBPEL" wsdl="${wsdl-TravelGoodBPEL}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:9080/service/TravelGoodBPELPortType?wsdl" xnocompile="true" xendorsed="true">
             <depends file="${wsdl-TravelGoodBPEL}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/TravelGoodBPEL"/>
         </wsimport>

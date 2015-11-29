@@ -99,8 +99,8 @@
       </wsimport-options>
     </client>
     <client name="TravelGoodBPEL">
-      <wsdl-url>http://localhost:9070/service/TravelGoodBPELPortType?wsdl</wsdl-url>
-      <local-wsdl-file>localhost_9070/service/TravelGoodBPELPortType.wsdl</local-wsdl-file>
+      <wsdl-url>http://localhost:9080/service/TravelGoodBPELPortType?wsdl</wsdl-url>
+      <local-wsdl-file>localhost_9080/service/TravelGoodBPELPortType.wsdl</local-wsdl-file>
       <package-name>ws.travelgoodbpel</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
@@ -118,7 +118,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://localhost:9070/service/TravelGoodBPELPortType?wsdl</wsimport-option-value>
+          <wsimport-option-value>http://localhost:9080/service/TravelGoodBPELPortType?wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
