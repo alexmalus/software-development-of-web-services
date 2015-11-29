@@ -42,13 +42,29 @@
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
+            <xsd:element name="createItineraryRequest" type="ns0:itineraryIDType"></xsd:element>
+            <xsd:element name="getItineraryRequest" type="ns0:itineraryIDType"></xsd:element>
+            <xsd:element name="createItineraryResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns0:Itinerary"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="getItineraryResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns0:Itinerary"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
         </xsd:schema>
     </types>
     <message name="getItineraryRequest">
-        <part name="part1" element="tns:itineraryId"/>
+        <part name="part1" element="tns:getItineraryRequest"/>
     </message>
     <message name="getItineraryResponse">
-        <part name="part1" element="ns:Itinerary"/>
+        <part name="part1" element="tns:getItineraryResponse"/>
     </message>
     <message name="putFlightRequest">
         <part name="part1" element="tns:putFlightRequest"/>
@@ -68,14 +84,20 @@
     <message name="addBookingNumbersResponse">
         <part name="part1" element="tns:putHotelResponse"/>
     </message>
+    <message name="createItineraryRequest">
+        <part name="part1" element="tns:createItineraryRequest"/>
+    </message>
+    <message name="createItineraryResponse">
+        <part name="part1" element="tns:createItineraryResponse"/>
+    </message>
     <portType name="HelperServicePortType">
         <operation name="getItinerary">
             <input name="input1" message="tns:getItineraryRequest"/>
             <output name="output1" message="tns:getItineraryResponse"/>
         </operation>
         <operation name="createItinerary">
-            <input name="input2" message="tns:getItineraryRequest"/>
-            <output name="output2" message="tns:getItineraryResponse"/>
+            <input name="input2" message="tns:createItineraryRequest"/>
+            <output name="output2" message="tns:createItineraryResponse"/>
         </operation>
         <operation name="putFlight">
             <input name="input3" message="tns:putFlightRequest"/>
@@ -104,43 +126,43 @@
         <operation name="createItinerary">
             <soap:operation style="document"/>
             <input name="input2">
-                <soap:body/>
+                <soap:body use="literal"/>
             </input>
             <output name="output2">
-                <soap:body/>
+                <soap:body use="literal"/>
             </output>
         </operation>
         <operation name="putFlight">
             <soap:operation style="document"/>
             <input name="input3">
-                <soap:body/>
+                <soap:body use="literal"/>
             </input>
             <output name="output3">
-                <soap:body/>
+                <soap:body use="literal"/>
             </output>
         </operation>
         <operation name="putHotel">
             <soap:operation style="document"/>
             <input name="input4">
-                <soap:body/>
+                <soap:body use="literal"/>
             </input>
             <output name="output4">
-                <soap:body/>
+                <soap:body use="literal"/>
             </output>
         </operation>
         <operation name="addBookingsNumbers">
             <soap:operation style="document"/>
             <input name="input5">
-                <soap:body/>
+                <soap:body use="literal"/>
             </input>
             <output name="output5">
-                <soap:body/>
+                <soap:body use="literal"/>
             </output>
         </operation>
     </binding>
     <service name="HelperServiceService">
         <port name="HelperServicePortTypeBindingPort" binding="tns:HelperServicePortTypeBinding">
-            <soap:address location="http://localhost:${HttpDefaultPort}/service"/>
+            <soap:address location="http://localhost:${HttpDefaultPort}/service/"/>
         </port>
     </service>
     <plnk:partnerLinkType name="HelperService">

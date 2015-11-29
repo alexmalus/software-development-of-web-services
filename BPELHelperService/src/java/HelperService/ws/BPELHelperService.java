@@ -8,11 +8,11 @@ package HelperService.ws;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import javax.jws.WebService;
 import lameduckschema.FlightInfoType;
 import niceviewschema.HotelReservationType;
-import org.apache.jasper.tagplugins.jstl.ForEach;
+import org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.CreateItineraryResponse;
+import org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.GetItineraryResponse;
 import ws.travelgoodschema.BookingStatus;
 import ws.travelgoodschema.Itinerary;
 import ws.travelgoodschema.ItineraryBookingFlightType;
@@ -28,12 +28,16 @@ public class BPELHelperService {
     HashMap<String, Itinerary> itineraries = new HashMap<>();
     HashMap<String, FlightInfoType> flightsBookingIds = new HashMap<>();
     HashMap<String, HotelReservationType> hotelsBookingIds = new HashMap<>();
-    
-    public ws.travelgoodschema.Itinerary getItinerary(java.lang.String part1) {
-        return itineraries.get(part1);
+
+    public org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.GetItineraryResponse getItinerary(java.lang.String part1) {
+        //TODO implement this method
+        GetItineraryResponse response = new org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.GetItineraryResponse();
+        response.setItinerary(itineraries.get(part1));
+        return response;
     }
 
-    public ws.travelgoodschema.Itinerary createItinerary(java.lang.String part1) {
+    public org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.CreateItineraryResponse createItinerary(java.lang.String part1) {
+        System.out.println("Started creating Itinerary");
         Itinerary response = new ws.travelgoodschema.Itinerary();
         ItineraryInfoType info = new ItineraryInfoType();
         info.setItineraryID(part1);
@@ -44,7 +48,10 @@ public class BPELHelperService {
         response.getItineraryBookingHotelList();
         
         itineraries.put(part1,response);
-        return response;
+        System.out.println("Finished creating Itinerary");
+        CreateItineraryResponse response2 = new org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.CreateItineraryResponse();
+        response2.setItinerary(response);
+        return response2;
     }
 
     public boolean putFlight(org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.PutFlightRequest part1) {
@@ -52,8 +59,7 @@ public class BPELHelperService {
         ArrayList<ItineraryBookingFlightType> flights = (ArrayList<ItineraryBookingFlightType>) itinerary.getItineraryBookingFlightList();
         
         
-        for(Iterator<ItineraryBookingFlightType> i = flights.iterator(); i.hasNext();){
-            ItineraryBookingFlightType flight = i.next();
+        for (ItineraryBookingFlightType flight : flights) {
             if(flight.getFlightInfoList().getBookingNumber().equals(part1.getBookingNumber())){
                 flight.setBookingStatus(part1.getBookingStatus());
                 flight.setFlightInfoList(flightsBookingIds.get(part1.getItineraryID()));

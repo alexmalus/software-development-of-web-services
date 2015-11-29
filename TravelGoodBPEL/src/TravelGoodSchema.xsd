@@ -171,4 +171,18 @@
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="removeItineraryFlightResponse" type="xsd:boolean"></xsd:element>
+    <xsd:element name="flightsList">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="flights" type="ns0:FlightInfoType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="hotelsList">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="hotels" type="ns1:HotelReservationType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
 </xsd:schema>

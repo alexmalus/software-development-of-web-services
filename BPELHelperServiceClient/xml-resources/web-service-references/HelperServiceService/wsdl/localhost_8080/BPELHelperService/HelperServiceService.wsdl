@@ -1,49 +1,42 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<definitions name="HelperService" targetNamespace="http://j2ee.netbeans.org/wsdl/BPELHelperService/java/HelperService"
-    xmlns="http://schemas.xmlsoap.org/wsdl/"
-    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELHelperService/java/HelperService" 
-    xmlns:ns0="urn:LameDuckSchema" 
-    xmlns:ns1="urn:NiceViewSchema" 
-    xmlns:ns2="http://types.fastmoney.imm.dtu.dk" xmlns:ns3="urn:NiceViewSchema" xmlns:ns4="urn:LameDuckSchema" xmlns:ns5="http://types.fastmoney.imm.dtu.dk" xmlns:ns="TravelGoodSchema.ws" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.1-b419 (branches/2.3.1.x-7937; 2014-08-04T08:11:03+0000) JAXWS-RI/2.2.10-b140803.1500 JAXWS-API/2.2.11 JAXB-RI/2.2.10-b140802.1033 JAXB-API/2.2.12-b140109.1041 svn-revision#unknown. --><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELHelperService/java/HelperService" xmlns:ns0="urn:LameDuckSchema" xmlns:ns1="urn:NiceViewSchema" xmlns:ns2="http://types.fastmoney.imm.dtu.dk" xmlns:ns3="urn:NiceViewSchema" xmlns:ns4="urn:LameDuckSchema" xmlns:ns5="http://types.fastmoney.imm.dtu.dk" xmlns:ns="TravelGoodSchema.ws" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="HelperService" targetNamespace="http://j2ee.netbeans.org/wsdl/BPELHelperService/java/HelperService">
     <types>
-        <xsd:schema targetNamespace="http://j2ee.netbeans.org/wsdl/BPELHelperService/java/HelperService" xmlns:ns0="TravelGoodSchema.ws" xmlns:ns4="urn:LameDuckSchema">
+        <xsd:schema xmlns:ns0="TravelGoodSchema.ws" xmlns:ns4="urn:LameDuckSchema" targetNamespace="http://j2ee.netbeans.org/wsdl/BPELHelperService/java/HelperService">
             <xsd:import schemaLocation="http://localhost:8080/NiceView/NiceViewService?xsd=1" namespace="urn:NiceViewSchema"/>
             <xsd:import schemaLocation="http://localhost:8080/LameDuck/LameDuckService?xsd=1" namespace="urn:LameDuckSchema"/>
             <xsd:import schemaLocation="http://fastmoney.imm.dtu.dk:8080/BankServiceTypes.xsd" namespace="http://types.fastmoney.imm.dtu.dk"/>
             <xsd:import schemaLocation="http://10.16.165.77:9080/TravelGoodBPELApp-sun-http-binding/TravelGoodBPEL/TravelGoodSchema.xsd" namespace="TravelGoodSchema.ws"/>
-            <xsd:element name="itineraryId" type="ns0:itineraryIDType"></xsd:element>
+            <xsd:element name="itineraryId" type="ns0:itineraryIDType"/>
             <xsd:element name="putFlightRequest">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="itineraryID" type="ns0:itineraryIDType"></xsd:element>
-                        <xsd:element name="bookingNumber" type="xsd:string"></xsd:element>
-                        <xsd:element name="bookingStatus" type="ns0:bookingStatus"></xsd:element>
+                        <xsd:element name="itineraryID" type="ns0:itineraryIDType"/>
+                        <xsd:element name="bookingNumber" type="xsd:string"/>
+                        <xsd:element name="bookingStatus" type="ns0:bookingStatus"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
-            <xsd:element name="putFlightResponse" type="xsd:boolean"></xsd:element>
+            <xsd:element name="putFlightResponse" type="xsd:boolean"/>
             <xsd:element name="putHotelRequest">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="bookingStatus" type="ns0:bookingStatus"></xsd:element>
-                        <xsd:element name="bookingNumber" type="xsd:string"></xsd:element>
-                        <xsd:element name="itineraryID" type="ns0:itineraryIDType"></xsd:element>
+                        <xsd:element name="bookingStatus" type="ns0:bookingStatus"/>
+                        <xsd:element name="bookingNumber" type="xsd:string"/>
+                        <xsd:element name="itineraryID" type="ns0:itineraryIDType"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
-            <xsd:element name="putHotelResponse" type="xsd:boolean"></xsd:element>
+            <xsd:element name="putHotelResponse" type="xsd:boolean"/>
             <xsd:element name="addBookingIds">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="itineraryID" type="ns0:itineraryIDType"></xsd:element>
-                        <xsd:element name="hotelInfo" type="ns1:HotelReservationType" maxOccurs="unbounded" minOccurs="0"></xsd:element>
-                        <xsd:element name="flighstInfo" type="ns4:FlightInfoType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+                        <xsd:element name="itineraryID" type="ns0:itineraryIDType"/>
+                        <xsd:element name="hotelInfo" type="ns1:HotelReservationType" maxOccurs="unbounded" minOccurs="0"/>
+                        <xsd:element name="flighstInfo" type="ns4:FlightInfoType" minOccurs="0" maxOccurs="unbounded"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
-            <xsd:element name="createItineraryRequest" type="ns0:itineraryIDType"></xsd:element>
-            <xsd:element name="getItineraryRequest" type="ns0:itineraryIDType"></xsd:element>
+            <xsd:element name="createItineraryRequest" type="ns0:itineraryIDType"/>
+            <xsd:element name="getItineraryRequest" type="ns0:itineraryIDType"/>
             <xsd:element name="createItineraryResponse">
                 <xsd:complexType>
                     <xsd:sequence>
@@ -162,7 +155,7 @@
     </binding>
     <service name="HelperServiceService">
         <port name="HelperServicePortTypeBindingPort" binding="tns:HelperServicePortTypeBinding">
-            <soap:address location="http://localhost:${HttpDefaultPort}/service/"/>
+            <soap:address location="http://localhost:8080/BPELHelperService/HelperServiceService"/>
         </port>
     </service>
     <plnk:partnerLinkType name="HelperService">

@@ -77,8 +77,12 @@ public class ClientTest {
         getHotelsRequest.setGetHotelsRequest(hotelsRequest);
         
         GetHotelsResponse hotelResponse = getHotels(getHotelsRequest);
+        GetHotelsResponse hotelResponse2 = getHotels(getHotelsRequest);
         
         System.out.println(hotelResponse.getHotels().get(0).getBookingNumber());
+        System.out.println(hotelResponse2.getHotels().get(0).getBookingNumber());
+        System.out.println(hotelResponse2.getHotels().size());
+        
         
         GetFlightsRequest flightsRequest = new GetFlightsRequest();
         flightsRequest.setFinalDestination("LHR");

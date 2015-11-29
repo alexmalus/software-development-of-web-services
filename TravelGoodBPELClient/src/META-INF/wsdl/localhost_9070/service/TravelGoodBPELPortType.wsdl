@@ -2,7 +2,7 @@
 <definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="TravelGoodBPEL.ws" xmlns:tv="TravelGoodSchema.ws" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="TravelGoodBPEL" targetNamespace="TravelGoodBPEL.ws">
   <types>
     <xsd:schema targetNamespace="TravelGoodBPEL.ws">
-            <xsd:import namespace="TravelGoodSchema.ws" schemaLocation="http://10.16.174.235:9080/TravelGoodBPELApp-sun-http-binding/TravelGoodBPEL/TravelGoodSchema.xsd"/>
+            <xsd:import namespace="TravelGoodSchema.ws" schemaLocation="http://10.16.165.77:9080/TravelGoodBPELApp-sun-http-binding/TravelGoodBPEL/TravelGoodSchema.xsd"/>
         </xsd:schema>
   </types>
   <message name="getItineraryRequest">
