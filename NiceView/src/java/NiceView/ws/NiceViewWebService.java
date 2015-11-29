@@ -50,7 +50,7 @@ public class NiceViewWebService {
         //hotel1.setBookingNumber("000001");
         hotel1.setCancellable(true);
         hotel1.setCreditCardGuarentee(true);
-        hotel1.setPrice(999);
+        hotel1.setPrice(3000);
         AddressType address1 = new AddressType();
         address1.setCity("Bangladesh");
         address1.setCountry("India");
@@ -62,9 +62,9 @@ public class NiceViewWebService {
         HotelType hotel2 = new HotelType();
         hotel2.setName("Hilton");
         //hotel2.setBookingNumber("000002");
-        hotel2.setCancellable(false);
+        hotel2.setCancellable(true);
         hotel2.setCreditCardGuarentee(false);
-        hotel2.setPrice(2000);
+        hotel2.setPrice(900);
         AddressType address2 = new AddressType();
         address2.setCity("Everywhere");
         address2.setCountry("All of them");
@@ -72,8 +72,21 @@ public class NiceViewWebService {
         address2.setZipCode("654321");
         hotel2.setAddress(address2);
         
+        HotelType hotel3 = new HotelType();
+        hotel3.setName("Super awesome hotel");
+        hotel3.setCancellable(false);
+        hotel3.setCreditCardGuarentee(true);
+        hotel3.setPrice(1330);
+        AddressType address3 = new AddressType();
+        address3.setCity("Copenhagen");
+        address3.setCountry("Denmark");
+        address3.setStreet("Best street");
+        address3.setZipCode("1040");
+        hotel3.setAddress(address3);
+        
         hotels.add(hotel1);
         hotels.add(hotel2);
+        hotels.add(hotel3);
         
     }
     
