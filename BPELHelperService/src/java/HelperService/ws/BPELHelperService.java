@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import javax.jws.WebService;
+import lameduckschema.FlightInfoType;
+import niceviewschema.HotelReservationType;
 import org.apache.jasper.tagplugins.jstl.ForEach;
 import ws.travelgoodschema.BookingStatus;
 import ws.travelgoodschema.Itinerary;
@@ -24,8 +26,8 @@ import ws.travelgoodschema.ItineraryInfoType;
 @WebService(serviceName = "HelperServiceService", portName = "HelperServicePortTypeBindingPort", endpointInterface = "org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.HelperServicePortType", targetNamespace = "http://j2ee.netbeans.org/wsdl/BPELHelperService/java/HelperService", wsdlLocation = "WEB-INF/wsdl/BPELHelperService/HelperService.wsdl")
 public class BPELHelperService {
     HashMap<String, Itinerary> itineraries = new HashMap<>();
-    ArrayList flightsBookingIds = new ArrayList();
-    ArrayList hotelsBookingIds = new ArrayList();
+    HashMap<String, FlightInfoType> flightsBookingIds = new HashMap<>();
+    HashMap<String, HotelReservationType> hotelsBookingIds = new HashMap<>();
     
     public ws.travelgoodschema.Itinerary getItinerary(java.lang.String part1) {
         return itineraries.get(part1);
@@ -46,26 +48,56 @@ public class BPELHelperService {
     }
 
     public boolean putFlight(org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.PutFlightRequest part1) {
-        Itinerary itinerary = itineraries.get(part1);
+        Itinerary itinerary = itineraries.get(part1.getItineraryID());
         ArrayList<ItineraryBookingFlightType> flights = (ArrayList<ItineraryBookingFlightType>) itinerary.getItineraryBookingFlightList();
         
         
         for(Iterator<ItineraryBookingFlightType> i = flights.iterator(); i.hasNext();){
             ItineraryBookingFlightType flight = i.next();
-            if(flight.getFlightInfoList().getBookingNumber() == part1.)
+            if(flight.getFlightInfoList().getBookingNumber().equals(part1.getBookingNumber())){
+                flight.setBookingStatus(part1.getBookingStatus());
+                flight.setFlightInfoList(flightsBookingIds.get(part1.getItineraryID()));
+                return true;
+            }
         }
-        
-        throw new UnsupportedOperationException("Not implemented yet.");
+        ItineraryBookingFlightType booking = new ItineraryBookingFlightType();
+        booking.setBookingStatus(part1.getBookingStatus());
+        booking.setFlightInfoList(flightsBookingIds.get(part1.getItineraryID()));
+        flights.add(booking);
+        return true;
     }
 
     public boolean putHotel(org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.PutHotelRequest part1) {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        Itinerary itinerary = itineraries.get(part1.getItineraryID());
+        ArrayList<ItineraryBookingHotelType> hotels = (ArrayList<ItineraryBookingHotelType>) itinerary.getItineraryBookingHotelList();
+        
+        
+        for (ItineraryBookingHotelType hotel : hotels) {
+            if(hotel.getHotelInfoList().getBookingNumber().equals(part1.getBookingNumber())){
+                hotel.setBookingStatus(part1.getBookingStatus());
+                hotel.setHotelInfoList(hotelsBookingIds.get(part1.getItineraryID()));
+                return true;
+            }
+        }
+        ItineraryBookingHotelType booking = new ItineraryBookingHotelType();
+        booking.setBookingStatus(part1.getBookingStatus());
+        booking.setHotelInfoList(hotelsBookingIds.get(part1.getItineraryID()));
+        hotels.add(booking);
+        return true;
     }
 
     public boolean addBookingsNumbers(org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.AddBookingIds part1) {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+//        part1.getFlighstInfo()
+//        part1.getHotelInfo()
+//        part1.getItineraryID()
+        for (HotelReservationType hotel : part1.getHotelInfo()) {
+            hotelsBookingIds.put(part1.getItineraryID(), hotel);
+        }
+        for(FlightInfoType flight : part1.getFlighstInfo()){
+            flightsBookingIds.put(part1.getItineraryID(), flight);
+        }
+        
+        return true;
     }
     
 }
