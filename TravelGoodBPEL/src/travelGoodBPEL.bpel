@@ -31,6 +31,14 @@
         <partnerLink name="PartnerLink1" xmlns:tns="TravelGoodBPEL.ws" partnerLinkType="tns:TravelGoodBPEL" myRole="TravelGoodBPELPortTypeRole"/>
     </partnerLinks>
     <variables>
+        <variable name="GetItineraryHelperOut" xmlns:tns="http://HelperService.ws" messageType="tns:getItineraryResponse"/>
+        <variable name="GetItineraryHelperIn" xmlns:tns="http://HelperService.ws" messageType="tns:getItineraryRequest"/>
+        <variable name="AddFlightsBookingsNumbersOut" xmlns:tns="http://HelperService.ws" messageType="tns:addBookingNumbersResponse"/>
+        <variable name="AddFlightsBookingsNumbersIn" xmlns:tns="http://HelperService.ws" messageType="tns:addBookingNumbersRequest"/>
+        <variable name="PutFlightOut" xmlns:tns="http://HelperService.ws" messageType="tns:putFlightResponse"/>
+        <variable name="PutFlightIn" xmlns:tns="http://HelperService.ws" messageType="tns:putFlightRequest"/>
+        <variable name="AddHotelsBookingsNumbersOut" xmlns:tns="http://HelperService.ws" messageType="tns:addBookingNumbersResponse"/>
+        <variable name="AddHotelsBookingsNumbersIn" xmlns:tns="http://HelperService.ws" messageType="tns:addBookingNumbersRequest"/>
         <variable name="CreateItineraryOutHelper" xmlns:tns="http://HelperService.ws" messageType="tns:createHelperItineraryResponse"/>
         <variable name="CreateItineraryInHelper" xmlns:tns="http://HelperService.ws" messageType="tns:createHelperItineraryRequest"/>
         <variable name="GetFlightsOut1" xmlns:tns="http://LameDuck.ws" messageType="tns:getFlightsResponse"/>
@@ -89,7 +97,32 @@
                                 <correlation set="itineraryCorrelation" initiate="no"/>
                             </correlations>
                             <sequence name="Sequence2">
-                                    <reply name="Reply2" partnerLink="PartnerLink1" operation="getItinerary" portType="ns0:TravelGoodBPELPortType" variable="GetItineraryOut"/>
+                                <assign name="Assign16">
+                                    <copy>
+                                        <from>$GetItineraryIn.part1/ns1:ItineraryID</from>
+                                        <to variable="GetItineraryHelperIn" part="part1"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="Invoke7" partnerLink="PartnerLink4" operation="getItinerary" xmlns:tns="http://HelperService.ws" portType="tns:HelperServicePortType" inputVariable="GetItineraryHelperIn" outputVariable="GetItineraryHelperOut"/>
+                                <if name="If1">
+                                    <condition>count($GetItineraryHelperOut.part1/ns1:Itinerary/ns1:ItineraryBookingHotelList) &gt; 0</condition>
+                                    <assign name="Assign17">
+                                            <copy>
+                                                <from>$GetItineraryHelperOut.part1/ns1:Itinerary/ns1:ItineraryBookingHotelList</from>
+                                                    <to>$GetItineraryOut.part1/ns1:hotels</to>
+                                            </copy>
+                                    </assign>
+                                </if>
+                                <if name="If2">
+                                    <condition>count($GetItineraryHelperOut.part1/ns1:Itinerary/ns1:ItineraryBookingFlightList) &gt; 0</condition>
+                                    <assign name="Assign18">
+                                        <copy>
+                                            <from>$GetItineraryHelperOut.part1/ns1:Itinerary/ns1:ItineraryBookingFlightList</from>
+                                            <to>$GetItineraryOut.part1/ns1:flights</to>
+                                        </copy>
+                                    </assign>
+                                </if>
+                                <reply name="Reply2" partnerLink="PartnerLink1" operation="getItinerary" portType="ns0:TravelGoodBPELPortType" variable="GetItineraryOut"/>
                             </sequence>
                     </onMessage>
                         <onMessage partnerLink="PartnerLink1" operation="addItineraryFlight" portType="ns0:TravelGoodBPELPortType" variable="AddItineraryFlightIn">
@@ -97,6 +130,27 @@
                                 <correlation set="itineraryCorrelation" initiate="no"/>
                             </correlations>
                             <sequence name="Sequence6">
+                                <assign name="Assign13">
+                                    <copy>
+                                        <from>$AddItineraryFlightIn.part1/ns1:itineraryId</from>
+                                        <to>$PutFlightIn.part1/itineraryID</to>
+                                    </copy>
+                                    <copy>
+                                        <from>$AddItineraryFlightIn.part1/ns1:bookingId</from>
+                                        <to>$PutFlightIn.part1/bookingNumber</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'unconfirmed'</from>
+                                        <to>$PutFlightIn.part1/bookingStatus</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="Invoke5" partnerLink="PartnerLink4" operation="putFlight" xmlns:tns="http://HelperService.ws" portType="tns:HelperServicePortType" inputVariable="PutFlightIn" outputVariable="PutFlightOut"/>
+                                <assign name="Assign14">
+                                    <copy>
+                                        <from variable="PutFlightOut" part="part1"/>
+                                        <to variable="AddItineraryFlightOut" part="part1"/>
+                                    </copy>
+                                </assign>
                                 <reply name="Reply3" partnerLink="PartnerLink1" operation="addItineraryFlight" portType="ns0:TravelGoodBPELPortType" variable="AddItineraryFlightOut"/>
                             </sequence>
                         </onMessage>
@@ -118,6 +172,17 @@
                                             </copy>
                                     </assign>
                                     <invoke name="Invoke1" partnerLink="PartnerLink2" operation="getHotels" xmlns:tns="http://NiceView.ws" portType="tns:NiceViewPortType" inputVariable="GetHotelsIn1" outputVariable="GetHotelsOut1"/>
+                                <assign name="Assign12">
+                                    <copy>
+                                        <from>$GetFlightsOut1.getFlightsOutput/ns5:FlightInfoList</from>
+                                        <to>$AddHotelsBookingsNumbersIn.part1/flighstInfo</to>
+                                    </copy>
+                                    <copy>
+                                        <from>$GetHotelsIn.part1/ns1:itineraryId</from>
+                                        <to>$AddHotelsBookingsNumbersIn.part1/itineraryID</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="Invoke4" partnerLink="PartnerLink4" operation="addBookingsNumbers" xmlns:tns="http://HelperService.ws" portType="tns:HelperServicePortType" inputVariable="AddHotelsBookingsNumbersIn" outputVariable="AddHotelsBookingsNumbersOut"/>
                                 <assign name="Assign4">
                                     <copy>
                                         <from>$GetHotelsOut1.part1/hotels</from>
@@ -139,6 +204,17 @@
                                             </copy>
                                     </assign>
                                     <invoke name="Invoke2" partnerLink="PartnerLink3" operation="getFlights" xmlns:tns="http://LameDuck.ws" portType="tns:LameDuckPortType" inputVariable="GetFlightsIn1" outputVariable="GetFlightsOut1"/>
+                                <assign name="Assign15">
+                                    <copy>
+                                        <from>$GetFlightsIn.part1/ns1:itineraryId</from>
+                                        <to>$AddFlightsBookingsNumbersIn.part1/itineraryID</to>
+                                    </copy>
+                                    <copy>
+                                        <from>$GetFlightsOut1.getFlightsOutput/ns5:FlightInfoList</from>
+                                        <to>$AddFlightsBookingsNumbersIn.part1/flighstInfo</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="Invoke6" partnerLink="PartnerLink4" operation="addBookingsNumbers" xmlns:tns="http://HelperService.ws" portType="tns:HelperServicePortType" inputVariable="AddFlightsBookingsNumbersIn" outputVariable="AddFlightsBookingsNumbersOut"/>
                                 <assign name="Assign8">
                                     <copy>
                                         <from>$GetFlightsOut1.getFlightsOutput/ns5:FlightInfoList</from>

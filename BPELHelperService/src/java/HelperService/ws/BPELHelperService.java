@@ -31,8 +31,12 @@ public class BPELHelperService {
     public ws.helperservice.GetItineraryResponse getItinerary(java.lang.String part1) {
         //TODO implement this method
         GetItineraryResponse response = new GetItineraryResponse();
+        Itinerary itinerary = itineraries.get(part1);
         
-        response.setItinerary(itineraries.get(part1));
+        System.out.println(itinerary.getItineraryBookingFlightList().size());
+        System.out.println(itinerary.getItineraryBookingHotelList().size());
+        
+        response.setItinerary(itinerary);
         return response;
     }
 
