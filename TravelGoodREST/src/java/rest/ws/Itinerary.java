@@ -1,18 +1,16 @@
 package rest.ws;
 
-import java.util.HashSet;
-import java.util.Set;
-import javax.xml.bind.annotation.XmlRootElement;
-import niceviewschema.HotelType;
-import lameduckschema.FlightType;
+import java.util.List;
+import java.util.Map;
+import lameduckschema.FlightInfoType;
+import niceviewschema.HotelReservationType;
 
-@XmlRootElement
 public class Itinerary {
-    
+
     private long id;
     private String state;
-    private Set<HotelType> hotels  = new HashSet<>();
-    private Set<FlightType> flights = new HashSet<>();
+    private List<HotelWrapper> hotels;
+    private List<FlightWrapper> flights;
 
     public long getId() {
         return id;
@@ -29,21 +27,21 @@ public class Itinerary {
     public void setState(String state) {
         this.state = state;
     }
-    
-    public Set<HotelType> getHotels() {
+
+    public List<HotelWrapper> getHotels() {
         return hotels;
     }
 
-    public void setHotels(Set<HotelType> hotels) {
+    public void setHotels(List<HotelWrapper> hotels) {
         this.hotels = hotels;
     }
 
-    public Set<FlightType> getFlights() {
+    public List<FlightWrapper> getFlights() {
         return flights;
     }
 
-    public void setFlights(Set<FlightType> flights) {
+    public void setFlights(List<FlightWrapper> flights) {
         this.flights = flights;
     }
-        
+
 }

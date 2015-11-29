@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.1-b419 (branches/2.3.1.x-7937; 2014-08-04T08:11:03+0000) JAXWS-RI/2.2.10-b140803.1500 JAXWS-API/2.2.11 JAXB-RI/2.2.10-b140802.1033 JAXB-API/2.2.12-b140109.1041 svn-revision#unknown. --><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:LameDuckSchema" xmlns:ns0="http://types.fastmoney.imm.dtu.dk" targetNamespace="urn:LameDuckSchema" elementFormDefault="qualified">
+    <xsd:import namespace="http://types.fastmoney.imm.dtu.dk" schemaLocation="http://fastmoney.imm.dtu.dk:8080/BankServiceTypes.xsd"/>
+    <xsd:complexType name="FlightFaultType">
+        <xsd:sequence>
+            <xsd:element name="fault_message" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="FlightInfoType">
+        <xsd:sequence>
+            <xsd:element name="bookingNumber" type="xsd:string"/>
+            <xsd:element name="flightPrice" type="xsd:int"/>
+            <xsd:element name="airlineReservationServiceName" type="xsd:string"/>
+            <xsd:element name="flight" type="tns:FlightType"/>
+            <xsd:element name="cancellable" type="xsd:boolean"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="FlightType">
+        <xsd:sequence>
+            <xsd:element name="startAirport" type="xsd:string"/>
+            <xsd:element name="destinationAirport" type="xsd:string"/>
+            <xsd:element name="liftoffDate" type="xsd:date"/>
+            <xsd:element name="landingDate" type="xsd:date"/>
+            <xsd:element name="carrierName" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="FlightFault" type="tns:FlightFaultType"/>
+    <xsd:element name="bookFlightRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="bookingNumber" type="xsd:string"/>
+                <xsd:element name="CreditCardInfo" type="ns0:creditCardInfoType"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="bookFlightResponse" type="xsd:boolean"/>
+    <xsd:element name="cancelFlightRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="bookingNumber" type="xsd:string"/>
+                <xsd:element name="price" type="xsd:int"/>
+                <xsd:element name="CreditCardInfo" type="ns0:creditCardInfoType"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="cancelFlightResponse" type="xsd:boolean"/>
+    <xsd:element name="getFlightsRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="startDestination" type="xsd:string"/>
+                <xsd:element name="finalDestination" type="xsd:string"/>
+                <xsd:element name="dateFlight" type="xsd:date"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="getFlightsResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="FlightInfoList" type="tns:FlightInfoType" maxOccurs="unbounded" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="resetFlightsRequest" type="xsd:boolean"/>
+    <xsd:element name="resetFlightsResponse" type="xsd:boolean"/>
+</xsd:schema>

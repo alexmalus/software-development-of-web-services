@@ -5,4 +5,6 @@
     <system systemId="http://fastmoney.imm.dtu.dk:8080/BankServiceTypes.xsd" uri="wsdl/fastmoney.imm.dtu.dk_8080/BankServiceTypes.xsd"/>
     <system systemId="http://gslaptop:8080/LameDuck/LameDuckService?wsdl" uri="wsdl/gslaptop_8080/LameDuck/LameDuckService.wsdl"/>
     <system systemId="http://gslaptop:8080/LameDuck/LameDuckService?xsd=1" uri="wsdl/gslaptop_8080/LameDuck/LameDuckService.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/LameDuck/LameDuckService?wsdl" uri="wsdl/localhost_8080/LameDuck/LameDuckService.wsdl"/>
+    <system systemId="http://localhost:8080/LameDuck/LameDuckService?xsd=1" uri="wsdl/localhost_8080/LameDuck/LameDuckService.xsd_1.xsd"/>
 </catalog>
