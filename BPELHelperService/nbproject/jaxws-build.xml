@@ -42,7 +42,7 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-BPELHelperService" depends="-init-project">
-        <delete dir="${build.generated.sources.dir}/jax-ws/org/netbeans/j2ee/wsdl/bpelhelperservice/java/helperservice"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ws/helperservice"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/BPELHelperService"/>
     </target>
     <target name="wsimport-service-generate" depends="wsimport-service-BPELHelperService"/>

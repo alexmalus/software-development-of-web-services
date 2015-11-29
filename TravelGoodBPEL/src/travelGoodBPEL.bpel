@@ -9,30 +9,30 @@
     xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
     xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
     xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
-    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" xmlns:sxxf="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/XPathFunctions" xmlns:ns0="TravelGoodBPEL.ws" xmlns:ns1="TravelGoodSchema.ws" xmlns:ns2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns3="urn:NiceViewSchema" xmlns:ns4="http://NiceView.ws" xmlns:ns5="urn:LameDuckSchema">
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" 
+    xmlns:sxxf="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/XPathFunctions"
+    xmlns:ns0="TravelGoodBPEL.ws" xmlns:ns1="TravelGoodSchema.ws" 
+    xmlns:ns2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" 
+    xmlns:ns3="urn:NiceViewSchema" 
+    xmlns:ns4="http://NiceView.ws" 
+    xmlns:ns5="urn:LameDuckSchema">
     <import namespace="TravelGoodBPEL.ws" location="TravelGoodBPEL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="TravelGoodSchema.ws" location="TravelGoodSchema.xsd" importType="http://www.w3.org/2001/XMLSchema"/>
     <import namespace="http://NiceView.ws" location="NiceViewServiceWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://NiceView.ws" location="http://localhost:8080/NiceView/NiceViewService?wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://LameDuck.ws" location="LameDuckServiceWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://LameDuck.ws" location="http://localhost:8080/LameDuck/LameDuckService?wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
-    <import namespace="http://j2ee.netbeans.org/wsdl/BPELHelperService/java/HelperService" location="http://martin-laptop:8080/BPELHelperService/HelperServiceService?wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
-    <import namespace="http://j2ee.netbeans.org/wsdl/BPELHelperService/java/HelperService" location="http://localhost:8080/BPELHelperService/HelperServiceService?wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/HelperServiceServiceWrapper" location="HelperServiceServiceWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://HelperService.ws" location="http://localhost:8080/BPELHelperService/HelperServiceService?wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <partnerLinks>
         <partnerLink name="PartnerLink2" xmlns:tns="http://enterprise.netbeans.org/bpel/NiceViewServiceWrapper" partnerLinkType="ns4:NiceViewLinkType" partnerRole="NiceViewRole"/>
         <partnerLink name="PartnerLink3" xmlns:tns="http://LameDuck.ws" partnerLinkType="tns:LameDuckLinkType" partnerRole="LameDuckRole"/>
-        <partnerLink name="PartnerLink4" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELHelperService/java/HelperService" partnerLinkType="tns:HelperService" partnerRole="HelperServicePortTypeRole"/>
+        <partnerLink name="PartnerLink4" xmlns:tns="http://HelperService.ws" partnerLinkType="tns:HelperService" partnerRole="HelperServicePortTypeRole"/>
         <partnerLink name="PartnerLink1" xmlns:tns="TravelGoodBPEL.ws" partnerLinkType="tns:TravelGoodBPEL" myRole="TravelGoodBPELPortTypeRole"/>
     </partnerLinks>
     <variables>
-        <variable name="AddBookingsNumbersHelperOut" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELHelperService/java/HelperService" messageType="tns:addBookingNumbersResponse"/>
-        <variable name="AddBookingsNumbersHelperIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELHelperService/java/HelperService" messageType="tns:addBookingNumbersRequest"/>
-        <variable name="PutFlightHelperOut" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELHelperService/java/HelperService" messageType="tns:putFlightResponse"/>
-        <variable name="PutFlightHelperIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELHelperService/java/HelperService" messageType="tns:putFlightRequest"/>
-        <variable name="GetItineraryHelperOut" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELHelperService/java/HelperService" messageType="tns:getItineraryResponse"/>
-        <variable name="GetItineraryHelperIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELHelperService/java/HelperService" messageType="tns:getItineraryRequest"/>
-        <variable name="CreateItineraryHelperOut" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELHelperService/java/HelperService" messageType="tns:getItineraryResponse"/>
-        <variable name="CreateItineraryHelperIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELHelperService/java/HelperService" messageType="tns:getItineraryRequest"/>
+        <variable name="CreateItineraryOutHelper" xmlns:tns="http://HelperService.ws" messageType="tns:createHelperItineraryResponse"/>
+        <variable name="CreateItineraryInHelper" xmlns:tns="http://HelperService.ws" messageType="tns:createHelperItineraryRequest"/>
         <variable name="GetFlightsOut1" xmlns:tns="http://LameDuck.ws" messageType="tns:getFlightsResponse"/>
         <variable name="GetFlightsIn1" xmlns:tns="http://LameDuck.ws" messageType="tns:getFlightsRequest"/>
         <variable name="GetFlightsOut" messageType="ns0:getFlightResponse"/>
@@ -62,25 +62,19 @@
                 <to variable="CreateItineraryOut" property="ns0:itineraryID"/>
             </copy>
         </assign>
-        <assign name="Assign6">
+        <assign name="Assign10">
             <copy>
                 <from variable="CreateItineraryOut" property="ns0:itineraryID"/>
                 <to variable="CreateItineraryOut" part="part1"/>
             </copy>
         </assign>
-        <assign name="AssignHelperCreate">
+        <assign name="Assign11">
             <copy>
-                <from variable="CreateItineraryOut" property="ns0:itineraryID"/>
-                <to variable="CreateItineraryHelperIn" part="part1"/>
+                <from variable="CreateItineraryOut" part="part1"/>
+                <to variable="CreateItineraryInHelper" part="part1"/>
             </copy>
         </assign>
-        <invoke name="Invoke3" partnerLink="PartnerLink4" operation="createItinerary" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELHelperService/java/HelperService" portType="tns:HelperServicePortType" inputVariable="CreateItineraryHelperIn" outputVariable="CreateItineraryHelperOut"/>
-        <assign name="AssignHelperCreateResponse">
-            <copy>
-                <from variable="CreateItineraryHelperOut" part="part1"/>
-                <to variable="Itinerary"/>
-            </copy>
-        </assign>
+        <invoke name="Invoke3" partnerLink="PartnerLink4" operation="createItinerary" xmlns:tns="http://HelperService.ws" portType="tns:HelperServicePortType" inputVariable="CreateItineraryInHelper" outputVariable="CreateItineraryOutHelper"/>
         <reply name="Reply1" partnerLink="PartnerLink1" operation="createItinerary" portType="ns0:TravelGoodBPELPortType" variable="CreateItineraryOut">
             <correlations>
                 <correlation set="itineraryCorrelation" initiate="yes"/>
@@ -95,27 +89,6 @@
                                 <correlation set="itineraryCorrelation" initiate="no"/>
                             </correlations>
                             <sequence name="Sequence2">
-                                <assign name="AssignHelperGetItinerary">
-                                    <copy>
-                                        <from>$Itinerary/ns1:ItineraryInfo/ns1:itineraryID</from>
-                                        <to variable="GetItineraryHelperIn" part="part1"/>
-                                    </copy>
-                                </assign>
-                                <invoke name="InvokeHelperGetItinerary" partnerLink="PartnerLink4" operation="getItinerary" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELHelperService/java/HelperService" portType="tns:HelperServicePortType" inputVariable="GetItineraryHelperIn" outputVariable="GetItineraryHelperOut"/>
-                                <assign name="AssignHelperGetItineraryResponse">
-                                    <copy>
-                                        <from variable="GetItineraryHelperOut" part="part1"/>
-                                        <to variable="Itinerary"/>
-                                    </copy>
-                                    <copy>
-                                        <from>$GetItineraryHelperOut.part1/ns1:ItineraryBookingFlightList</from>
-                                        <to>$GetItineraryOut.part1/ns1:flights</to>
-                                    </copy>
-                                    <copy>
-                                        <from>$GetItineraryHelperOut.part1/ns1:ItineraryBookingHotelList</from>
-                                        <to>$GetItineraryOut.part1/ns1:hotels</to>
-                                    </copy>
-                                </assign>
                                     <reply name="Reply2" partnerLink="PartnerLink1" operation="getItinerary" portType="ns0:TravelGoodBPELPortType" variable="GetItineraryOut"/>
                             </sequence>
                     </onMessage>
@@ -124,27 +97,6 @@
                                 <correlation set="itineraryCorrelation" initiate="no"/>
                             </correlations>
                             <sequence name="Sequence6">
-                                <assign name="AssignHelperPutFlight">
-                                    <copy>
-                                        <from>$AddItineraryFlightIn.part1/ns1:itineraryId</from>
-                                        <to>$PutFlightHelperIn.part1/itineraryID</to>
-                                    </copy>
-                                    <copy>
-                                        <from>$AddItineraryFlightIn.part1/ns1:bookingId</from>
-                                        <to>$PutFlightHelperIn.part1/bookingNumber</to>
-                                    </copy>
-                                    <copy>
-                                        <from>'unconfirmed'</from>
-                                        <to>$PutFlightHelperIn.part1/bookingStatus</to>
-                                    </copy>
-                                </assign>
-                                <invoke name="InvokeHelperPutFlight" partnerLink="PartnerLink4" operation="putFlight" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELHelperService/java/HelperService" portType="tns:HelperServicePortType" inputVariable="PutFlightHelperIn" outputVariable="PutFlightHelperOut"/>
-                                <assign name="Assign9">
-                                    <copy>
-                                        <from variable="PutFlightHelperOut" part="part1"/>
-                                        <to variable="AddItineraryFlightOut" part="part1"/>
-                                    </copy>
-                                </assign>
                                 <reply name="Reply3" partnerLink="PartnerLink1" operation="addItineraryFlight" portType="ns0:TravelGoodBPELPortType" variable="AddItineraryFlightOut"/>
                             </sequence>
                         </onMessage>
@@ -187,17 +139,6 @@
                                             </copy>
                                     </assign>
                                     <invoke name="Invoke2" partnerLink="PartnerLink3" operation="getFlights" xmlns:tns="http://LameDuck.ws" portType="tns:LameDuckPortType" inputVariable="GetFlightsIn1" outputVariable="GetFlightsOut1"/>
-                                <assign name="AssignAddBookingFlight">
-                                    <copy>
-                                        <from>$GetFlightsOut1.getFlightsOutput/ns5:FlightInfoList</from>
-                                        <to>$AddBookingsNumbersHelperIn.part1/flighstInfo</to>
-                                    </copy>
-                                    <copy>
-                                        <from>$GetFlightsIn.part1/ns1:itineraryId</from>
-                                        <to>$AddBookingsNumbersHelperIn.part1/itineraryID</to>
-                                    </copy>
-                                </assign>
-                                <invoke name="InvokeHelperAddBookingFlights" partnerLink="PartnerLink4" operation="addBookingsNumbers" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELHelperService/java/HelperService" portType="tns:HelperServicePortType" inputVariable="AddBookingsNumbersHelperIn" outputVariable="AddBookingsNumbersHelperOut"/>
                                 <assign name="Assign8">
                                     <copy>
                                         <from>$GetFlightsOut1.getFlightsOutput/ns5:FlightInfoList</from>

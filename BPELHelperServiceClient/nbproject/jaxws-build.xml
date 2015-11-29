@@ -31,7 +31,7 @@
     </target>
     <target name="wsimport-client-clean-HelperServiceService" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/HelperServiceService"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/org/netbeans/j2ee/wsdl/bpelhelperservice/java/helperservice"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ws/helperservice"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-HelperServiceService"/>
 </project>

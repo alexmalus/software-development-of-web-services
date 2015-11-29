@@ -5,7 +5,7 @@
     <client name="HelperServiceService">
       <wsdl-url>http://localhost:8080/BPELHelperService/HelperServiceService?wsdl</wsdl-url>
       <local-wsdl-file>localhost_8080/BPELHelperService/HelperServiceService.wsdl</local-wsdl-file>
-      <package-name>org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice</package-name>
+      <package-name>ws.helperservice</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>

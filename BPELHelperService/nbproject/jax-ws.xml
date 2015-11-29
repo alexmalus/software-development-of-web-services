@@ -7,7 +7,7 @@
       <local-wsdl-file>HelperService.wsdl</local-wsdl-file>
       <service-name>HelperServiceService</service-name>
       <port-name>HelperServicePortTypeBindingPort</port-name>
-      <package-name>org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice</package-name>
+      <package-name>ws.helperservice</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>

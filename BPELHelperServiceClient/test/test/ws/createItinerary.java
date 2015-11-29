@@ -9,8 +9,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.CreateItineraryResponse;
-import org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.GetItineraryResponse;
+import ws.helperservice.CreateHelperItineraryResponse;
+import ws.helperservice.GetItineraryResponse;
 import ws.travelgoodschema.Itinerary;
 
 /**
@@ -38,7 +38,7 @@ public class createItinerary {
     
     @Test
     public void createIt(){
-        CreateItineraryResponse it = createItinerary("asd");
+        CreateHelperItineraryResponse it = createItinerary("asd");
         System.out.println(it.getItinerary().getItineraryInfo().getItineraryStatus());
     }
     
@@ -48,41 +48,20 @@ public class createItinerary {
         System.out.println(it.getItinerary().getItineraryInfo().getItineraryStatus());
     }
 
-
-
-    private static boolean addBookingsNumbers(org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.AddBookingIds part1) {
-        org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.HelperServiceService service = new org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.HelperServiceService();
-        org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.HelperServicePortType port = service.getHelperServicePortTypeBindingPort();
-        return port.addBookingsNumbers(part1);
-    }
-
-
-
-
-
-    private static boolean putFlight(org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.PutFlightRequest part1) {
-        org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.HelperServiceService service = new org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.HelperServiceService();
-        org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.HelperServicePortType port = service.getHelperServicePortTypeBindingPort();
-        return port.putFlight(part1);
-    }
-
-    private static boolean putHotel(org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.PutHotelRequest part1) {
-        org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.HelperServiceService service = new org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.HelperServiceService();
-        org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.HelperServicePortType port = service.getHelperServicePortTypeBindingPort();
-        return port.putHotel(part1);
-    }
-
-    private static CreateItineraryResponse createItinerary(java.lang.String part1) {
-        org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.HelperServiceService service = new org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.HelperServiceService();
-        org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.HelperServicePortType port = service.getHelperServicePortTypeBindingPort();
+    private static CreateHelperItineraryResponse createItinerary(java.lang.String part1) {
+        ws.helperservice.HelperServiceService service = new ws.helperservice.HelperServiceService();
+        ws.helperservice.HelperServicePortType port = service.getHelperServicePortTypeBindingPort();
         return port.createItinerary(part1);
     }
 
     private static GetItineraryResponse getItinerary(java.lang.String part1) {
-        org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.HelperServiceService service = new org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.HelperServiceService();
-        org.netbeans.j2ee.wsdl.bpelhelperservice.java.helperservice.HelperServicePortType port = service.getHelperServicePortTypeBindingPort();
+        ws.helperservice.HelperServiceService service = new ws.helperservice.HelperServiceService();
+        ws.helperservice.HelperServicePortType port = service.getHelperServicePortTypeBindingPort();
         return port.getItinerary(part1);
     }
+
+
+
 
 
   
