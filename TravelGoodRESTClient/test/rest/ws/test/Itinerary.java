@@ -1,26 +1,19 @@
 package rest.ws.test;
 
-import java.util.HashSet;
-import java.util.Set;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import lameduckschema.FlightType;
-import niceviewschema.HotelType;
+import java.util.List;
 
-@XmlRootElement
 public class Itinerary {
-    
-    private long id;
-    private String state;
-    private Set<HotelType> hotels  = new HashSet<>();
-    private Set<FlightType> flights = new HashSet<>();
 
-    public long getId() {
+    private int id;
+    private String state;
+    private List<HotelWrapper> hotels;
+    private List<FlightWrapper> flights;
+
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -31,22 +24,21 @@ public class Itinerary {
     public void setState(String state) {
         this.state = state;
     }
-    
-    @XmlElement(name = "hotel")
-    public Set<HotelType> getHotels() {
+
+    public List<HotelWrapper> getHotels() {
         return hotels;
     }
 
-    public void setHotels(Set<HotelType> hotels) {
+    public void setHotels(List<HotelWrapper> hotels) {
         this.hotels = hotels;
     }
 
-    public Set<FlightType> getFlights() {
+    public List<FlightWrapper> getFlights() {
         return flights;
     }
 
-    public void setFlights(Set<FlightType> flights) {
+    public void setFlights(List<FlightWrapper> flights) {
         this.flights = flights;
     }
-        
+
 }
