@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Multi-file class diagram">
+  <ClassDiagramComponents>
+    <Class name="AddressType" package="niceviewschema" visibility="public" xPosition="1007.0" yPosition="1369.0">
+      <Fields>
+        <Field name="street" type="String" visibility="protected"/>
+        <Field name="zipCode" type="String" visibility="protected"/>
+        <Field name="city" type="String" visibility="protected"/>
+        <Field name="country" type="String" visibility="protected"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="BookHotel" package="niceviewschema" visibility="public" xPosition="392.0" yPosition="948.0">
+      <Fields>
+        <Field name="bookingNumber" type="String" visibility="protected"/>
+        <Field name="creditCardInfo" type="CreditCardInfoType" visibility="protected"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="BookHotelResponse" package="niceviewschema" visibility="public" xPosition="147.0" yPosition="1069.0">
+      <Fields>
+        <Field name="response" type="boolean" visibility="protected"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="CancelHotel" package="niceviewschema" visibility="public" xPosition="147.0" yPosition="1416.0">
+      <Fields>
+        <Field name="bookingNumber" type="String" visibility="protected"/>
+        <Field name="creditCardInfo" type="CreditCardInfoType" visibility="protected"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="CancelHotelResponse" package="niceviewschema" visibility="public" xPosition="147.0" yPosition="1302.0">
+      <Fields>
+        <Field name="response" type="boolean" visibility="protected"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="GetHotels" package="niceviewschema" visibility="public" xPosition="944.0" yPosition="1125.0">
+      <Fields>
+        <Field name="city" type="String" visibility="protected"/>
+        <Field name="arrivalDate" type="XMLGregorianCalendar" visibility="protected"/>
+        <Field name="depatureDate" type="XMLGregorianCalendar" visibility="protected"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="GetHotelsResponse" package="niceviewschema" visibility="public" xPosition="682.0" yPosition="948.0">
+      <Fields>
+        <Field name="hotels" type="List&lt;HotelReservationType&gt;" visibility="protected"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="HotelFaultType" package="niceviewschema" visibility="public" xPosition="147.0" yPosition="1185.0">
+      <Fields>
+        <Field name="message" type="String" visibility="protected"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="HotelReservationType" package="niceviewschema" visibility="public" xPosition="682.0" yPosition="1087.0">
+      <Fields>
+        <Field name="hotelReservationServiceName" type="String" visibility="protected"/>
+        <Field name="bookingNumber" type="String" visibility="protected"/>
+        <Field name="hotel" type="HotelType" visibility="protected"/>
+        <Field name="arrivalDate" type="XMLGregorianCalendar" visibility="protected"/>
+        <Field name="departureDate" type="XMLGregorianCalendar" visibility="protected"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="HotelType" package="niceviewschema" visibility="public" xPosition="730.0" yPosition="1359.0">
+      <Fields>
+        <Field name="name" type="String" visibility="protected"/>
+        <Field name="price" type="int" visibility="protected"/>
+        <Field name="address" type="AddressType" visibility="protected"/>
+        <Field name="creditCardGuarentee" type="boolean" visibility="protected"/>
+        <Field name="cancellable" type="boolean" visibility="protected"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="HotelReservation" package="NiceView.ws" visibility="public" xPosition="392.0" yPosition="1087.0">
+      <Fields>
+        <Field name="booked" type="boolean" visibility="private"/>
+        <Field name="cancelled" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="NiceViewWebService" package="NiceView.ws" visibility="public" xPosition="392.0" yPosition="1302.0">
+      <Fields>
+        <Field name="service" type="BankService" visibility="private"/>
+        <Field name="_locker" type="Object" visibility="private" isStatic="true"/>
+        <Field name="hotels" type="List&lt;HotelType&gt;" visibility="package"/>
+        <Field name="bookingNumber" type="int" visibility="package"/>
+        <Field name="bookings" type="Map&lt;String, HotelReservation&gt;" visibility="package"/>
+        <Field name="GROUP_NUMBER" type="int" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="NICEVIEW_ACCOUNT_NUMBER" type="String" visibility="private" isFinal="true"/>
+        <Field name="RESERVATION_SERVICE_NAME" type="String" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="hotels" source="niceviewschema.GetHotelsResponse" target="niceviewschema.HotelReservationType" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;HotelReservationType&gt;"/>
+    <HasRelation name="hotels" source="NiceView.ws.NiceViewWebService" target="niceviewschema.HotelType" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;HotelType&gt;"/>
+    <HasRelation name="hotel" source="niceviewschema.HotelReservationType" target="niceviewschema.HotelType" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="NiceView.ws.HotelReservation" target="niceviewschema.HotelReservationType"/>
+    <HasRelation name="bookings" source="NiceView.ws.NiceViewWebService" target="NiceView.ws.HotelReservation" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="Map&lt;String, HotelReservation&gt;"/>
+    <HasRelation name="address" source="niceviewschema.HotelType" target="niceviewschema.AddressType" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
