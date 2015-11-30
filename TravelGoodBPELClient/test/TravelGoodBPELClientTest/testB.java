@@ -108,11 +108,7 @@ public class testB {
         outerFlightsRequest.setItineraryId(itineraryID);
         GetFlightsResponse flightsResponse = getFlights(outerFlightsRequest);
         
-        // Add flight to itinerary
-        AddItineraryFlightRequest addFlightRequest = new AddItineraryFlightRequest();
-        addFlightRequest.setBookingId(flightsResponse.getFlights().get(0).getBookingNumber());
-        addFlightRequest.setItineraryId(itineraryID);
-        addItineraryFlight(addFlightRequest);
+        
         
         // Add hotels to itinerary
         AddItineraryHotelRequest addHotelRequest = new AddItineraryHotelRequest();
@@ -121,6 +117,12 @@ public class testB {
         addItineraryHotel(addHotelRequest);
         addHotelRequest.setBookingId(hotelResponse2.getHotels().get(0).getBookingNumber());
         addItineraryHotel(addHotelRequest);
+        
+        // Add flight to itinerary
+        AddItineraryFlightRequest addFlightRequest = new AddItineraryFlightRequest();
+        addFlightRequest.setBookingId(flightsResponse.getFlights().get(0).getBookingNumber());
+        addFlightRequest.setItineraryId(itineraryID);
+        addItineraryFlight(addFlightRequest);
         
         // Get itinerary
         GetItineraryRequest getItineraryRequest = new GetItineraryRequest();
@@ -154,7 +156,7 @@ public class testB {
         GetItineraryResponse getItinenaryResponse2 = getItinerary(getItineraryRequest);
         assertEquals(BookingStatus.CANCELLED, getItinenaryResponse2.getItems().get(0).getHotel().getBookingStatus());
         assertEquals(BookingStatus.UNCONFIRMED, getItinenaryResponse2.getItems().get(1).getHotel().getBookingStatus());
-        assertEquals(BookingStatus.UNCONFIRMED, getItinenaryResponse2.getItems().get(2).getHotel().getBookingStatus());
+        assertEquals(BookingStatus.UNCONFIRMED, getItinenaryResponse2.getItems().get(2).getFlight().getBookingStatus());
         
         
         

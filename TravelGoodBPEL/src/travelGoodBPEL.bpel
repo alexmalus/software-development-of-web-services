@@ -410,18 +410,46 @@
                                     <sequence name="Sequence10">
                                         <scope name="Scope2">
                                                 <variables>
-                                                        <variable name="BookItineraryOut" messageType="ns0:bookItineraryResponse"/>
+                                                    <variable name="Fault1FaultVar" messageType="ns0:bookItineraryFault"/>
+                                                    <variable name="BookItineraryOut" messageType="ns0:bookItineraryResponse"/>
                                                     </variables>
-                                                    <compensationHandler>
-                                                        <empty name="Empty1"/>
-                                                    </compensationHandler>
-                                                    <sequence name="Sequence12">
+                                            <faultHandlers>
+                                                <catch faultName="ns4:fault1" faultVariable="bookHotelFault" faultMessageType="ns4:bookHotelFault">
+                                                    <sequence name="Sequence32">
+                                                        <compensate name="Compensate1"/>
+                                                        <assign name="Assign61">
+                                                            <copy>
+                                                                <from>$bookHotelFault.part1/message</from>
+                                                                <to>$Fault1FaultVar.fault/ns1:fault_message</to>
+                                                            </copy>
+                                                        </assign>
+                                                        <reply name="Reply16" partnerLink="PartnerLink1" operation="bookItinerary" portType="ns0:TravelGoodBPELPortType" faultName="ns0:fault1" variable="Fault1FaultVar"/>
+                                                    </sequence>
+                                                </catch>
+                                                <catch faultName="ns6:fault1" faultVariable="bookFlightFault" faultMessageType="ns6:bookFlightFault">
+                                                    <sequence name="Sequence33">
+                                                        <compensate name="Compensate2"/>
+                                                        <assign name="Assign62">
+                                                            <copy>
+                                                                <from>$bookFlightFault.bookFlightFault/ns5:fault_message</from>
+                                                                <to>$Fault1FaultVar.fault/ns1:fault_message</to>
+                                                            </copy>
+                                                        </assign>
+                                                        <reply name="Reply17" partnerLink="PartnerLink1" operation="bookItinerary" portType="ns0:TravelGoodBPELPortType" faultName="ns0:fault1" variable="Fault1FaultVar"/>
+                                                    </sequence>
+                                                </catch>
+                                            </faultHandlers>
+                                            <sequence name="Sequence12">
                                                         <forEach name="ForEach1" parallel="no" counterName="ForEach1Counter">
                                                                 <startCounterValue>1</startCounterValue>
                                                                     <finalCounterValue>$itinerarySize + 0</finalCounterValue>
                                                                     <scope name="Scope1">
                                                                         <variables>
-                                                                                <variable name="BookItineraryOut" messageType="ns0:bookItineraryResponse"/>
+                                                                            <variable name="CancelHotelOut" messageType="ns4:cancelHotelResponse"/>
+                                                                            <variable name="CancelHotelIn" messageType="ns4:cancelHotelRequest"/>
+                                                                            <variable name="CancelFlightOut" messageType="ns6:cancelFlightOutput"/>
+                                                                            <variable name="CancelFlightIn" messageType="ns6:cancelFlightInput"/>
+                                                                            <variable name="BookItineraryOut" messageType="ns0:bookItineraryResponse"/>
                                                                                     <variable name="BookFlightOut" messageType="ns6:bookFlightOutput"/>
                                                                                     <variable name="BookFlightIn" messageType="ns6:bookFlightInput"/>
                                                                                     <variable name="PutHotelBookOut" messageType="ns7:putHotelResponse"/>
@@ -431,7 +459,84 @@
                                                                                     <variable name="BookHotelOut" messageType="ns4:bookHotelResponse"/>
                                                                                     <variable name="BookHotelIn" messageType="ns4:bookHotelRequest"/>
                                                                             </variables>
-                                                                            <sequence name="Sequence11">
+                                                                        <compensationHandler>
+                                                                            <sequence name="Sequence28">
+                                                                                <if name="If10">
+                                                                                    <condition>string-length($Itinerary/ns1:items[$ForEach1Counter]/ns1:flight/ns1:FlightInfoList/ns5:bookingNumber) &gt; 0
+                                                                    <sxed:editor>
+                                                                                                    <sxed:predicate path="$Itinerary/ns1:items[$ForEach1Counter]" source="from"/>
+                                                                                                </sxed:editor>
+                                                                                        </condition>
+                                                                                    <sequence name="Sequence30">
+                                                                                        <sequence name="Sequence29">
+                                                                                            <assign name="Assign57">
+                                                                                                    <copy>
+                                                                                                            <from>$Itinerary/ns1:items[$ForEach1Counter]/ns1:flight/ns1:FlightInfoList/ns5:bookingNumber
+                                                                                                                        <sxed:editor>
+                                                                                                                            <sxed:predicate path="$Itinerary/ns1:items[$ForEach1Counter]" source="from"/>
+                                                                                                                        </sxed:editor>
+                                                                                                                </from>
+                                                                                                                <to>$CancelFlightIn.cancelFlightRequest/ns5:bookingNumber</to>
+                                                                                                        </copy>
+                                                                                                        <copy>
+                                                                                                            <from>$Itinerary/ns1:items[$ForEach1Counter]/ns1:flight/ns1:FlightInfoList/ns5:flightPrice
+                                                                                                                        <sxed:editor>
+                                                                                                                            <sxed:predicate path="$Itinerary/ns1:items[$ForEach1Counter]" source="from"/>
+                                                                                                                        </sxed:editor>
+                                                                                                                </from>
+                                                                                                                <to>$CancelFlightIn.cancelFlightRequest/ns5:price</to>
+                                                                                                        </copy>
+                                                                                                        <copy>
+                                                                                                            <from>$BookItineraryIn.part1/ns1:creditCardInfo</from>
+                                                                                                                <to>$CancelFlightIn.cancelFlightRequest/ns5:CreditCardInfo</to>
+                                                                                                        </copy>
+                                                                                                </assign>
+                                                                                                <invoke name="Invoke20" partnerLink="PartnerLink3" operation="cancelFlight" portType="ns6:LameDuckPortType" inputVariable="CancelFlightIn" outputVariable="CancelFlightOut"/>
+                                                                                                <assign name="Assign58">
+                                                                                                    <copy>
+                                                                                                            <from>'cancelled'</from>
+                                                                                                                <to>$Itinerary/ns1:items[$ForEach1Counter]/ns1:flight/ns1:bookingStatus
+                                                                                                                        <sxed:editor>
+                                                                                                                            <sxed:predicate path="$Itinerary/ns1:items[$ForEach1Counter]" source="to"/>
+                                                                                                                        </sxed:editor>
+                                                                                                                </to>
+                                                                                                        </copy>
+                                                                                                </assign>
+                                                                                        </sequence>
+                                                                                    </sequence>
+                                                                                    <else>
+                                                                                        <sequence name="Sequence31">
+                                                                                            <assign name="Assign59">
+                                                                                                <copy>
+                                                                                                    <from>$BookItineraryIn.part1/ns1:creditCardInfo</from>
+                                                                                                    <to>$CancelHotelIn.part1/creditCardInfo</to>
+                                                                                                </copy>
+                                                                                                <copy>
+                                                                                                    <from>$Itinerary/ns1:items[$ForEach1Counter]/ns1:hotel/ns1:HotelInfoList/bookingNumber
+                                                                                                        <sxed:editor>
+                                                                                                            <sxed:predicate path="$Itinerary/ns1:items[$ForEach1Counter]" source="from"/>
+                                                                                                        </sxed:editor>
+                                                                                                    </from>
+                                                                                                    <to>$CancelHotelIn.part1/bookingNumber</to>
+                                                                                                </copy>
+                                                                                            </assign>
+                                                                                            <invoke name="Invoke21" partnerLink="PartnerLink2" operation="cancelHotel" portType="ns4:NiceViewPortType" inputVariable="CancelHotelIn" outputVariable="CancelHotelOut"/>
+                                                                                            <assign name="Assign60">
+                                                                                                <copy>
+                                                                                                    <from>'cancelled'</from>
+                                                                                                    <to>$Itinerary/ns1:items[$ForEach1Counter]/ns1:hotel/ns1:bookingStatus
+                                                                                                        <sxed:editor>
+                                                                                                            <sxed:predicate path="$Itinerary/ns1:items[$ForEach1Counter]" source="to"/>
+                                                                                                        </sxed:editor>
+                                                                                                    </to>
+                                                                                                </copy>
+                                                                                            </assign>
+                                                                                        </sequence>
+                                                                                    </else>
+                                                                                </if>
+                                                                            </sequence>
+                                                                        </compensationHandler>
+                                                                        <sequence name="Sequence11">
                                                                                 <if name="If9">
                                                                                         <condition>string-length($Itinerary/ns1:items[$ForEach1Counter]/ns1:flight/ns1:FlightInfoList/ns5:bookingNumber) &gt; 0
                                                                     <sxed:editor>
