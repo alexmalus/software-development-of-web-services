@@ -63,6 +63,8 @@ public class testP1 {
         expiration_1.setYear(11);
         creditCardTest_10000.setExpirationDate(expiration_1);
         creditCardTest_10000.setNumber("50408824");
+        
+        resetFlights(true);
     }
     
     @Test
@@ -250,6 +252,12 @@ public class testP1 {
         ws.travelgoodbpel.TravelGoodBPELService service = new ws.travelgoodbpel.TravelGoodBPELService();
         ws.travelgoodbpel.TravelGoodBPELPortType port = service.getTravelGoodBPELPortTypeBindingPort();
         return port.bookItinerary(part1);
+    }
+
+    private static boolean resetFlights(boolean resetFlightsRequest) {
+        ws.lameduck.LameDuckService service = new ws.lameduck.LameDuckService();
+        ws.lameduck.LameDuckPortType port = service.getLameDuckPortTypeBindingPort();
+        return port.resetFlights(resetFlightsRequest);
     }
     
 }
