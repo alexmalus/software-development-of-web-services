@@ -7,18 +7,9 @@ import niceviewschema.HotelReservationType;
 
 public class Itinerary {
 
-    private long id;
     private String state;
     private List<HotelWrapper> hotels;
     private List<FlightWrapper> flights;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getState() {
         return state;
