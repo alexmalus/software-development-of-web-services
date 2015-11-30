@@ -152,7 +152,7 @@ public class testP1 {
         System.out.println(flights_response_book_id_3);
         
         ws.travelgoodschema.AddItineraryFlightRequest itinerary_flight_request_3 = new  ws.travelgoodschema.AddItineraryFlightRequest();
-        itinerary_flight_request_3.setBookingId(flights_response_book_id_2);
+        itinerary_flight_request_3.setBookingId(flights_response_book_id_3);
         itinerary_flight_request_3.setItineraryId(itineraryID);
         
         boolean add_itinerary_flight_3 = addItineraryFlight(itinerary_flight_request_3);

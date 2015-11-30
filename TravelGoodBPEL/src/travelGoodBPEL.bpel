@@ -410,7 +410,7 @@
                                         <sequence name="Sequence12">
                                             <forEach name="ForEach1" parallel="no" counterName="ForEach1Counter">
                                                 <startCounterValue>1</startCounterValue>
-                                                <finalCounterValue>$itinerarySize + 1</finalCounterValue>
+                                                <finalCounterValue>$itinerarySize + 0</finalCounterValue>
                                                 <scope name="Scope1">
                                                         <variables>
                                                             <variable name="BookItineraryOut" messageType="ns0:bookItineraryResponse"/>
