@@ -62,6 +62,7 @@ public class testC1 {
         Get the itinerary and make sure that the booking status is confirmed for each entry. Cancel the
         trip and check that now the booking status is cancelled for all bookings of the itinerary.
         */
+        resetFlights(true);
     }
     @Test
     public void testC1(){
@@ -114,9 +115,9 @@ public class testC1 {
         // Add hotels to itinerary
         AddItineraryHotelRequest addHotelRequest = new AddItineraryHotelRequest();
         addHotelRequest.setItineraryId(itineraryID);
-        addHotelRequest.setItineraryId(hotelResponse.getHotels().get(0).getBookingNumber());
+        addHotelRequest.setBookingId(hotelResponse.getHotels().get(0).getBookingNumber());
         addItineraryHotel(addHotelRequest);
-        addHotelRequest.setItineraryId(hotelResponse2.getHotels().get(0).getBookingNumber());
+        addHotelRequest.setBookingId(hotelResponse2.getHotels().get(0).getBookingNumber());
         addItineraryHotel(addHotelRequest);
         
         BookItineraryRequest bookRequest = new BookItineraryRequest();
@@ -133,9 +134,9 @@ public class testC1 {
         
         getItineraryRequest.setItineraryID(itineraryID);
         GetItineraryResponse getItinenaryResponse2 = getItinerary(getItineraryRequest);
-        assertEquals(BookingStatus.CONFIRMED, getItinenaryResponse2.getItems().get(0).getHotel().getBookingStatus());
+        assertEquals(BookingStatus.CONFIRMED, getItinenaryResponse2.getItems().get(2).getHotel().getBookingStatus());
         assertEquals(BookingStatus.CONFIRMED, getItinenaryResponse2.getItems().get(1).getHotel().getBookingStatus());
-        assertEquals(BookingStatus.CONFIRMED, getItinenaryResponse2.getItems().get(2).getFlight().getBookingStatus());
+        assertEquals(BookingStatus.CONFIRMED, getItinenaryResponse2.getItems().get(0).getFlight().getBookingStatus());
         CancelBookingRequest cancelRequest = new CancelBookingRequest();
         cancelRequest.setCreditCardInfo(creditCardAnne);
         cancelRequest.setItineraryId(itineraryID);
@@ -149,9 +150,9 @@ public class testC1 {
         }
         
         GetItineraryResponse getItinenaryResponse3 = getItinerary(getItineraryRequest);
-        assertEquals(BookingStatus.CANCELLED, getItinenaryResponse3.getItems().get(0).getHotel().getBookingStatus());
+        assertEquals(BookingStatus.CANCELLED, getItinenaryResponse3.getItems().get(2).getHotel().getBookingStatus());
         assertEquals(BookingStatus.CANCELLED, getItinenaryResponse3.getItems().get(1).getHotel().getBookingStatus());
-        assertEquals(BookingStatus.CANCELLED, getItinenaryResponse3.getItems().get(2).getFlight().getBookingStatus());
+        assertEquals(BookingStatus.CANCELLED, getItinenaryResponse3.getItems().get(0).getFlight().getBookingStatus());
         
         
     }
@@ -202,6 +203,12 @@ public class testC1 {
         ws.travelgoodbpel.TravelGoodBPELService service = new ws.travelgoodbpel.TravelGoodBPELService();
         ws.travelgoodbpel.TravelGoodBPELPortType port = service.getTravelGoodBPELPortTypeBindingPort();
         return port.cancelBooking(part1);
+    }
+
+    private static boolean resetFlights(boolean resetFlightsRequest) {
+        ws.lameduck.LameDuckService service = new ws.lameduck.LameDuckService();
+        ws.lameduck.LameDuckPortType port = service.getLameDuckPortTypeBindingPort();
+        return port.resetFlights(resetFlightsRequest);
     }
     
 }
