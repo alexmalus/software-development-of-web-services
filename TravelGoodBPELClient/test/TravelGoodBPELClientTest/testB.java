@@ -117,9 +117,9 @@ public class testB {
         // Add hotels to itinerary
         AddItineraryHotelRequest addHotelRequest = new AddItineraryHotelRequest();
         addHotelRequest.setItineraryId(itineraryID);
-        addHotelRequest.setItineraryId(hotelResponse.getHotels().get(0).getBookingNumber());
+        addHotelRequest.setBookingId(hotelResponse.getHotels().get(0).getBookingNumber());
         addItineraryHotel(addHotelRequest);
-        addHotelRequest.setItineraryId(hotelResponse2.getHotels().get(0).getBookingNumber());
+        addHotelRequest.setBookingId(hotelResponse2.getHotels().get(0).getBookingNumber());
         addItineraryHotel(addHotelRequest);
         
         // Get itinerary
