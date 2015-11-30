@@ -1,11 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<definitions name="LameDuck" targetNamespace="LameDuck.ws"
-    xmlns="http://schemas.xmlsoap.org/wsdl/"
-    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="LameDuck.ws" xmlns:ld="urn:LameDuckSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.1-b419 (branches/2.3.1.x-7937; 2014-08-04T08:11:03+0000) JAXWS-RI/2.2.10-b140803.1500 JAXWS-API/2.2.11 JAXB-RI/2.2.10-b140802.1033 JAXB-API/2.2.12-b140109.1041 svn-revision#unknown. --><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://LameDuck.ws" xmlns:ld="urn:LameDuckSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="LameDuck" targetNamespace="http://LameDuck.ws">
     <types>
-        <xsd:schema targetNamespace="LameDuck.ws">
-            <xsd:import namespace="urn:LameDuckSchema" schemaLocation="LameDuckSchema.xsd" />
+        <xsd:schema targetNamespace="http://LameDuck.ws">
+            <xsd:import namespace="urn:LameDuckSchema" schemaLocation="http://localhost:8080/LameDuck/LameDuckService?xsd=1"/>
         </xsd:schema>
     </types>
     <message name="getFlightsRequest">
@@ -105,7 +101,7 @@
     </binding>
     <service name="LameDuckService">
         <port name="LameDuckPortTypeBindingPort" binding="tns:LameDuckPortTypeBinding">
-            <soap:address location="http://localhost:${HttpDefaultPort}/service"/>
+            <soap:address location="http://localhost:8080/LameDuck/LameDuckService"/>
         </port>
     </service>
 </definitions>

@@ -24,14 +24,14 @@
             <produces dir="${build.generated.dir}/jax-wsCache/LameDuck"/>
         </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/LameDuck">
+            <fileset dir="${build.generated.dir}/jax-wsCache/LameDuckService">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
     </target>
-    <target name="wsimport-client-clean-LameDuck" depends="-init-project">
-        <delete dir="${build.generated.dir}/jax-wsCache/LameDuck"/>
+    <target name="wsimport-client-clean-LameDuckService" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/LameDuckService"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/ws/lameduck"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-LameDuck"/>
+    <target name="wsimport-client-generate" depends="wsimport-client-LameDuckService"/>
 </project>
