@@ -33,9 +33,8 @@ public class ItineraryResource {
 
     private static final CreditCardInfoType creditCardJoachim
             = new CreditCardInfoType();
-
-    private static long idCounter = 0;
     private static final Map<Long, Itinerary> itineraries = new HashMap<>();
+    private static long idCounter = 0;
 
     public ItineraryResource() {
         creditCardJoachim.setName("Tick Joachim");
@@ -51,6 +50,8 @@ public class ItineraryResource {
     @Consumes("application/json")
     @Produces("application/json")
     public Response createItinerary(Itinerary i) {
+        // Add itinerary to the map and return a '201 Created' response
+        // with the path to the new resource in the header named 'Location'
         idCounter++;
         itineraries.put(idCounter, i);
         return Response.created(URI.create("itineraries/" + idCounter)).build();
@@ -60,9 +61,13 @@ public class ItineraryResource {
     @Produces("applicatin/json")
     @Path("/{id}")
     public Response getItinerary(@PathParam("id") long id) {
+        // Check that the requested itinerary is there
         if (!itineraries.containsKey(id)) {
+            // If it's not there, return a '404 Not' Found response
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+        // Return the Itinerary serialized in JSON as 
+        // the body of a '200 OK' response
         return Response.ok(itineraries.get(id)).build();
     }
 
@@ -73,14 +78,17 @@ public class ItineraryResource {
     public Response addHotel(
             @PathParam("id") long id,
             HotelReservationType hotel) {
+        // Check that the itinerary is there
         if (!itineraries.containsKey(id)) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         Itinerary i = itineraries.get(id);
+        // If the List of Hotels is null, create a new ArrayList
         if (i.getHotels() == null) {
             i.setHotels(new ArrayList<>());
         }
-
+        // Return a '201 Created' response with the path to the 
+        // new resource in the header name 'Location'
         i.getHotels().add(new HotelWrapper(hotel, "unconfirmed"));
         return Response.created(URI.create("itineraries/" + id + "/hotels/"
                 + hotel.getBookingNumber())).build();
@@ -93,13 +101,17 @@ public class ItineraryResource {
     public Response addFlight(
             @PathParam("id") long id,
             FlightInfoType flight) {
+        // Check that the itinerary is there
         if (!itineraries.containsKey(id)) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         Itinerary i = itineraries.get(id);
+        // If the List of Flights is null, create a new ArrayList
         if (i.getFlights() == null) {
             i.setFlights(new ArrayList<>());
         }
+        // Return a '201 Created' response with the path to the 
+        // new resource in the header name 'Location'
         i.getFlights().add(new FlightWrapper(flight, "unconfirmed"));
         return Response.created(URI.create("itineraries/" + id + "/flights/"
                 + flight.getBookingNumber())).build();
@@ -110,17 +122,21 @@ public class ItineraryResource {
     public Response removeHotel(
             @PathParam("id") long id,
             @PathParam("hotelName") String name) {
-
+        // Check that the itinerary is there
         if (!itineraries.containsKey(id)) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         Itinerary i = itineraries.get(id);
+        // Find the requested hotel
         for (HotelWrapper h : i.getHotels()) {
             if (h.getHotel().getHotel().getName().equals(name)) {
+                // Remove the hotel from the list and return a
+                // '204 No Content' response
                 i.getHotels().remove(h);
                 return Response.status(Response.Status.NO_CONTENT).build();
             }
         }
+        // If the hotel was not in the list, retun '404 Not Found'
         return Response.status(Response.Status.NOT_FOUND).build();
 
     }
@@ -130,17 +146,21 @@ public class ItineraryResource {
     public Response removeFlight(
             @PathParam("id") long id,
             @PathParam("bookingNumber") String bookingNumber) {
-
+        // Check that the itinerary is there
         if (!itineraries.containsKey(id)) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         Itinerary i = itineraries.get(id);
+        // Find the requested flight
         for (FlightWrapper h : i.getFlights()) {
             if (h.getFlight().getBookingNumber().equals(bookingNumber)) {
+                // Remove the flight from the list and return a
+                // '204 No Content' response
                 i.getFlights().remove(h);
                 return Response.status(Response.Status.NO_CONTENT).build();
             }
         }
+        // If the flight was not in the list, retun '404 Not Found'
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
@@ -150,21 +170,30 @@ public class ItineraryResource {
     public Response changeState(
             @PathParam("id") long id,
             String targetState) {
+        // Check that the itinerary is there
         if (!itineraries.containsKey(id)) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         Itinerary i = itineraries.get(id);
         if (targetState.equals("confirmed")) {
+            // If the targetState is 'confirmed' we proceed 
+            // to book the itinerary
             bookItinerary(i);
             i.setState(targetState);
             return Response.ok().build();
         } else if (targetState.equals("cancelled") && i.getState().equals("unconfirmed")) {
+            // If the targetState is 'cancelled' and the itinerary
+            // is not booked yet, we remove it from the map 
             itineraries.remove(id);
             return Response.ok().build();
         } else if (targetState.equals("cancelled") && i.getState().equals("confirmed")) {
+            // If the targetState is 'cancelled' and the itinerary
+            // is booked already, we proceed to cancel the bookings
             cancelItinerary(i);
             return Response.ok().build();
         }
+        // If the targetState is not 'confirmed' or 'cancelled',
+        // return a 400 Bad Request response
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
@@ -172,12 +201,83 @@ public class ItineraryResource {
     @Consumes("text/plain")
     @Path("/reset")
     public Response reset(String reset) {
+        // Clear the map and request the other services to reset
         if (reset.equals("reset")) {
             itineraries.clear();
             resetFlights(true);
             return Response.ok().build();
         }
         return Response.status(Response.Status.BAD_REQUEST).build();
+    }
+
+    private void bookItinerary(Itinerary i) {
+        // Try to book every hotel and flight inside the itinerary
+        for (HotelWrapper h : i.getHotels()) {
+            try {
+                BookHotel request = new BookHotel();
+                request.setBookingNumber(h.getHotel().getBookingNumber());
+                request.setCreditCardInfo(creditCardJoachim);
+                bookHotel(request);
+                h.setState("confirmed");
+            } catch (BookHotelFault e) {
+                // If it fails, cancel the whole itinerary 
+                // and respond with an error response
+                cancelItinerary(i);
+                throw new WebApplicationException(Response.Status.INTERNAL_SERVER_ERROR);
+            }
+        }
+        for (FlightWrapper f : i.getFlights()) {
+            try {
+                BookFlightRequest request = new BookFlightRequest();
+                request.setBookingNumber(f.getFlight().getBookingNumber());
+                request.setCreditCardInfo(creditCardJoachim);
+                bookFlight(request);
+                f.setState("confirmed");
+            } catch (BookFlightFault e) {
+                cancelItinerary(i);
+                throw new WebApplicationException(Response.Status.INTERNAL_SERVER_ERROR);
+            }
+
+        }
+        i.setState("confirmed");
+
+    }
+
+    private void cancelItinerary(Itinerary i) {
+        i.setState("cancelled");
+        boolean cancelledOk = true;
+        // Try to book every hotel and flight inside the itinerary
+        for (HotelWrapper h : i.getHotels()) {
+            if (h.getState().equals("confirmed")) {
+                try {
+                    CancelHotel request = new CancelHotel();
+                    request.setBookingNumber(h.getHotel().getBookingNumber());
+                    request.setCreditCardInfo(creditCardJoachim);
+                    cancelHotel(request);
+                    h.setState("cancelled");
+                } catch (CancelHotelFault e) {
+                    cancelledOk = false;
+                }
+            }
+        }
+        for (FlightWrapper f : i.getFlights()) {
+            try {
+                CancelFlightRequest request = new CancelFlightRequest();
+                request.setBookingNumber(f.getFlight().getBookingNumber());
+                request.setCreditCardInfo(creditCardJoachim);
+                request.setPrice(1000);
+                cancelFlight(request);
+                f.setState("cancelled");
+            } catch (CancelFlightFault e) {
+                cancelledOk = false;
+            }
+        }
+        // If one of the cancellations failed, respond 
+        // with a '500 Internal Server Error' 
+        if (!cancelledOk) {
+            throw new WebApplicationException(Response.Status.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     private static BookHotelResponse bookHotel(niceviewschema.BookHotel part1) throws BookHotelFault {
@@ -208,71 +308,6 @@ public class ItineraryResource {
         ws.lameduck.LameDuckService service = new ws.lameduck.LameDuckService();
         ws.lameduck.LameDuckPortType port = service.getLameDuckPortTypeBindingPort();
         return port.resetFlights(resetFlightsRequest);
-    }
-
-    private void bookItinerary(Itinerary i) {
-        for (HotelWrapper h : i.getHotels()) {
-            try {
-                BookHotel request = new BookHotel();
-                request.setBookingNumber(h.getHotel().getBookingNumber());
-                request.setCreditCardInfo(creditCardJoachim);
-                bookHotel(request);
-                h.setState("confirmed");
-            } catch (BookHotelFault e) {
-                cancelItinerary(i);
-                throw new WebApplicationException(Response.Status.INTERNAL_SERVER_ERROR);
-            }
-        }
-        for (FlightWrapper f : i.getFlights()) {
-            try {
-                BookFlightRequest request = new BookFlightRequest();
-                request.setBookingNumber(f.getFlight().getBookingNumber());
-                request.setCreditCardInfo(creditCardJoachim);
-                bookFlight(request);
-                f.setState("confirmed");
-            } catch (BookFlightFault e) {
-                cancelItinerary(i);
-                throw new WebApplicationException(Response.Status.INTERNAL_SERVER_ERROR);
-            }
-
-        }
-        i.setState("confirmed");
-
-    }
-
-    private void cancelItinerary(Itinerary i) {
-        i.setState("cancelled");
-        boolean cancelledOk = true;
-        for (HotelWrapper h : i.getHotels()) {
-            if (h.getState().equals("confirmed")) {
-                try {
-                    CancelHotel request = new CancelHotel();
-                    request.setBookingNumber(h.getHotel().getBookingNumber());
-                    request.setCreditCardInfo(creditCardJoachim);
-                    cancelHotel(request);
-                    h.setState("cancelled");
-                } catch (CancelHotelFault e) {
-                    cancelledOk = false;
-                }
-            }
-        }
-        for (FlightWrapper f : i.getFlights()) {
-            try {
-                CancelFlightRequest request = new CancelFlightRequest();
-                request.setBookingNumber(f.getFlight().getBookingNumber());
-                request.setCreditCardInfo(creditCardJoachim);
-                request.setPrice(1000);
-                cancelFlight(request);
-                f.setState("cancelled");
-            } catch (CancelFlightFault e) {
-                cancelledOk = false;
-            }
-        }
-
-        if (!cancelledOk) {
-            throw new WebApplicationException(Response.Status.INTERNAL_SERVER_ERROR);
-        }
-
     }
 
 }
