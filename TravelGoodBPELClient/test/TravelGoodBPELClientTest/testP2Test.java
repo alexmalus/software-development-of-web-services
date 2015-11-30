@@ -23,10 +23,10 @@ import ws.travelgoodschema.ItineraryInfoType;
  *
  * @author Alex
  */
-public class testP2 {
+public class testP2Test {
     
 
-    public testP2() {
+    public testP2Test() {
         /*
         (cancel planning) Plan a trip by first getting a list of flights and then adding a 
         flight to the itinerary.

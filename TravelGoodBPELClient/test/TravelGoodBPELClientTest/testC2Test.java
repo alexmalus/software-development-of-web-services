@@ -5,7 +5,6 @@
  */
 package TravelGoodBPELClientTest;
 
-import static TravelGoodBPELClientTest.testB.convertDateTimeToGregCal;
 import dk.dtu.imm.fastmoney.types.CreditCardInfoType;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -14,34 +13,32 @@ import java.util.logging.Logger;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-import lameduckschema.GetFlightsRequest;
 import niceviewschema.GetHotels;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import ws.travelgoodbpel.BookItineraryFault;
 import ws.travelgoodbpel.CancelBookingFault;
-import ws.travelgoodschema.AddItineraryFlightRequest;
 import ws.travelgoodschema.AddItineraryHotelRequest;
 import ws.travelgoodschema.BookItineraryRequest;
 import ws.travelgoodschema.BookingStatus;
 import ws.travelgoodschema.CancelBookingRequest;
-import ws.travelgoodschema.GetFlightsResponse;
 import ws.travelgoodschema.GetHotelsRequest;
 import ws.travelgoodschema.GetHotelsResponse;
 import ws.travelgoodschema.GetItineraryRequest;
 import ws.travelgoodschema.GetItineraryResponse;
+import ws.travelgoodschema.ItineraryBookingHotelType;
 import ws.travelgoodschema.ItineraryInfoType;
 
 /**
  *
  * @author Alex
  */
-public class testC1 {
+public class testC2Test {
     private final CreditCardInfoType creditCardAnne;
     private final XMLGregorianCalendar dateArrive;
     private final XMLGregorianCalendar dateDepart;
     
-    public testC1() throws DatatypeConfigurationException {
+    public testC2Test() throws DatatypeConfigurationException {
         
         creditCardAnne = new CreditCardInfoType();
         creditCardAnne.setName("Dirach Anne-Louise");
@@ -57,18 +54,17 @@ public class testC1 {
         c.setTime(new Date(2015, 12, 26, 18, 0));
         dateDepart = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
         /*
-        (cancel booking) Create an itinerary with three bookings (mixed 
-        fliights and hotels) and book it.
-        Get the itinerary and make sure that the booking status is confirmed for each entry. Cancel the
-        trip and check that now the booking status is cancelled for all bookings of the itinerary.
+        (cancelling fails) Create an itinerary with three bookings and book it. Make sure that the booking
+        status is confirmed for each entry. During cancelling of the trip, the cancellation of the second
+        booking should fail. Check that the cancelling resulted in an error condition (e.g. value of status
+        variable, exception, HTTP status code). Get the itinerary and check that the returned itinerary
+        has cancelled as the first and third booking and confirmed for the second booking.
         */
-        resetFlights(true);
     }
+    
     @Test
-    public void testC1(){
+    public void testC2(){
         String itineraryID = createItinerary(true);
-        System.out.println(itineraryID);
-
         // Get the first hotel
         GetHotelsRequest getHotelsRequest = new GetHotelsRequest();
         getHotelsRequest.setItineraryId(itineraryID);
@@ -81,36 +77,29 @@ public class testC1 {
         
         GetHotelsResponse hotelResponse = getHotels(getHotelsRequest);
         
-        
         // Get the second hotel
         GetHotelsRequest getHotelsRequest2 = new GetHotelsRequest();
         getHotelsRequest2.setItineraryId(itineraryID);
+        
         GetHotels hotelsRequest2 = new GetHotels();
-        hotelsRequest2.setCity("Bangladesh");
-        hotelsRequest2.setArrivalDate(dateDepart);
-        hotelsRequest2.setDepatureDate(dateArrive);
+        hotelsRequest2.setCity("Copenhagen");
+        hotelsRequest2.setArrivalDate(dateArrive);
+        hotelsRequest2.setDepatureDate(dateDepart);
         getHotelsRequest2.setGetHotelsRequest(hotelsRequest2);
         
         GetHotelsResponse hotelResponse2 = getHotels(getHotelsRequest2);
         
         
-        // Get the flight
-        GetFlightsRequest flightsRequest = new GetFlightsRequest();
-        flightsRequest.setFinalDestination("LHR");
-        flightsRequest.setStartDestination("CPH");
-        XMLGregorianCalendar liftoffDate = convertDateTimeToGregCal("2015-11-18", "17:00");
-        flightsRequest.setDateFlight(liftoffDate);
+        // Get the third hotel
+        GetHotelsRequest getHotelsRequest3 = new GetHotelsRequest();
+        getHotelsRequest3.setItineraryId(itineraryID);
+        GetHotels hotelsRequest3 = new GetHotels();
+        hotelsRequest3.setCity("Bangladesh");
+        hotelsRequest3.setArrivalDate(dateDepart);
+        hotelsRequest3.setDepatureDate(dateArrive);
+        getHotelsRequest3.setGetHotelsRequest(hotelsRequest3);
         
-        ws.travelgoodschema.GetFlightsRequest outerFlightsRequest = new ws.travelgoodschema.GetFlightsRequest();
-        outerFlightsRequest.setGetFlightsRequest(flightsRequest);
-        outerFlightsRequest.setItineraryId(itineraryID);
-        GetFlightsResponse flightsResponse = getFlights(outerFlightsRequest);
-        
-        // Add flight to itinerary
-        AddItineraryFlightRequest addFlightRequest = new AddItineraryFlightRequest();
-        addFlightRequest.setBookingId(flightsResponse.getFlights().get(0).getBookingNumber());
-        addFlightRequest.setItineraryId(itineraryID);
-        addItineraryFlight(addFlightRequest);
+        GetHotelsResponse hotelResponse3 = getHotels(getHotelsRequest3);
         
         // Add hotels to itinerary
         AddItineraryHotelRequest addHotelRequest = new AddItineraryHotelRequest();
@@ -119,78 +108,49 @@ public class testC1 {
         addItineraryHotel(addHotelRequest);
         addHotelRequest.setBookingId(hotelResponse2.getHotels().get(0).getBookingNumber());
         addItineraryHotel(addHotelRequest);
-        
+        addHotelRequest.setBookingId(hotelResponse3.getHotels().get(0).getBookingNumber());
+        addItineraryHotel(addHotelRequest);
         BookItineraryRequest bookRequest = new BookItineraryRequest();
         bookRequest.setCreditCardInfo(creditCardAnne);
         bookRequest.setItineraryId(itineraryID);
+        
+        
         try {
             bookItinerary(bookRequest);
             assertTrue(true);
         } catch (BookItineraryFault ex) {
             assertFalse(true);
-            Logger.getLogger(testC1.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(testC2Test.class.getName()).log(Level.SEVERE, null, ex);
         }
-        GetItineraryRequest getItineraryRequest = new GetItineraryRequest();
+        GetItineraryRequest getRequest = new GetItineraryRequest();
+        getRequest.setItineraryID(itineraryID);
         
-        getItineraryRequest.setItineraryID(itineraryID);
-        GetItineraryResponse getItinenaryResponse2 = getItinerary(getItineraryRequest);
-        assertEquals(BookingStatus.CONFIRMED, getItinenaryResponse2.getItems().get(2).getHotel().getBookingStatus());
-        assertEquals(BookingStatus.CONFIRMED, getItinenaryResponse2.getItems().get(1).getHotel().getBookingStatus());
-        assertEquals(BookingStatus.CONFIRMED, getItinenaryResponse2.getItems().get(0).getFlight().getBookingStatus());
-        CancelBookingRequest cancelRequest = new CancelBookingRequest();
-        cancelRequest.setCreditCardInfo(creditCardAnne);
-        cancelRequest.setItineraryId(itineraryID);
+        GetItineraryResponse getResult = getItinerary(getRequest);
+        
+        assertEquals(3, getResult.getItems().size());
+        for(GetItineraryResponse.Items item : getResult.getItems()){
+            ItineraryBookingHotelType hotel = item.getHotel();
+            assertEquals(BookingStatus.CONFIRMED,hotel.getBookingStatus());
+        }
+        CancelBookingRequest cancelBookingRequest = new CancelBookingRequest();
+        
+        cancelBookingRequest.setCreditCardInfo(creditCardAnne);
+        cancelBookingRequest.setItineraryId(itineraryID);
         
         try {
-            cancelBooking(cancelRequest);
-            assertTrue(true);
+            cancelBooking(cancelBookingRequest);
+            assertTrue(false);
         } catch (CancelBookingFault ex) {
-            assertFalse(true);
-            Logger.getLogger(testC1.class.getName()).log(Level.SEVERE, null, ex);
+            assertTrue(true);
+            Logger.getLogger(testC2Test.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        GetItineraryResponse getItinenaryResponse3 = getItinerary(getItineraryRequest);
-        assertEquals(BookingStatus.CANCELLED, getItinenaryResponse3.getItems().get(2).getHotel().getBookingStatus());
-        assertEquals(BookingStatus.CANCELLED, getItinenaryResponse3.getItems().get(1).getHotel().getBookingStatus());
-        assertEquals(BookingStatus.CANCELLED, getItinenaryResponse3.getItems().get(0).getFlight().getBookingStatus());
+        GetItineraryResponse getResult2 = getItinerary(getRequest);
+        assertEquals(BookingStatus.CANCELLED,getResult2.getItems().get(0).getHotel().getBookingStatus());
+        assertEquals(BookingStatus.CONFIRMED,getResult2.getItems().get(1).getHotel().getBookingStatus());
+        assertEquals(BookingStatus.CANCELLED,getResult2.getItems().get(2).getHotel().getBookingStatus());
         
         
-    }
-
-    private static boolean addItineraryFlight(ws.travelgoodschema.AddItineraryFlightRequest part1) {
-        ws.travelgoodbpel.TravelGoodBPELService service = new ws.travelgoodbpel.TravelGoodBPELService();
-        ws.travelgoodbpel.TravelGoodBPELPortType port = service.getTravelGoodBPELPortTypeBindingPort();
-        return port.addItineraryFlight(part1);
-    }
-
-    private static boolean addItineraryHotel(ws.travelgoodschema.AddItineraryHotelRequest part1) {
-        ws.travelgoodbpel.TravelGoodBPELService service = new ws.travelgoodbpel.TravelGoodBPELService();
-        ws.travelgoodbpel.TravelGoodBPELPortType port = service.getTravelGoodBPELPortTypeBindingPort();
-        return port.addItineraryHotel(part1);
-    }
-
-    private static ItineraryInfoType bookItinerary(ws.travelgoodschema.BookItineraryRequest part1) throws BookItineraryFault {
-        ws.travelgoodbpel.TravelGoodBPELService service = new ws.travelgoodbpel.TravelGoodBPELService();
-        ws.travelgoodbpel.TravelGoodBPELPortType port = service.getTravelGoodBPELPortTypeBindingPort();
-        return port.bookItinerary(part1);
-    }
-
-    private static GetHotelsResponse getHotels(ws.travelgoodschema.GetHotelsRequest part1) {
-        ws.travelgoodbpel.TravelGoodBPELService service = new ws.travelgoodbpel.TravelGoodBPELService();
-        ws.travelgoodbpel.TravelGoodBPELPortType port = service.getTravelGoodBPELPortTypeBindingPort();
-        return port.getHotels(part1);
-    }
-
-    private static GetFlightsResponse getFlights(ws.travelgoodschema.GetFlightsRequest part1) {
-        ws.travelgoodbpel.TravelGoodBPELService service = new ws.travelgoodbpel.TravelGoodBPELService();
-        ws.travelgoodbpel.TravelGoodBPELPortType port = service.getTravelGoodBPELPortTypeBindingPort();
-        return port.getFlights(part1);
-    }
-
-    private static GetItineraryResponse getItinerary(ws.travelgoodschema.GetItineraryRequest part1) {
-        ws.travelgoodbpel.TravelGoodBPELService service = new ws.travelgoodbpel.TravelGoodBPELService();
-        ws.travelgoodbpel.TravelGoodBPELPortType port = service.getTravelGoodBPELPortTypeBindingPort();
-        return port.getItinerary(part1);
     }
 
     private static String createItinerary(boolean part1) {
@@ -199,16 +159,34 @@ public class testC1 {
         return port.createItinerary(part1);
     }
 
+    private static GetHotelsResponse getHotels(ws.travelgoodschema.GetHotelsRequest part1) {
+        ws.travelgoodbpel.TravelGoodBPELService service = new ws.travelgoodbpel.TravelGoodBPELService();
+        ws.travelgoodbpel.TravelGoodBPELPortType port = service.getTravelGoodBPELPortTypeBindingPort();
+        return port.getHotels(part1);
+    }
+
+    private static ItineraryInfoType bookItinerary(ws.travelgoodschema.BookItineraryRequest part1) throws BookItineraryFault {
+        ws.travelgoodbpel.TravelGoodBPELService service = new ws.travelgoodbpel.TravelGoodBPELService();
+        ws.travelgoodbpel.TravelGoodBPELPortType port = service.getTravelGoodBPELPortTypeBindingPort();
+        return port.bookItinerary(part1);
+    }
+
     private static ItineraryInfoType cancelBooking(ws.travelgoodschema.CancelBookingRequest part1) throws CancelBookingFault {
         ws.travelgoodbpel.TravelGoodBPELService service = new ws.travelgoodbpel.TravelGoodBPELService();
         ws.travelgoodbpel.TravelGoodBPELPortType port = service.getTravelGoodBPELPortTypeBindingPort();
         return port.cancelBooking(part1);
     }
 
-    private static boolean resetFlights(boolean resetFlightsRequest) {
-        ws.lameduck.LameDuckService service = new ws.lameduck.LameDuckService();
-        ws.lameduck.LameDuckPortType port = service.getLameDuckPortTypeBindingPort();
-        return port.resetFlights(resetFlightsRequest);
+    private static boolean addItineraryHotel(ws.travelgoodschema.AddItineraryHotelRequest part1) {
+        ws.travelgoodbpel.TravelGoodBPELService service = new ws.travelgoodbpel.TravelGoodBPELService();
+        ws.travelgoodbpel.TravelGoodBPELPortType port = service.getTravelGoodBPELPortTypeBindingPort();
+        return port.addItineraryHotel(part1);
+    }
+
+    private static GetItineraryResponse getItinerary(ws.travelgoodschema.GetItineraryRequest part1) {
+        ws.travelgoodbpel.TravelGoodBPELService service = new ws.travelgoodbpel.TravelGoodBPELService();
+        ws.travelgoodbpel.TravelGoodBPELPortType port = service.getTravelGoodBPELPortTypeBindingPort();
+        return port.getItinerary(part1);
     }
     
 }

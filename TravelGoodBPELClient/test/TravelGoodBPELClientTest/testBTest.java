@@ -5,7 +5,6 @@
  */
 package TravelGoodBPELClientTest;
 
-import static TravelGoodBPELClientTest.ClientTest.convertDateTimeToGregCal;
 import dk.dtu.imm.fastmoney.types.CreditCardInfoType;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -37,12 +36,12 @@ import ws.travelgoodschema.ItineraryInfoType;
  *
  * @author Alex
  */
-public class testB {
+public class testBTest {
     private final XMLGregorianCalendar dateArrive;
     private final XMLGregorianCalendar dateDepart;
     private final CreditCardInfoType creditCardInge; //1000 cash
     
-    public testB() throws DatatypeConfigurationException {creditCardInge = new CreditCardInfoType();
+    public testBTest() throws DatatypeConfigurationException {creditCardInge = new CreditCardInfoType();
         creditCardInge.setName("Tobiasen Inge");
         CreditCardInfoType.ExpirationDate expirationInge = new CreditCardInfoType.ExpirationDate();
         expirationInge.setMonth(9);
@@ -65,6 +64,7 @@ public class testB {
         status of the first booking and unconfirmed for the status of the second and third booking.
         */
     }
+    
     
     @Test
     public void testB(){
@@ -149,7 +149,7 @@ public class testB {
             assertFalse(true);
         } catch (BookItineraryFault ex) {
             assertTrue(true);
-            Logger.getLogger(testB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(testBTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         // We check that the first is cancelled and the other two are unconfirmed

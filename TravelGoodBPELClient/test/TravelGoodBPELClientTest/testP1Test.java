@@ -5,7 +5,7 @@
  */
 package TravelGoodBPELClientTest;
 
-import static TravelGoodBPELClientTest.testP2.convertDateTimeToGregCal;
+import static TravelGoodBPELClientTest.testP2Test.convertDateTimeToGregCal;
 import dk.dtu.imm.fastmoney.types.CreditCardInfoType;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -35,7 +35,7 @@ import ws.travelgoodschema.ItineraryInfoType;
  *
  * @author Alex
  */
-public class testP1 {
+public class testP1Test {
     private final XMLGregorianCalendar dateArrive;
     private final XMLGregorianCalendar dateDepart;
     static private CreditCardInfoType creditCardTest_10000; //10000 cash
@@ -49,7 +49,7 @@ public class testP1 {
         that the booking status for each item is unconfirmed.
         Book the itinerary and ask again for the itinerary. Check that each booking status is now confirmed
         */
-    public testP1() throws DatatypeConfigurationException{
+    public testP1Test() throws DatatypeConfigurationException{
         GregorianCalendar c = new GregorianCalendar();
         c.setTime(new Date(2015, 12, 18, 10, 0));
         dateArrive = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
