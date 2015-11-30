@@ -178,9 +178,9 @@ public class TravelGoodTest {
         long time = new Date().getTime();
         List<HotelReservationType> hotels = searchHotels(time, time, "Bangladesh");
         addHotel(id, hotels.get(0));
-        // The hotels in 'Everywhere' are not cancellable so we will
+        // The hotels in 'Copenhagen' are not cancellable so we will
         // add one to cause failure during the cancelling phase
-        hotels = searchHotels(time, time, "Everywhere");
+        hotels = searchHotels(time, time, "Copenhagen");
         addHotel(id, hotels.get(0));
         List<FlightInfoType> flights = searchFlights("LHR", "CPH", "2015-11-19", "11:00");
         addFlight(id, flights.get(0));
