@@ -15,15 +15,13 @@
     xmlns:ns2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" 
     xmlns:ns3="urn:NiceViewSchema" 
     xmlns:ns4="http://NiceView.ws" 
-    xmlns:ns5="urn:LameDuckSchema" xmlns:ns6="http://LameDuck.ws" xmlns:ns7="http://HelperService.ws">
+    xmlns:ns5="urn:LameDuckSchema" xmlns:ns6="http://LameDuck.ws">
     <import namespace="TravelGoodBPEL.ws" location="TravelGoodBPEL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="TravelGoodSchema.ws" location="TravelGoodSchema.xsd" importType="http://www.w3.org/2001/XMLSchema"/>
     <import namespace="http://NiceView.ws" location="NiceViewServiceWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://NiceView.ws" location="http://localhost:8080/NiceView/NiceViewService?wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://LameDuck.ws" location="LameDuckServiceWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://LameDuck.ws" location="http://localhost:8080/LameDuck/LameDuckService?wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
-    <import namespace="http://enterprise.netbeans.org/bpel/HelperServiceServiceWrapper" location="HelperServiceServiceWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
-    <import namespace="http://HelperService.ws" location="http://localhost:8080/BPELHelperService/HelperServiceService?wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <partnerLinks>
         <partnerLink name="PartnerLink2" xmlns:tns="http://enterprise.netbeans.org/bpel/NiceViewServiceWrapper" partnerLinkType="ns4:NiceViewLinkType" partnerRole="NiceViewRole"/>
         <partnerLink name="PartnerLink3" xmlns:tns="http://LameDuck.ws" partnerLinkType="tns:LameDuckLinkType" partnerRole="LameDuckRole"/>
@@ -46,10 +44,6 @@
         </variable>
         <variable name="BookItineraryIn" messageType="ns0:bookItineraryRequest"/>
         <variable name="hasBooked" type="xs:boolean"/>
-        <variable name="AddFlightsBookingsNumbersOut" xmlns:tns="http://HelperService.ws" messageType="tns:addBookingNumbersResponse"/>
-        <variable name="AddFlightsBookingsNumbersIn" xmlns:tns="http://HelperService.ws" messageType="tns:addBookingNumbersRequest"/>
-        <variable name="AddHotelsBookingsNumbersOut" xmlns:tns="http://HelperService.ws" messageType="tns:addBookingNumbersResponse"/>
-        <variable name="AddHotelsBookingsNumbersIn" xmlns:tns="http://HelperService.ws" messageType="tns:addBookingNumbersRequest"/>
         <variable name="GetFlightsOut1" xmlns:tns="http://LameDuck.ws" messageType="tns:getFlightsResponse"/>
         <variable name="GetFlightsIn1" xmlns:tns="http://LameDuck.ws" messageType="tns:getFlightsRequest"/>
         <variable name="GetFlightsOut" messageType="ns0:getFlightResponse"/>
@@ -66,6 +60,7 @@
                 <sxed:predicate path="$Itinerary/ns1:items[$ForEach1Counter]" source="to"/>
                  <sxed:predicate path="$Itinerary/ns1:items[$ForEach2Counter]" source="from"/>
                  <sxed:predicate path="$Itinerary/ns1:items[$ForEach2Counter]" source="to"/>
+                <sxed:predicate path="$Itinerary/ns1:items[$ForEach3Counter]" source="from"/>
             </sxed:editor>
         </variable>
         <variable name="AddItineraryHotelOut" messageType="ns0:addItineraryHotelResponse"/>
@@ -110,7 +105,7 @@
         </assign>
         <assign name="Assign10">
             <copy>
-                <from variable="CreateItineraryOut" property="ns0:itineraryID"/>
+                <from>string(ns2:getVariableProperty('CreateItineraryOut', 'ns0:itineraryID'))</from>
                 <to variable="CreateItineraryOut" part="part1"/>
             </copy>
         </assign>
@@ -442,8 +437,8 @@
                                             <sequence name="Sequence12">
                                                         <forEach name="ForEach1" parallel="no" counterName="ForEach1Counter">
                                                                 <startCounterValue>1</startCounterValue>
-                                                                    <finalCounterValue>$itinerarySize + 0</finalCounterValue>
-                                                                    <scope name="Scope1">
+                                                            <finalCounterValue>$itinerarySize</finalCounterValue>
+                                                            <scope name="Scope1">
                                                                         <variables>
                                                                             <variable name="CancelHotelOut" messageType="ns4:cancelHotelResponse"/>
                                                                             <variable name="CancelHotelIn" messageType="ns4:cancelHotelRequest"/>
@@ -452,10 +447,6 @@
                                                                             <variable name="BookItineraryOut" messageType="ns0:bookItineraryResponse"/>
                                                                                     <variable name="BookFlightOut" messageType="ns6:bookFlightOutput"/>
                                                                                     <variable name="BookFlightIn" messageType="ns6:bookFlightInput"/>
-                                                                                    <variable name="PutHotelBookOut" messageType="ns7:putHotelResponse"/>
-                                                                                    <variable name="PutHotelBookIn" messageType="ns7:putHotelRequest"/>
-                                                                                    <variable name="SelectHotelItemOut" messageType="ns7:selectItemResponse"/>
-                                                                                    <variable name="SelectHotelItemIn" messageType="ns7:selectItemRequest"/>
                                                                                     <variable name="BookHotelOut" messageType="ns4:bookHotelResponse"/>
                                                                                     <variable name="BookHotelIn" messageType="ns4:bookHotelRequest"/>
                                                                             </variables>
