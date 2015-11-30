@@ -64,6 +64,8 @@
                 <sxed:predicate path="$Itinerary/ns1:items[1]" source="to"/>
                 <sxed:predicate path="$Itinerary/ns1:items[$ForEach1Counter]" source="from"/>
                 <sxed:predicate path="$Itinerary/ns1:items[$ForEach1Counter]" source="to"/>
+                 <sxed:predicate path="$Itinerary/ns1:items[$ForEach2Counter]" source="from"/>
+                 <sxed:predicate path="$Itinerary/ns1:items[$ForEach2Counter]" source="to"/>
             </sxed:editor>
         </variable>
         <variable name="AddItineraryHotelOut" messageType="ns0:addItineraryHotelResponse"/>
@@ -546,7 +548,102 @@
                                     <correlations>
                                             <correlation set="itineraryCorrelation" initiate="no"/>
                                         </correlations>
-                                        <reply name="Reply14" partnerLink="PartnerLink1" operation="cancelBooking" portType="ns0:TravelGoodBPELPortType" variable="CancelBookingOut"/>
+                                     <sequence name="Sequence21">
+                                          <forEach name="ForEach2" parallel="no" counterName="ForEach2Counter">
+                                               <startCounterValue>1</startCounterValue>
+                                               <finalCounterValue>$itinerarySize</finalCounterValue>
+                                               <scope name="Scope9">
+                                                    <variables>
+                                                         <variable name="CancelItineraryHotelOut" messageType="ns4:cancelHotelResponse"/>
+                                                         <variable name="CancelItineraryHotelIn" messageType="ns4:cancelHotelRequest"/>
+                                                         <variable name="CancelItineraryFlightOut" messageType="ns6:cancelFlightOutput"/>
+                                                         <variable name="CancelItinerarylFlightIn" messageType="ns6:cancelFlightInput"/>
+                                                    </variables>
+                                                    <if name="If10">
+                                                         <condition>string-length($Itinerary/ns1:items[$ForEach2Counter]/ns1:flight/ns1:FlightInfoList/ns5:bookingNumber) &gt; 0
+                                                              <sxed:editor>
+                                                                   <sxed:predicate path="$Itinerary/ns1:items[$ForEach2Counter]" source="from"/>
+                                                              </sxed:editor>
+                                                         </condition>
+                                                         <sequence name="Sequence22">
+                                                              <assign name="Assign45">
+                                                                   <copy>
+                                                                        <from>$Itinerary/ns1:items[$ForEach2Counter]/ns1:flight/ns1:FlightInfoList/ns5:bookingNumber
+                                                                             <sxed:editor>
+                                                                                  <sxed:predicate path="$Itinerary/ns1:items[$ForEach2Counter]" source="from"/>
+                                                                             </sxed:editor>
+                                                                        </from>
+                                                                        <to>$CancelItinerarylFlightIn.cancelFlightRequest/ns5:bookingNumber</to>
+                                                                   </copy>
+                                                                   <copy>
+                                                                        <from>$Itinerary/ns1:items[$ForEach2Counter]/ns1:flight/ns1:FlightInfoList/ns5:flightPrice
+                                                                             <sxed:editor>
+                                                                                  <sxed:predicate path="$Itinerary/ns1:items[$ForEach2Counter]" source="from"/>
+                                                                             </sxed:editor>
+                                                                        </from>
+                                                                        <to>$CancelItinerarylFlightIn.cancelFlightRequest/ns5:price</to>
+                                                                   </copy>
+                                                                   <copy>
+                                                                        <from>$CancelBookingIn.part1/ns1:creditCardInfo</from>
+                                                                        <to>$CancelItinerarylFlightIn.cancelFlightRequest/ns5:CreditCardInfo</to>
+                                                                   </copy>
+                                                              </assign>
+                                                              <invoke name="Invoke18" partnerLink="PartnerLink3" operation="cancelFlight" portType="ns6:LameDuckPortType" inputVariable="CancelItinerarylFlightIn" outputVariable="CancelItineraryFlightOut"/>
+                                                              <assign name="Assign49">
+                                                                   <copy>
+                                                                        <from>'cancelled'</from>
+                                                                        <to>$Itinerary/ns1:items[$ForEach2Counter]/ns1:flight/ns1:bookingStatus
+                                                                             <sxed:editor>
+                                                                                  <sxed:predicate path="$Itinerary/ns1:items[$ForEach2Counter]" source="to"/>
+                                                                             </sxed:editor>
+                                                                        </to>
+                                                                   </copy>
+                                                              </assign>
+                                                         </sequence>
+                                                         <else>
+                                                              <sequence name="Sequence23">
+                                                                   <assign name="Assign46">
+                                                                        <copy>
+                                                                             <from>$CancelBookingIn.part1/ns1:creditCardInfo</from>
+                                                                             <to>$CancelItineraryHotelIn.part1/creditCardInfo</to>
+                                                                        </copy>
+                                                                        <copy>
+                                                                             <from>$Itinerary/ns1:items[$ForEach2Counter]/ns1:hotel/ns1:HotelInfoList/bookingNumber
+                                                                                  <sxed:editor>
+                                                                                       <sxed:predicate path="$Itinerary/ns1:items[$ForEach2Counter]" source="from"/>
+                                                                                  </sxed:editor>
+                                                                             </from>
+                                                                             <to>$CancelItineraryHotelIn.part1/bookingNumber</to>
+                                                                        </copy>
+                                                                   </assign>
+                                                                   <invoke name="Invoke19" partnerLink="PartnerLink2" operation="cancelHotel" portType="ns4:NiceViewPortType" inputVariable="CancelItineraryHotelIn" outputVariable="CancelItineraryHotelOut"/>
+                                                                   <assign name="Assign48">
+                                                                        <copy>
+                                                                             <from>'cancelled'</from>
+                                                                             <to>$Itinerary/ns1:items[$ForEach2Counter]/ns1:hotel/ns1:bookingStatus
+                                                                                  <sxed:editor>
+                                                                                       <sxed:predicate path="$Itinerary/ns1:items[$ForEach2Counter]" source="to"/>
+                                                                                  </sxed:editor>
+                                                                             </to>
+                                                                        </copy>
+                                                                   </assign>
+                                                              </sequence>
+                                                         </else>
+                                                    </if>
+                                               </scope>
+                                          </forEach>
+                                          <assign name="Assign47">
+                                               <copy>
+                                                    <from>'cancelled'</from>
+                                                    <to>$CancelBookingOut.part1/ns1:itineraryStatus</to>
+                                               </copy>
+                                               <copy>
+                                                    <from>$CancelBookingIn.part1/ns1:itineraryId</from>
+                                                    <to>$CancelBookingOut.part1/ns1:itineraryID</to>
+                                               </copy>
+                                          </assign>
+                                          <reply name="Reply14" partnerLink="PartnerLink1" operation="cancelBooking" portType="ns0:TravelGoodBPELPortType" variable="CancelBookingOut"/>
+                                     </sequence>
                                 </onMessage>
                         </pick>
                 </while>

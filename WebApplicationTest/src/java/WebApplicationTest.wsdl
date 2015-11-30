@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="WebApplicationTest" targetNamespace="http://j2ee.netbeans.org/wsdl/WebApplicationTest/java/WebApplicationTest"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://j2ee.netbeans.org/wsdl/WebApplicationTest/java/WebApplicationTest">
+    <types/>
+    <message name="WebApplicationTestOperationRequest">
+        <part name="part1" type="xsd:string"/>
+    </message>
+    <message name="WebApplicationTestOperationResponse">
+        <part name="part1" type="xsd:string"/>
+    </message>
+    <portType name="WebApplicationTestPortType"></portType>
+</definitions>
