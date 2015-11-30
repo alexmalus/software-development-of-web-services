@@ -10,13 +10,13 @@ import java.util.logging.Logger;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-import lameduckschema.GetFlightsRequest;
-import lameduckschema.GetFlightsResponse;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import ws.travelgoodbpel.CancelBookingFault;
 import ws.travelgoodbpel.CancelItineraryFault;
 import ws.travelgoodschema.BookingStatus;
+import ws.travelgoodschema.GetFlightsRequest;
+import ws.travelgoodschema.GetFlightsResponse;
 import ws.travelgoodschema.ItineraryInfoType;
 
 /**
@@ -40,12 +40,17 @@ public class testP2 {
         System.out.println(itineraryID);
         
         GetFlightsRequest flight_request = new GetFlightsRequest();
-        flight_request.setStartDestination("CPH");
-        flight_request.setFinalDestination("LHR");
+        lameduckschema.GetFlightsRequest ldGetFlightsRequest = new lameduckschema.GetFlightsRequest();
+        ldGetFlightsRequest.setStartDestination("CPH");
+        ldGetFlightsRequest.setFinalDestination("LHR");
         XMLGregorianCalendar liftoffDate = convertDateTimeToGregCal("2015-11-18", "17:00");
-        flight_request.setDateFlight(liftoffDate);
+        ldGetFlightsRequest.setDateFlight(liftoffDate);
+        
+        flight_request.setGetFlightsRequest(ldGetFlightsRequest);
+        flight_request.setItineraryId(itineraryID);
+        
         GetFlightsResponse flights_response = getFlights(flight_request);
-        String flights_response_book_id = flights_response.getFlightInfoList().get(0).getBookingNumber();
+        String flights_response_book_id = flights_response.getFlights().get(0).getBookingNumber();
         System.out.println(flights_response_book_id);
         
         ws.travelgoodschema.AddItineraryFlightRequest itinerary_flight_request = new  ws.travelgoodschema.AddItineraryFlightRequest();
@@ -81,11 +86,6 @@ public class testP2 {
     return data_fact.newXMLGregorianCalendar(date_time);
     }
 
-    private static GetFlightsResponse getFlights(lameduckschema.GetFlightsRequest getFlightsInput) {
-        ws.lameduck.LameDuckService service = new ws.lameduck.LameDuckService();
-        ws.lameduck.LameDuckPortType port = service.getLameDuckPortTypeBindingPort();
-        return port.getFlights(getFlightsInput);
-    }
 
     private static boolean addItineraryFlight(ws.travelgoodschema.AddItineraryFlightRequest part1) {
         ws.travelgoodbpel.TravelGoodBPELService service = new ws.travelgoodbpel.TravelGoodBPELService();
@@ -103,6 +103,12 @@ public class testP2 {
         ws.travelgoodbpel.TravelGoodBPELService service = new ws.travelgoodbpel.TravelGoodBPELService();
         ws.travelgoodbpel.TravelGoodBPELPortType port = service.getTravelGoodBPELPortTypeBindingPort();
         return port.cancelItinerary(part1);
+    }
+
+    private static ws.travelgoodschema.GetFlightsResponse getFlights(ws.travelgoodschema.GetFlightsRequest part1) {
+        ws.travelgoodbpel.TravelGoodBPELService service = new ws.travelgoodbpel.TravelGoodBPELService();
+        ws.travelgoodbpel.TravelGoodBPELPortType port = service.getTravelGoodBPELPortTypeBindingPort();
+        return port.getFlights(part1);
     }
 
     

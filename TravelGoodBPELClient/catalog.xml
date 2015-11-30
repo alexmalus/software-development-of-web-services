@@ -13,8 +13,9 @@
     <system systemId="http://localhost:8080/LameDuck/LameDuckService?wsdl" uri="xml-resources/web-service-references/LameDuckService/wsdl/localhost_8080/LameDuck/LameDuckService.wsdl"/>
     <system systemId="http://localhost:8080/NiceView/NiceViewService?wsdl" uri="xml-resources/web-service-references/NiceViewService/wsdl/localhost_8080/NiceView/NiceViewService.wsdl"/>
     <system systemId="http://YOLO:9080/TravelGoodBPELApp-sun-http-binding/TravelGoodBPEL/TravelGoodSchema.xsd" uri="xml-resources/web-service-references/TravelGoodBPEL/wsdl/YOLO_9080/TravelGoodBPELApp-sun-http-binding/TravelGoodBPEL/TravelGoodSchema.xsd"/>
-    <system systemId="http://localhost:9080/service/TravelGoodBPELPortType?wsdl" uri="xml-resources/web-service-references/TravelGoodBPEL/wsdl/localhost_9080/service/TravelGoodBPELPortType.wsdl"/>
     <system systemId="http://10.16.165.77:9080/TravelGoodBPELApp-sun-http-binding/TravelGoodBPEL/TravelGoodSchema.xsd" uri="xml-resources/web-service-references/TravelGoodBPEL/wsdl/10.16.165.77_9080/TravelGoodBPELApp-sun-http-binding/TravelGoodBPEL/TravelGoodSchema.xsd"/>
+    <system systemId="http://localhost:9080/service/TravelGoodBPELPortType?wsdl" uri="xml-resources/web-service-references/TravelGoodBPEL/wsdl/localhost_9080/service/TravelGoodBPELPortType.wsdl"/>
+    <system systemId="http://192.168.1.143:9080/TravelGoodBPELApp-sun-http-binding/TravelGoodBPEL/TravelGoodSchema.xsd" uri="xml-resources/web-service-references/TravelGoodBPEL/wsdl/192.168.1.143_9080/TravelGoodBPELApp-sun-http-binding/TravelGoodBPEL/TravelGoodSchema.xsd"/>
     <system systemId="http://localhost:8080/NiceView/NiceViewService?xsd=1" uri="xml-resources/web-service-references/TravelGoodBPEL/wsdl/localhost_8080/NiceView/NiceViewService.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/LameDuck/LameDuckService?xsd=1" uri="xml-resources/web-service-references/TravelGoodBPEL/wsdl/localhost_8080/LameDuck/LameDuckService.xsd_1.xsd"/>
     <system systemId="http://fastmoney.imm.dtu.dk:8080/BankServiceTypes.xsd" uri="xml-resources/web-service-references/TravelGoodBPEL/wsdl/fastmoney.imm.dtu.dk_8080/BankServiceTypes.xsd"/>

@@ -18,4 +18,5 @@
     <system systemId="http://localhost:9070/service/TravelGoodBPELPortType?wsdl" uri="wsdl/localhost_9070/service/TravelGoodBPELPortType.wsdl"/>
     <system systemId="http://10.16.165.77:9080/TravelGoodBPELApp-sun-http-binding/TravelGoodBPEL/TravelGoodSchema.xsd" uri="wsdl/10.16.165.77_9080/TravelGoodBPELApp-sun-http-binding/TravelGoodBPEL/TravelGoodSchema.xsd"/>
     <system systemId="http://YOLO:9080/TravelGoodBPELApp-sun-http-binding/TravelGoodBPEL/TravelGoodSchema.xsd" uri="wsdl/YOLO_9080/TravelGoodBPELApp-sun-http-binding/TravelGoodBPEL/TravelGoodSchema.xsd"/>
+    <system systemId="http://192.168.1.143:9080/TravelGoodBPELApp-sun-http-binding/TravelGoodBPEL/TravelGoodSchema.xsd" uri="wsdl/192.168.1.143_9080/TravelGoodBPELApp-sun-http-binding/TravelGoodBPEL/TravelGoodSchema.xsd"/>
 </catalog>

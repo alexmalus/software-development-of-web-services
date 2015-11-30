@@ -15,7 +15,7 @@
     xmlns:ns2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" 
     xmlns:ns3="urn:NiceViewSchema" 
     xmlns:ns4="http://NiceView.ws" 
-    xmlns:ns5="urn:LameDuckSchema">
+    xmlns:ns5="urn:LameDuckSchema" xmlns:ns6="http://LameDuck.ws">
     <import namespace="TravelGoodBPEL.ws" location="TravelGoodBPEL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="TravelGoodSchema.ws" location="TravelGoodSchema.xsd" importType="http://www.w3.org/2001/XMLSchema"/>
     <import namespace="http://NiceView.ws" location="NiceViewServiceWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
@@ -27,26 +27,25 @@
     <partnerLinks>
         <partnerLink name="PartnerLink2" xmlns:tns="http://enterprise.netbeans.org/bpel/NiceViewServiceWrapper" partnerLinkType="ns4:NiceViewLinkType" partnerRole="NiceViewRole"/>
         <partnerLink name="PartnerLink3" xmlns:tns="http://LameDuck.ws" partnerLinkType="tns:LameDuckLinkType" partnerRole="LameDuckRole"/>
-        <partnerLink name="PartnerLink4" xmlns:tns="http://enterprise.netbeans.org/bpel/HelperServiceServiceWrapper" partnerLinkType="tns:HelperServiceLinkType" partnerRole="HelperRole"/>
         <partnerLink name="PartnerLink1" xmlns:tns="TravelGoodBPEL.ws" partnerLinkType="tns:TravelGoodBPEL" myRole="TravelGoodBPELPortTypeRole"/>
     </partnerLinks>
     <variables>
+        <variable name="itinerarySize" type="xs:int"/>
+        <variable name="potentialBookingSize" type="xs:int"/>
+        <variable name="potentialBookings" element="ns1:potentialBookings">
+            <sxed:editor>
+                <sxed:predicate path="$potentialBookings/ns1:item[ns1:flight/ns1:FlightInfoList/ns5:bookingNumber = $AddItineraryFlightIn.part1/ns1:bookingId]" source="from"/>
+                <sxed:predicate path="$potentialBookings/ns1:item[1]" source="to"/>
+                 <sxed:predicate path="$potentialBookings/ns1:item[$potentialBookingSize + 1]" source="to"/>
+                <sxed:predicate path="$potentialBookings/ns1:item[ns1:hotel/ns1:HotelInfoList/bookingNumber = $AddItineraryHotelIn.part1/ns1:bookingId]" source="from"/>
+            </sxed:editor>
+        </variable>
         <variable name="BookItineraryIn" messageType="ns0:bookItineraryRequest"/>
-        <variable name="GetItineraryHelperBookOut" xmlns:tns="http://HelperService.ws" messageType="tns:getItineraryResponse"/>
-        <variable name="GetItineraryHelperBookIn" xmlns:tns="http://HelperService.ws" messageType="tns:getItineraryRequest"/>
         <variable name="hasBooked" type="xs:boolean"/>
-        <variable name="PutHotelOut" xmlns:tns="http://HelperService.ws" messageType="tns:putHotelResponse"/>
-        <variable name="PutHotelIn" xmlns:tns="http://HelperService.ws" messageType="tns:putHotelRequest"/>
-        <variable name="GetItineraryHelperOut" xmlns:tns="http://HelperService.ws" messageType="tns:getItineraryResponse"/>
-        <variable name="GetItineraryHelperIn" xmlns:tns="http://HelperService.ws" messageType="tns:getItineraryRequest"/>
         <variable name="AddFlightsBookingsNumbersOut" xmlns:tns="http://HelperService.ws" messageType="tns:addBookingNumbersResponse"/>
         <variable name="AddFlightsBookingsNumbersIn" xmlns:tns="http://HelperService.ws" messageType="tns:addBookingNumbersRequest"/>
-        <variable name="PutFlightOut" xmlns:tns="http://HelperService.ws" messageType="tns:putFlightResponse"/>
-        <variable name="PutFlightIn" xmlns:tns="http://HelperService.ws" messageType="tns:putFlightRequest"/>
         <variable name="AddHotelsBookingsNumbersOut" xmlns:tns="http://HelperService.ws" messageType="tns:addBookingNumbersResponse"/>
         <variable name="AddHotelsBookingsNumbersIn" xmlns:tns="http://HelperService.ws" messageType="tns:addBookingNumbersRequest"/>
-        <variable name="CreateItineraryOutHelper" xmlns:tns="http://HelperService.ws" messageType="tns:createHelperItineraryResponse"/>
-        <variable name="CreateItineraryInHelper" xmlns:tns="http://HelperService.ws" messageType="tns:createHelperItineraryRequest"/>
         <variable name="GetFlightsOut1" xmlns:tns="http://LameDuck.ws" messageType="tns:getFlightsResponse"/>
         <variable name="GetFlightsIn1" xmlns:tns="http://LameDuck.ws" messageType="tns:getFlightsRequest"/>
         <variable name="GetFlightsOut" messageType="ns0:getFlightResponse"/>
@@ -55,7 +54,14 @@
         <variable name="GetHotelsIn1" xmlns:tns="http://NiceView.ws" messageType="tns:getHotelsRequest"/>
         <variable name="GetHotelsOut" messageType="ns0:getHotelsResponse"/>
         <variable name="GetHotelsIn" messageType="ns0:getHotelsRequest"/>
-        <variable name="Itinerary" element="ns1:Itinerary"/>
+        <variable name="Itinerary" element="ns1:Itinerary">
+            <sxed:editor>
+                <sxed:predicate path="$Itinerary/ns1:items[$itinerarySize + 1]" source="to"/>
+                <sxed:predicate path="$Itinerary/ns1:items[1]" source="to"/>
+                <sxed:predicate path="$Itinerary/ns1:items[$ForEach1Counter]" source="from"/>
+                <sxed:predicate path="$Itinerary/ns1:items[$ForEach1Counter]" source="to"/>
+            </sxed:editor>
+        </variable>
         <variable name="AddItineraryHotelOut" messageType="ns0:addItineraryHotelResponse"/>
         <variable name="AddItineraryFlightOut" messageType="ns0:addItineraryFlightResponse"/>
         <variable name="GetItineraryOut" messageType="ns0:getItineraryResponse"/>
@@ -79,6 +85,22 @@
                 <from>false()</from>
                 <to variable="hasBooked"/>
             </copy>
+             <copy>
+                  <from>false()</from>
+                  <to>$potentialBookings/ns1:initialized</to>
+             </copy>
+             <copy>
+                  <from>false()</from>
+                  <to>$Itinerary/ns1:initialized</to>
+             </copy>
+            <copy>
+                <from>0</from>
+                <to variable="potentialBookingSize"/>
+            </copy>
+            <copy>
+                <from>0</from>
+                <to variable="itinerarySize"/>
+            </copy>
         </assign>
         <assign name="Assign10">
             <copy>
@@ -86,13 +108,6 @@
                 <to variable="CreateItineraryOut" part="part1"/>
             </copy>
         </assign>
-        <assign name="Assign11">
-            <copy>
-                <from variable="CreateItineraryOut" part="part1"/>
-                <to variable="CreateItineraryInHelper" part="part1"/>
-            </copy>
-        </assign>
-        <invoke name="Invoke3" partnerLink="PartnerLink4" operation="createItinerary" xmlns:tns="http://HelperService.ws" portType="tns:HelperServicePortType" inputVariable="CreateItineraryInHelper" outputVariable="CreateItineraryOutHelper"/>
         <reply name="Reply1" partnerLink="PartnerLink1" operation="createItinerary" portType="ns0:TravelGoodBPELPortType" variable="CreateItineraryOut">
             <correlations>
                 <correlation set="itineraryCorrelation" initiate="yes"/>
@@ -108,87 +123,150 @@
                                 <correlations>
                                         <correlation set="itineraryCorrelation" initiate="no"/>
                                     </correlations>
-                                    <sequence name="Sequence2">
-                                        <assign name="Assign16">
-                                                <copy>
-                                                        <from>$GetItineraryIn.part1/ns1:ItineraryID</from>
-                                                            <to variable="GetItineraryHelperIn" part="part1"/>
-                                                    </copy>
-                                            </assign>
-                                            <invoke name="Invoke7" partnerLink="PartnerLink4" operation="getItinerary" xmlns:tns="http://HelperService.ws" portType="tns:HelperServicePortType" inputVariable="GetItineraryHelperIn" outputVariable="GetItineraryHelperOut"/>
-                                            <if name="If1">
-                                                <condition>count($GetItineraryHelperOut.part1/ns1:Itinerary/ns1:ItineraryBookingHotelList) &gt; 0</condition>
-                                                    <assign name="Assign17">
-                                                        <copy>
-                                                                <from>$GetItineraryHelperOut.part1/ns1:Itinerary/ns1:ItineraryBookingHotelList</from>
-                                                                    <to>$GetItineraryOut.part1/ns1:hotels</to>
-                                                            </copy>
-                                                    </assign>
-                                            </if>
-                                            <if name="If2">
-                                                <condition>count($GetItineraryHelperOut.part1/ns1:Itinerary/ns1:ItineraryBookingFlightList) &gt; 0</condition>
-                                                    <assign name="Assign18">
-                                                        <copy>
-                                                                <from>$GetItineraryHelperOut.part1/ns1:Itinerary/ns1:ItineraryBookingFlightList</from>
-                                                                    <to>$GetItineraryOut.part1/ns1:flights</to>
-                                                            </copy>
-                                                    </assign>
-                                            </if>
-                                            <reply name="Reply2" partnerLink="PartnerLink1" operation="getItinerary" portType="ns0:TravelGoodBPELPortType" variable="GetItineraryOut"/>
-                                    </sequence>
-                            </onMessage>
+                            <sequence name="Sequence16">
+                                <assign name="Assign36">
+                                    <copy>
+                                        <from>$Itinerary/ns1:items</from>
+                                        <to variable="GetItineraryOut" part="part1"/>
+                                    </copy>
+                                </assign>
+                                <reply name="Reply10" partnerLink="PartnerLink1" operation="getItinerary" portType="ns0:TravelGoodBPELPortType" variable="GetItineraryOut"/>
+                            </sequence>
+                        </onMessage>
                             <onMessage partnerLink="PartnerLink1" operation="addItineraryFlight" portType="ns0:TravelGoodBPELPortType" variable="AddItineraryFlightIn">
                         <correlations>
                                 <correlation set="itineraryCorrelation" initiate="no"/>
                             </correlations>
-                            <sequence name="Sequence6">
-                                <assign name="Assign13">
-                                    <copy>
-                                        <from>$AddItineraryFlightIn.part1/ns1:itineraryId</from>
-                                        <to>$PutFlightIn.part1/itineraryID</to>
-                                    </copy>
-                                    <copy>
-                                        <from>$AddItineraryFlightIn.part1/ns1:bookingId</from>
-                                        <to>$PutFlightIn.part1/bookingNumber</to>
-                                    </copy>
-                                    <copy>
-                                        <from>'unconfirmed'</from>
-                                        <to>$PutFlightIn.part1/bookingStatus</to>
-                                    </copy>
-                                </assign>
-                                <invoke name="Invoke5" partnerLink="PartnerLink4" operation="putFlight" xmlns:tns="http://HelperService.ws" portType="tns:HelperServicePortType" inputVariable="PutFlightIn" outputVariable="PutFlightOut"/>
-                                <assign name="Assign14">
-                                    <copy>
-                                        <from variable="PutFlightOut" part="part1"/>
-                                        <to variable="AddItineraryFlightOut" part="part1"/>
-                                    </copy>
-                                </assign>
-                                <reply name="Reply3" partnerLink="PartnerLink1" operation="addItineraryFlight" portType="ns0:TravelGoodBPELPortType" variable="AddItineraryFlightOut"/>
-                            </sequence>
-                        </onMessage>
+                                <scope name="Scope6">
+                                    <sequence name="Sequence6">
+                                        <if name="If6">
+                                                <condition>boolean($Itinerary/ns1:initialized)</condition>
+                                                    <assign name="Assign28">
+                                                        <copy>
+                                                                <from>'unconfirmed'</from>
+                                                                    <to>$Itinerary/ns1:items[$itinerarySize + 1]/ns1:flight/ns1:bookingStatus
+                                                                            <sxed:editor>
+                                                                                <sxed:predicate path="$Itinerary/ns1:items[$itinerarySize + 1]" source="to"/>
+                                                                            </sxed:editor>
+                                                                    </to>
+                                                            </copy>
+                                                            <copy>
+                                                                <from>$potentialBookings/ns1:item[ns1:flight/ns1:FlightInfoList/ns5:bookingNumber = $AddItineraryFlightIn.part1/ns1:bookingId]
+                                                                            <sxed:editor>
+                                                                                <sxed:predicate path="$potentialBookings/ns1:item[ns1:flight/ns1:FlightInfoList/ns5:bookingNumber = $AddItineraryFlightIn.part1/ns1:bookingId]" source="from"/>
+                                                                            </sxed:editor>
+                                                                    </from>
+                                                                    <to>$Itinerary/ns1:items</to>
+                                                            </copy>
+                                                    </assign>
+                                                    <else>
+                                                        <assign name="Assign30">
+                                                                <copy>
+                                                                        <from>$potentialBookings/ns1:item[ns1:flight/ns1:FlightInfoList/ns5:bookingNumber = $AddItineraryFlightIn.part1/ns1:bookingId]
+                                                                                    <sxed:editor>
+                                                                                        <sxed:predicate path="$potentialBookings/ns1:item[ns1:flight/ns1:FlightInfoList/ns5:bookingNumber = $AddItineraryFlightIn.part1/ns1:bookingId]" source="from"/>
+                                                                                    </sxed:editor>
+                                                                            </from>
+                                                                            <to>$Itinerary/ns1:items[1]
+                                                                                    <sxed:editor>
+                                                                                        <sxed:predicate path="$Itinerary/ns1:items[1]" source="to"/>
+                                                                                    </sxed:editor>
+                                                                            </to>
+                                                                    </copy>
+                                                                    <copy>
+                                                                        <from>true()</from>
+                                                                            <to>$Itinerary/ns1:initialized</to>
+                                                                    </copy>
+                                                                    <copy>
+                                                                        <from>'unconfirmed'</from>
+                                                                            <to>$Itinerary/ns1:items[1]/ns1:flight/ns1:bookingStatus
+                                                                                    <sxed:editor>
+                                                                                        <sxed:predicate path="$Itinerary/ns1:items[1]" source="to"/>
+                                                                                    </sxed:editor>
+                                                                            </to>
+                                                                    </copy>
+                                                            </assign>
+                                                    </else>
+                                            </if>
+                                            <assign name="Assign13">
+                                                <copy>
+                                                        <from>1 + $itinerarySize</from>
+                                                            <to variable="itinerarySize"/>
+                                                    </copy>
+                                            </assign>
+                                            <assign name="Assign35">
+                                                <copy>
+                                                        <from>true()</from>
+                                                            <to variable="AddItineraryFlightOut" part="part1"/>
+                                                    </copy>
+                                            </assign>
+                                            <reply name="Reply3" partnerLink="PartnerLink1" operation="addItineraryFlight" portType="ns0:TravelGoodBPELPortType" variable="AddItineraryFlightOut"/>
+                                    </sequence>
+                                </scope>
+                            </onMessage>
                             <onMessage partnerLink="PartnerLink1" operation="addItineraryHotel" portType="ns0:TravelGoodBPELPortType" variable="AddItineraryHotelIn">
                         <correlations>
-                                <correlation set="itineraryCorrelation" initiate="no"/>
-                            </correlations>
+                            <correlation set="itineraryCorrelation" initiate="no"/>
+                        </correlations>
                             <sequence name="Sequence7">
-                                <assign name="Assign19">
+                                <if name="If8">
+                                    <condition>boolean($Itinerary/ns1:initialized)</condition>
+                                    <assign name="Assign28">
+                                        <copy>
+                                            <from>$potentialBookings/ns1:item[ns1:hotel/ns1:HotelInfoList/bookingNumber = $AddItineraryHotelIn.part1/ns1:bookingId]
+                                                <sxed:editor>
+                                                    <sxed:predicate path="$potentialBookings/ns1:item[ns1:hotel/ns1:HotelInfoList/bookingNumber = $AddItineraryHotelIn.part1/ns1:bookingId]" source="from"/>
+                                                </sxed:editor>
+                                            </from>
+                                            <to>$Itinerary/ns1:items</to>
+                                        </copy>
+                                        <copy>
+                                            <from>'unconfirmed'</from>
+                                            <to>$Itinerary/ns1:items[$itinerarySize + 1]/ns1:hotel/ns1:bookingStatus
+                                                <sxed:editor>
+                                                    <sxed:predicate path="$Itinerary/ns1:items[$itinerarySize + 1]" source="to"/>
+                                                </sxed:editor>
+                                            </to>
+                                        </copy>
+                                    </assign>
+                                    <else>
+                                        <assign name="Assign30">
+                                            <copy>
+                                                <from>true()</from>
+                                                <to>$Itinerary/ns1:initialized</to>
+                                            </copy>
+                                            <copy>
+                                                <from>$potentialBookings/ns1:item[ns1:hotel/ns1:HotelInfoList/bookingNumber = $AddItineraryHotelIn.part1/ns1:bookingId]
+                                                    <sxed:editor>
+                                                        <sxed:predicate path="$potentialBookings/ns1:item[ns1:hotel/ns1:HotelInfoList/bookingNumber = $AddItineraryHotelIn.part1/ns1:bookingId]" source="from"/>
+                                                    </sxed:editor>
+                                                </from>
+                                                <to>$Itinerary/ns1:items[1]
+                                                    <sxed:editor>
+                                                        <sxed:predicate path="$Itinerary/ns1:items[1]" source="to"/>
+                                                    </sxed:editor>
+                                                </to>
+                                            </copy>
+                                            <copy>
+                                                <from>'unconfirmed'</from>
+                                                <to>$Itinerary/ns1:items[1]/ns1:hotel/ns1:bookingStatus
+                                                    <sxed:editor>
+                                                        <sxed:predicate path="$Itinerary/ns1:items[1]" source="to"/>
+                                                    </sxed:editor>
+                                                </to>
+                                            </copy>
+                                        </assign>
+                                    </else>
+                                </if>
+                                <assign name="Assign13">
                                     <copy>
-                                        <from>$AddItineraryHotelIn.part1/ns1:itineraryId</from>
-                                        <to>$PutHotelIn.part1/itineraryID</to>
-                                    </copy>
-                                    <copy>
-                                        <from>$AddItineraryHotelIn.part1/ns1:bookingId</from>
-                                        <to>$PutHotelIn.part1/bookingNumber</to>
-                                    </copy>
-                                    <copy>
-                                        <from>'unconfirmed'</from>
-                                        <to>$PutHotelIn.part1/bookingStatus</to>
-                                    </copy>
+                                            <from>1 + $itinerarySize</from>
+                                                <to variable="itinerarySize"/>
+                                        </copy>
                                 </assign>
-                                <invoke name="Invoke8" partnerLink="PartnerLink4" operation="putHotel" xmlns:tns="http://HelperService.ws" portType="tns:HelperServicePortType" inputVariable="PutHotelIn" outputVariable="PutHotelOut"/>
-                                <assign name="Assign20">
+                                <assign name="Assign37">
                                     <copy>
-                                        <from variable="PutHotelOut" part="part1"/>
+                                        <from>true()</from>
                                         <to variable="AddItineraryHotelOut" part="part1"/>
                                     </copy>
                                 </assign>
@@ -199,6 +277,7 @@
                                 <correlations>
                                         <correlation set="itineraryCorrelation" initiate="no"/>
                                     </correlations>
+                                <scope name="Scope4">
                                     <sequence name="Sequence3">
                                         <assign name="Assign5">
                                                 <copy>
@@ -206,97 +285,127 @@
                                                             <to variable="GetHotelsIn1" part="part1"/>
                                                     </copy>
                                             </assign>
-                                            <invoke name="Invoke1" partnerLink="PartnerLink2" operation="getHotels" xmlns:tns="http://NiceView.ws" portType="tns:NiceViewPortType" inputVariable="GetHotelsIn1" outputVariable="GetHotelsOut1"/>
-                                            <if name="If4">
-                                                <condition>count($GetHotelsOut1.part1/hotels) &gt; 0</condition>
-                                                    <sequence name="Sequence9">
-                                                        <assign name="Assign12">
-                                                                <copy>
-                                                                        <from>$GetFlightsOut1.getFlightsOutput/ns5:FlightInfoList</from>
-                                                                            <to>$AddHotelsBookingsNumbersIn.part1/flighstInfo</to>
-                                                                    </copy>
-                                                                    <copy>
-                                                                        <from>$GetHotelsIn.part1/ns1:itineraryId</from>
-                                                                            <to>$AddHotelsBookingsNumbersIn.part1/itineraryID</to>
-                                                                    </copy>
-                                                            </assign>
-                                                            <invoke name="Invoke4" partnerLink="PartnerLink4" operation="addBookingsNumbers" xmlns:tns="http://HelperService.ws" portType="tns:HelperServicePortType" inputVariable="AddHotelsBookingsNumbersIn" outputVariable="AddHotelsBookingsNumbersOut"/>
-                                                            <assign name="Assign4">
-                                                                <copy>
-                                                                        <from>$GetHotelsOut1.part1/hotels</from>
-                                                                            <to>$GetHotelsOut.part1/ns1:hotels</to>
-                                                                    </copy>
-                                                            </assign>
-                                                            <reply name="Reply5" partnerLink="PartnerLink1" operation="getHotels" portType="ns0:TravelGoodBPELPortType" variable="GetHotelsOut"/>
-                                                    </sequence>
-                                                    <else>
-                                                        <reply name="Reply8" partnerLink="PartnerLink1" operation="getHotels" portType="ns0:TravelGoodBPELPortType" variable="GetHotelsOut"/>
-                                                    </else>
-                                            </if>
+                                            <invoke name="Invoke1" partnerLink="PartnerLink2" operation="getHotels" portType="ns4:NiceViewPortType" inputVariable="GetHotelsIn1" outputVariable="GetHotelsOut1"/>
+                                         <if name="If7">
+                                              <condition>boolean($potentialBookings/ns1:initialized)</condition>
+                                              <assign name="Assign31">
+                                                   <copy>
+                                                       <from>$GetHotelsOut1.part1/hotels</from>
+                                                       <to>$potentialBookings/ns1:item[$potentialBookingSize + 1]/ns1:hotel/ns1:HotelInfoList
+                                                           <sxed:editor>
+                                                               <sxed:predicate path="$potentialBookings/ns1:item[$potentialBookingSize + 1]" source="to"/>
+                                                           </sxed:editor>
+                                                       </to>
+                                                   </copy>
+                                              </assign>
+                                              <else>
+                                                   <assign name="Assign33">
+                                                        <copy>
+                                                             <from>$GetHotelsOut1.part1/hotels</from>
+                                                             <to>$potentialBookings/ns1:item[1]/ns1:hotel/ns1:HotelInfoList
+                                                                  <sxed:editor>
+                                                                       <sxed:predicate path="$potentialBookings/ns1:item[1]" source="to"/>
+                                                                  </sxed:editor>
+                                                             </to>
+                                                        </copy>
+                                                        <copy>
+                                                             <from>true()</from>
+                                                             <to>$potentialBookings/ns1:initialized</to>
+                                                        </copy>
+                                                   </assign>
+                                              </else>
+                                         </if>
+                                         <assign name="Assign32">
+                                              <copy>
+                                                   <from>$GetHotelsOut1.part1/hotels</from>
+                                                   <to>$GetHotelsOut.part1/ns1:hotels</to>
+                                              </copy>
+                                             <copy>
+                                                 <from>$potentialBookingSize + 1</from>
+                                                 <to variable="potentialBookingSize"/>
+                                             </copy>
+                                         </assign>
+                                         <reply name="Reply8" partnerLink="PartnerLink1" operation="getHotels" portType="ns0:TravelGoodBPELPortType" variable="GetHotelsOut"/>
                                     </sequence>
+                                </scope>
                             </onMessage>
                             <onMessage partnerLink="PartnerLink1" operation="getFlights" portType="ns0:TravelGoodBPELPortType" variable="GetFlightsIn">
                                 <correlations>
                                         <correlation set="itineraryCorrelation" initiate="no"/>
                                     </correlations>
-                                    <sequence name="Sequence4">
-                                        <assign name="Assign7">
+                                <scope name="Scope5">
+                                    <sequence name="Sequence15">
+                                        <assign name="Assign34">
                                                 <copy>
                                                         <from>$GetFlightsIn.part1/ns5:getFlightsRequest</from>
                                                             <to variable="GetFlightsIn1" part="getFlightsInput"/>
                                                     </copy>
                                             </assign>
-                                            <invoke name="Invoke2" partnerLink="PartnerLink3" operation="getFlights" xmlns:tns="http://LameDuck.ws" portType="tns:LameDuckPortType" inputVariable="GetFlightsIn1" outputVariable="GetFlightsOut1"/>
-                                            <if name="If3">
-                                                <condition>count($GetFlightsOut1.getFlightsOutput/ns5:FlightInfoList) &gt; 0</condition>
-                                                    <sequence name="Sequence8">
-                                                        <assign name="Assign15">
+                                            <invoke name="Invoke16" partnerLink="PartnerLink3" operation="getFlights" portType="ns6:LameDuckPortType" inputVariable="GetFlightsIn1" outputVariable="GetFlightsOut1"/>
+                                            <if name="If8">
+                                                <condition>boolean($potentialBookings/ns1:initialized)</condition>
+                                                    <assign name="Assign31">
+                                                        <copy>
+                                                                <from>$GetFlightsOut1.getFlightsOutput/ns5:FlightInfoList</from>
+                                                                    <to>$potentialBookings/ns1:item[$potentialBookingSize + 1]/ns1:flight/ns1:FlightInfoList
+                                                                            <sxed:editor>
+                                                                                <sxed:predicate path="$potentialBookings/ns1:item[$potentialBookingSize + 1]" source="to"/>
+                                                                            </sxed:editor>
+                                                                    </to>
+                                                            </copy>
+                                                    </assign>
+                                                    <else>
+                                                        <assign name="Assign33">
                                                                 <copy>
-                                                                        <from>$GetFlightsIn.part1/ns1:itineraryId</from>
-                                                                            <to>$AddFlightsBookingsNumbersIn.part1/itineraryID</to>
+                                                                        <from>true()</from>
+                                                                            <to>$potentialBookings/ns1:initialized</to>
                                                                     </copy>
                                                                     <copy>
                                                                         <from>$GetFlightsOut1.getFlightsOutput/ns5:FlightInfoList</from>
-                                                                            <to>$AddFlightsBookingsNumbersIn.part1/flighstInfo</to>
+                                                                            <to>$potentialBookings/ns1:item[1]/ns1:flight/ns1:FlightInfoList
+                                                                                    <sxed:editor>
+                                                                                        <sxed:predicate path="$potentialBookings/ns1:item[1]" source="to"/>
+                                                                                    </sxed:editor>
+                                                                            </to>
                                                                     </copy>
                                                             </assign>
-                                                            <invoke name="Invoke6" partnerLink="PartnerLink4" operation="addBookingsNumbers" xmlns:tns="http://HelperService.ws" portType="tns:HelperServicePortType" inputVariable="AddFlightsBookingsNumbersIn" outputVariable="AddFlightsBookingsNumbersOut"/>
-                                                            <assign name="Assign8">
-                                                                <copy>
-                                                                        <from>$GetFlightsOut1.getFlightsOutput/ns5:FlightInfoList</from>
-                                                                            <to>$GetFlightsOut.part1/ns1:flights</to>
-                                                                    </copy>
-                                                            </assign>
-                                                            <reply name="Reply6" partnerLink="PartnerLink1" operation="getFlights" portType="ns0:TravelGoodBPELPortType" variable="GetFlightsOut"/>
-                                                    </sequence>
-                                                    <else>
-                                                        <reply name="Reply7" partnerLink="PartnerLink1" operation="getFlights" portType="ns0:TravelGoodBPELPortType" variable="GetFlightsOut"/>
                                                     </else>
                                             </if>
+                                            <assign name="Assign32">
+                                                <copy>
+                                                        <from>$potentialBookingSize + 1</from>
+                                                            <to variable="potentialBookingSize"/>
+                                                    </copy>
+                                                    <copy>
+                                                        <from>$GetFlightsOut1.getFlightsOutput/ns5:FlightInfoList</from>
+                                                            <to>$GetFlightsOut.part1/ns1:flights</to>
+                                                    </copy>
+                                            </assign>
+                                            <reply name="Reply9" partnerLink="PartnerLink1" operation="getFlights" portType="ns0:TravelGoodBPELPortType" variable="GetFlightsOut"/>
                                     </sequence>
+                                </scope>
                             </onMessage>
                             <onMessage partnerLink="PartnerLink1" operation="bookItinerary" portType="ns0:TravelGoodBPELPortType" variable="BookItineraryIn">
                                 <correlations>
                                     <correlation set="itineraryCorrelation" initiate="no"/>
                                 </correlations>
                                 <sequence name="Sequence10">
-                                    <assign name="Assign21">
-                                        <copy>
-                                            <from>$BookItineraryIn.part1/ns1:itineraryId</from>
-                                            <to variable="GetItineraryHelperBookIn" part="part1"/>
-                                        </copy>
-                                    </assign>
-                                    <invoke name="Invoke9" partnerLink="PartnerLink4" operation="getItinerary" portType="tns:HelperServicePortType" inputVariable="GetItineraryHelperBookIn" outputVariable="GetItineraryHelperBookOut"/>
                                     <scope name="Scope2">
+                                        <variables>
+                                            <variable name="BookItineraryOut" messageType="ns0:bookItineraryResponse"/>
+                                        </variables>
                                         <compensationHandler>
                                             <empty name="Empty1"/>
                                         </compensationHandler>
                                         <sequence name="Sequence12">
                                             <forEach name="ForEach1" parallel="no" counterName="ForEach1Counter">
-                                                <startCounterValue>0</startCounterValue>
-                                                    <finalCounterValue>count($GetItineraryHelperBookOut.part1/ns1:Itinerary/ns1:ItineraryBookingHotelList) - 1</finalCounterValue>
-                                                    <scope name="Scope1">
+                                                <startCounterValue>1</startCounterValue>
+                                                <finalCounterValue>count($itinerarySize)</finalCounterValue>
+                                                <scope name="Scope1">
                                                         <variables>
+                                                            <variable name="BookItineraryOut" messageType="ns0:bookItineraryResponse"/>
+                                                            <variable name="BookFlightOut" messageType="ns6:bookFlightOutput"/>
+                                                            <variable name="BookFlightIn" messageType="ns6:bookFlightInput"/>
                                                             <variable name="PutHotelBookOut" messageType="tns:putHotelResponse"/>
                                                             <variable name="PutHotelBookIn" messageType="tns:putHotelRequest"/>
                                                             <variable name="SelectHotelItemOut" messageType="tns:selectItemResponse"/>
@@ -305,104 +414,73 @@
                                                                     <variable name="BookHotelIn" messageType="ns4:bookHotelRequest"/>
                                                             </variables>
                                                         <sequence name="Sequence11">
-                                                                <assign name="Assign22">
+                                                            <if name="If9">
+                                                                <condition>boolean($Itinerary/ns1:items[$ForEach1Counter]/ns1:flight)
+                                                                    <sxed:editor>
+                                                                        <sxed:predicate path="$Itinerary/ns1:items[$ForEach1Counter]" source="from"/>
+                                                                    </sxed:editor>
+                                                                </condition>
+                                                                <sequence name="Sequence18">
+                                                                    <assign name="Assign39">
                                                                         <copy>
-                                                                                <from variable="ForEach1Counter"/>
-                                                                                    <to>$SelectHotelItemIn.part1/index</to>
-                                                                            </copy>
-                                                                            <copy>
-                                                                                <from>$GetItineraryHelperBookOut.part1/ns1:Itinerary/ns1:ItineraryBookingHotelList</from>
-                                                                                    <to>$SelectHotelItemIn.part1/HotelList</to>
-                                                                            </copy>
-                                                                    </assign>
-                                                                    <invoke name="Invoke11" partnerLink="PartnerLink4" operation="selectItem" portType="tns:HelperServicePortType" inputVariable="SelectHotelItemIn" outputVariable="SelectHotelItemOut"/>
-                                                                    <assign name="Assign23">
+                                                                            <from>$Itinerary/ns1:items[$ForEach1Counter]/ns1:flight/ns1:FlightInfoList/ns5:bookingNumber
+                                                                                <sxed:editor>
+                                                                                    <sxed:predicate path="$Itinerary/ns1:items[$ForEach1Counter]" source="from"/>
+                                                                                </sxed:editor>
+                                                                            </from>
+                                                                            <to>$BookFlightIn.bookFlightRequest/ns5:bookingNumber</to>
+                                                                        </copy>
                                                                         <copy>
-                                                                                <from>$BookItineraryIn.part1/ns1:creditCardInfo</from>
-                                                                                    <to>$BookHotelIn.part1/creditCardInfo</to>
-                                                                            </copy>
-                                                                        <copy>
-                                                                            <from>$SelectHotelItemOut.part1/Hotel/ns1:HotelInfoList/bookingNumber</from>
-                                                                            <to>$BookHotelIn.part1/bookingNumber</to>
+                                                                            <from>$BookItineraryIn.part1/ns1:creditCardInfo</from>
+                                                                            <to>$BookFlightIn.bookFlightRequest/ns5:CreditCardInfo</to>
                                                                         </copy>
                                                                     </assign>
-                                                                    <invoke name="Invoke10" partnerLink="PartnerLink2" operation="bookHotel" portType="ns4:NiceViewPortType" inputVariable="BookHotelIn" outputVariable="BookHotelOut"/>
-                                                            <assign name="Assign26">
-                                                                <copy>
-                                                                    <from>'confirmed'</from>
-                                                                    <to>$PutHotelBookIn.part1/bookingStatus</to>
-                                                                </copy>
-                                                                <copy>
-                                                                    <from>$SelectHotelItemOut.part1/Hotel/ns1:HotelInfoList/bookingNumber</from>
-                                                                    <to>$PutHotelBookIn.part1/bookingNumber</to>
-                                                                </copy>
-                                                                <copy>
-                                                                    <from>$BookItineraryIn.part1/ns1:itineraryId</from>
-                                                                    <to>$PutHotelBookIn.part1/itineraryID</to>
-                                                                </copy>
-                                                            </assign>
-                                                            <invoke name="Invoke14" partnerLink="PartnerLink4" operation="putHotel" portType="tns:HelperServicePortType" inputVariable="PutHotelBookIn" outputVariable="PutHotelBookOut"/>
+                                                                    <invoke name="Invoke17" partnerLink="PartnerLink3" operation="bookFlight" portType="ns6:LameDuckPortType" inputVariable="BookFlightIn" outputVariable="BookFlightOut"/>
+                                                                    <assign name="Assign40">
+                                                                        <copy>
+                                                                            <from>'confirmed'</from>
+                                                                            <to>$Itinerary/ns1:items[$ForEach1Counter]/ns1:flight/ns1:bookingStatus
+                                                                                <sxed:editor>
+                                                                                    <sxed:predicate path="$Itinerary/ns1:items[$ForEach1Counter]" source="to"/>
+                                                                                </sxed:editor>
+                                                                            </to>
+                                                                        </copy>
+                                                                    </assign>
+                                                                </sequence>
+                                                                <else>
+                                                                    <sequence name="Sequence17">
+                                                                        <assign name="Assign38">
+                                                                            <copy>
+                                                                                <from>$Itinerary/ns1:items[$ForEach1Counter]/ns1:hotel/ns1:HotelInfoList/bookingNumber
+                                                                                    <sxed:editor>
+                                                                                        <sxed:predicate path="$Itinerary/ns1:items[$ForEach1Counter]" source="from"/>
+                                                                                    </sxed:editor>
+                                                                                </from>
+                                                                                <to>$BookHotelIn.part1/bookingNumber</to>
+                                                                            </copy>
+                                                                            <copy>
+                                                                                <from>$BookItineraryIn.part1/ns1:creditCardInfo</from>
+                                                                                <to>$BookHotelIn.part1/creditCardInfo</to>
+                                                                            </copy>
+                                                                        </assign>
+                                                                        <invoke name="Invoke10" partnerLink="PartnerLink2" operation="bookHotel" portType="ns4:NiceViewPortType" inputVariable="BookHotelIn" outputVariable="BookHotelOut"/>
+                                                                    </sequence>
+                                                                </else>
+                                                            </if>
                                                         </sequence>
                                                     </scope>
                                             </forEach>
-                                            <forEach name="ForEach2" parallel="no" counterName="ForEach2Counter">
-                                                <startCounterValue>0</startCounterValue>
-                                                <finalCounterValue>count($GetItineraryHelperBookOut.part1/ns1:Itinerary/ns1:ItineraryBookingFlightList) - 1</finalCounterValue>
-                                                <scope name="Scope3">
-                                                    <variables>
-                                                        <variable name="PutFlightBookOut" messageType="tns:putFlightResponse"/>
-                                                        <variable name="PutFlightBookIn" messageType="tns:putFlightRequest"/>
-                                                        <variable name="BookFlightOut" xmlns:tns="http://LameDuck.ws" messageType="tns:bookFlightOutput"/>
-                                                        <variable name="BookFlightIn" xmlns:tns="http://LameDuck.ws" messageType="tns:bookFlightInput"/>
-                                                        <variable name="SelectFlightItemOut" messageType="tns:selectItemResponse"/>
-                                                        <variable name="SelectFlightItemIn" messageType="tns:selectItemRequest"/>
-                                                    </variables>
-                                                    <faultHandlers>
-                                                        <catchAll>
-                                                            <compensate name="Compensate2"/>
-                                                        </catchAll>
-                                                    </faultHandlers>
-                                                    <sequence name="Sequence14">
-                                                        <assign name="Assign24">
-                                                            <copy>
-                                                                <from variable="ForEach2Counter"/>
-                                                                <to>$SelectFlightItemIn.part1/index</to>
-                                                            </copy>
-                                                            <copy>
-                                                                <from>$GetItineraryHelperBookOut.part1/ns1:Itinerary/ns1:ItineraryBookingFlightList</from>
-                                                                <to>$SelectFlightItemIn.part1/FlightList</to>
-                                                            </copy>
-                                                        </assign>
-                                                        <invoke name="Invoke12" partnerLink="PartnerLink4" operation="selectItem" portType="tns:HelperServicePortType" inputVariable="SelectFlightItemIn" outputVariable="SelectFlightItemOut"/>
-                                                        <assign name="Assign25">
-                                                            <copy>
-                                                                <from>$SelectFlightItemOut.part1/Flight/ns1:FlightInfoList/ns5:bookingNumber</from>
-                                                                <to>$BookFlightIn.bookFlightRequest/ns5:bookingNumber</to>
-                                                            </copy>
-                                                            <copy>
-                                                                <from>$BookItineraryIn.part1/ns1:creditCardInfo</from>
-                                                                <to>$BookFlightIn.bookFlightRequest/ns5:CreditCardInfo</to>
-                                                            </copy>
-                                                        </assign>
-                                                        <invoke name="Invoke13" partnerLink="PartnerLink3" operation="bookFlight" xmlns:tns="http://LameDuck.ws" portType="tns:LameDuckPortType" inputVariable="BookFlightIn" outputVariable="BookFlightOut"/>
-                                                        <assign name="Assign27">
-                                                            <copy>
-                                                                <from>$BookItineraryIn.part1/ns1:itineraryId</from>
-                                                                <to>$PutFlightBookIn.part1/itineraryID</to>
-                                                            </copy>
-                                                            <copy>
-                                                                <from>$SelectFlightItemOut.part1/Flight/ns1:FlightInfoList/ns5:bookingNumber</from>
-                                                                <to>$PutFlightBookIn.part1/bookingNumber</to>
-                                                            </copy>
-                                                            <copy>
-                                                                <from>'confirmed'</from>
-                                                                <to>$PutFlightBookIn.part1/bookingStatus</to>
-                                                            </copy>
-                                                        </assign>
-                                                        <invoke name="Invoke15" partnerLink="PartnerLink4" operation="putFlight" portType="tns:HelperServicePortType" inputVariable="PutFlightBookIn" outputVariable="PutFlightBookOut"/>
-                                                    </sequence>
-                                                </scope>
-                                            </forEach>
+                                            <assign name="Assign41">
+                                                <copy>
+                                                    <from>'confirmed'</from>
+                                                    <to>$BookItineraryOut.part1/ns1:itineraryStatus</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>$BookItineraryIn.part1/ns1:itineraryId</from>
+                                                    <to>$BookItineraryOut.part1/ns1:itineraryID</to>
+                                                </copy>
+                                            </assign>
+                                            <reply name="Reply11" partnerLink="PartnerLink1" operation="bookItinerary" portType="ns0:TravelGoodBPELPortType" variable="BookItineraryOut"/>
                                         </sequence>
                                     </scope>
                                 </sequence>

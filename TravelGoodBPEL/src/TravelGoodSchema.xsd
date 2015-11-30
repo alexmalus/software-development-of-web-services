@@ -37,9 +37,17 @@
     <xsd:element name="Itinerary">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element name="ItineraryInfo" type="tns:ItineraryInfoType"></xsd:element>
-                <xsd:element name="ItineraryBookingFlightList" type="tns:ItineraryBookingFlightType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
-                <xsd:element name="ItineraryBookingHotelList" type="tns:ItineraryBookingHotelType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+                <xsd:element name="initialized" type="xsd:boolean"></xsd:element>
+                <xsd:element name="items" maxOccurs="unbounded" minOccurs="0">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:choice>
+                                <xsd:element name="flight" type="tns:ItineraryBookingFlightType"></xsd:element>
+                                <xsd:element name="hotel" type="tns:ItineraryBookingHotelType"></xsd:element>
+                            </xsd:choice>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
@@ -182,6 +190,23 @@
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element name="hotels" type="ns1:HotelReservationType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="potentialBookings">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="initialized" type="xsd:boolean"></xsd:element>
+                <xsd:element name="item" maxOccurs="unbounded" minOccurs="0">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:choice>
+                                <xsd:element name="flight" type="tns:ItineraryBookingFlightType"></xsd:element>
+                                <xsd:element name="hotel" type="tns:ItineraryBookingHotelType"></xsd:element>
+                            </xsd:choice>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>

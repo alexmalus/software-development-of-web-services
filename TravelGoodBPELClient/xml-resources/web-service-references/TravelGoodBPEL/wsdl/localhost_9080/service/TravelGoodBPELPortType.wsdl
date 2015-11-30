@@ -2,7 +2,7 @@
 <definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="TravelGoodBPEL.ws" xmlns:tv="TravelGoodSchema.ws" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="TravelGoodBPEL" targetNamespace="TravelGoodBPEL.ws">
   <types>
     <xsd:schema targetNamespace="TravelGoodBPEL.ws">
-            <xsd:import namespace="TravelGoodSchema.ws" schemaLocation="http://10.16.165.77:9080/TravelGoodBPELApp-sun-http-binding/TravelGoodBPEL/TravelGoodSchema.xsd"/>
+            <xsd:import namespace="TravelGoodSchema.ws" schemaLocation="http://192.168.1.143:9080/TravelGoodBPELApp-sun-http-binding/TravelGoodBPEL/TravelGoodSchema.xsd"/>
         </xsd:schema>
   </types>
   <message name="getItineraryRequest">
@@ -246,7 +246,7 @@
   </binding>
   <service name="TravelGoodBPELService">
     <port binding="tns:TravelGoodBPELPortTypeBinding" name="TravelGoodBPELPortTypeBindingPort">
-      <soap:address location="http://10.16.165.77:9080/service"/>
+      <soap:address location="http://192.168.1.143:9080/service"/>
     </port>
   </service>
     <plnk:partnerLinkType name="TravelGoodBPEL">
@@ -261,12 +261,17 @@ A partner link type characterizes the conversational relationship between two se
     <vprop:propertyAlias messageType="tns:addItineraryFlightRequest" part="part1" propertyName="tns:itineraryID">
         <vprop:query>tv:itineraryId</vprop:query>
     </vprop:propertyAlias>
-    <vprop:propertyAlias messageType="tns:addItineraryHotelRequest" part="part1" propertyName="tns:itineraryID"/>
+    <vprop:propertyAlias messageType="tns:addItineraryHotelRequest" part="part1" propertyName="tns:itineraryID">
+        <vprop:query>tv:itineraryId</vprop:query>
+    </vprop:propertyAlias>
     <vprop:propertyAlias messageType="tns:createItineraryResponse" part="part1" propertyName="tns:itineraryID"/>
     <vprop:propertyAlias messageType="tns:getHotelsRequest" part="part1" propertyName="tns:itineraryID">
         <vprop:query>tv:itineraryId</vprop:query>
     </vprop:propertyAlias>
     <vprop:propertyAlias messageType="tns:getFlightsRequest" part="part1" propertyName="tns:itineraryID">
+        <vprop:query>tv:itineraryId</vprop:query>
+    </vprop:propertyAlias>
+    <vprop:propertyAlias messageType="tns:bookItineraryRequest" part="part1" propertyName="tns:itineraryID">
         <vprop:query>tv:itineraryId</vprop:query>
     </vprop:propertyAlias>
 </definitions>
