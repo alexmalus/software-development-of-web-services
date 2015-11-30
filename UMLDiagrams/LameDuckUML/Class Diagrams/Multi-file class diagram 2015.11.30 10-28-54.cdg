@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Multi-file class diagram">
+  <ClassDiagramComponents>
+    <Class name="BookFlightRequest" package="lameduckschema" visibility="public" xPosition="459.0" yPosition="790.0">
+      <Fields>
+        <Field name="bookingNumber" type="String" visibility="protected"/>
+        <Field name="creditCardInfo" type="CreditCardInfoType" visibility="protected"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="CancelFlightRequest" package="lameduckschema" visibility="public" xPosition="693.0" yPosition="790.0">
+      <Fields>
+        <Field name="bookingNumber" type="String" visibility="protected"/>
+        <Field name="price" type="int" visibility="protected"/>
+        <Field name="creditCardInfo" type="CreditCardInfoType" visibility="protected"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="FlightFaultType" package="lameduckschema" visibility="public" xPosition="233.0" yPosition="479.0">
+      <Fields>
+        <Field name="faultMessage" type="String" visibility="protected"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getFaultMessage" returnType="String" visibility="public"/>
+        <Method name="setFaultMessage" returnType="void" visibility="public">
+          <Argument type="String" name="value"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="FlightInfoType" package="lameduckschema" visibility="public" xPosition="540.0" yPosition="356.0">
+      <Fields>
+        <Field name="bookingNumber" type="String" visibility="protected"/>
+        <Field name="flightPrice" type="int" visibility="protected"/>
+        <Field name="airlineReservationServiceName" type="String" visibility="protected"/>
+        <Field name="flight" type="FlightType" visibility="protected"/>
+        <Field name="cancellable" type="boolean" visibility="protected"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="FlightType" package="lameduckschema" visibility="public" xPosition="862.0" yPosition="356.0">
+      <Fields>
+        <Field name="startAirport" type="String" visibility="protected"/>
+        <Field name="destinationAirport" type="String" visibility="protected"/>
+        <Field name="liftoffDate" type="XMLGregorianCalendar" visibility="protected"/>
+        <Field name="landingDate" type="XMLGregorianCalendar" visibility="protected"/>
+        <Field name="carrierName" type="String" visibility="protected"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="GetFlightsRequest" package="lameduckschema" visibility="public" xPosition="218.0" yPosition="753.0">
+      <Fields>
+        <Field name="startDestination" type="String" visibility="protected"/>
+        <Field name="finalDestination" type="String" visibility="protected"/>
+        <Field name="dateFlight" type="XMLGregorianCalendar" visibility="protected"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="GetFlightsResponse" package="lameduckschema" visibility="public" xPosition="855.0" yPosition="675.0">
+      <Fields>
+        <Field name="flightInfoList" type="List&lt;FlightInfoType&gt;" visibility="protected"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="BookFlightFault" package="ws.lameduck" visibility="public" xPosition="286.0" yPosition="356.0">
+      <Fields>
+        <Field name="faultInfo" type="FlightFaultType" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="CancelFlightFault" package="ws.lameduck" visibility="public" xPosition="275.0" yPosition="657.0">
+      <Fields>
+        <Field name="faultInfo" type="FlightFaultType" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="FlightsDatabase" package="lameduck.ws" visibility="public" xPosition="855.0" yPosition="536.0">
+      <Fields>
+        <Field name="flight_info_list" type="GetFlightsResponse" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="LameDuckService" package="lameduck.ws" visibility="public" xPosition="497.0" yPosition="562.0">
+      <Fields>
+        <Field name="bank_service" type="BankService" visibility="private"/>
+        <Field name="port" type="BankPortType" visibility="private"/>
+        <Field name="GROUP_NUMBER" type="int" visibility="package" isStatic="true" isFinal="true"/>
+        <Field name="booked_flights" type="List&lt;FlightInfoType&gt;" visibility="private"/>
+        <Field name="flight_db" type="FlightsDatabase" visibility="private" isFinal="true"/>
+        <Field name="LAMEDUCK_ACCOUNT_NUMBER" type="String" visibility="package" isStatic="true" isFinal="true"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="flight" source="lameduckschema.FlightInfoType" target="lameduckschema.FlightType" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="flightInfoList" source="lameduckschema.GetFlightsResponse" target="lameduckschema.FlightInfoType" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;FlightInfoType&gt;"/>
+    <HasRelation name="flight_info_list" source="lameduck.ws.FlightsDatabase" target="lameduckschema.GetFlightsResponse" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="flight_db" source="lameduck.ws.LameDuckService" target="lameduck.ws.FlightsDatabase" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="booked_flights" source="lameduck.ws.LameDuckService" target="lameduckschema.FlightInfoType" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;FlightInfoType&gt;"/>
+    <HasRelation name="faultInfo" source="ws.lameduck.CancelFlightFault" target="lameduckschema.FlightFaultType" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="faultInfo" source="ws.lameduck.BookFlightFault" target="lameduckschema.FlightFaultType" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
