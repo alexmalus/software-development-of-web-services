@@ -133,9 +133,9 @@ public class testC1 {
         
         getItineraryRequest.setItineraryID(itineraryID);
         GetItineraryResponse getItinenaryResponse2 = getItinerary(getItineraryRequest);
-        assertEquals(BookingStatus.CONFIRMED, getItinenaryResponse2.getHotels().get(0).getBookingStatus());
-        assertEquals(BookingStatus.CONFIRMED, getItinenaryResponse2.getHotels().get(1).getBookingStatus());
-        assertEquals(BookingStatus.CONFIRMED, getItinenaryResponse2.getFlights().get(0).getBookingStatus());
+        assertEquals(BookingStatus.CONFIRMED, getItinenaryResponse2.getItems().get(0).getHotel().getBookingStatus());
+        assertEquals(BookingStatus.CONFIRMED, getItinenaryResponse2.getItems().get(1).getHotel().getBookingStatus());
+        assertEquals(BookingStatus.CONFIRMED, getItinenaryResponse2.getItems().get(2).getFlight().getBookingStatus());
         CancelBookingRequest cancelRequest = new CancelBookingRequest();
         cancelRequest.setCreditCardInfo(creditCardAnne);
         cancelRequest.setItineraryId(itineraryID);
@@ -149,9 +149,9 @@ public class testC1 {
         }
         
         GetItineraryResponse getItinenaryResponse3 = getItinerary(getItineraryRequest);
-        assertEquals(BookingStatus.CANCELLED, getItinenaryResponse3.getHotels().get(0).getBookingStatus());
-        assertEquals(BookingStatus.CANCELLED, getItinenaryResponse3.getHotels().get(1).getBookingStatus());
-        assertEquals(BookingStatus.CANCELLED, getItinenaryResponse3.getFlights().get(0).getBookingStatus());
+        assertEquals(BookingStatus.CANCELLED, getItinenaryResponse3.getItems().get(0).getHotel().getBookingStatus());
+        assertEquals(BookingStatus.CANCELLED, getItinenaryResponse3.getItems().get(1).getHotel().getBookingStatus());
+        assertEquals(BookingStatus.CANCELLED, getItinenaryResponse3.getItems().get(2).getFlight().getBookingStatus());
         
         
     }

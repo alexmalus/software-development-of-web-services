@@ -92,9 +92,7 @@ public class testP1 {
         boolean add_itinerary_flight = addItineraryFlight(itinerary_flight_request);
         assertTrue(add_itinerary_flight);
         
-        GetItineraryRequest itinerary_request = new GetItineraryRequest();
-        itinerary_request.setItineraryID(itineraryID);
-        GetItineraryResponse itinerary = getItinerary(itinerary_request);
+
         
 //        hotel
         GetHotelsRequest getHotelsRequest_1 = new GetHotelsRequest();
@@ -176,16 +174,16 @@ public class testP1 {
         hotel_request_2.setItineraryId(itineraryID);
         boolean add_itinerary_hotel_2 = addItineraryHotel(hotel_request_2);
         assertTrue(add_itinerary_hotel_2);
-        
-        List<ItineraryBookingFlightType> flights = itinerary.getFlights();
-        Iterable<ItineraryBookingHotelType> hotels = itinerary.getHotels();
-        for(ItineraryBookingFlightType flight: flights)
-        {
-            assertEquals(BookingStatus.UNCONFIRMED, flight.getBookingStatus());
-        }
-        for(ItineraryBookingHotelType hotel: hotels)
-        {
-            assertEquals(BookingStatus.UNCONFIRMED, hotel.getBookingStatus());
+        GetItineraryRequest itinerary_request = new GetItineraryRequest();
+        itinerary_request.setItineraryID(itineraryID);
+        GetItineraryResponse itinerary = getItinerary(itinerary_request);
+        for (GetItineraryResponse.Items item : itinerary.getItems()) {
+            if(item.getFlight() != null){
+                assertEquals(BookingStatus.UNCONFIRMED, item.getFlight().getBookingStatus());
+            }
+            if(item.getHotel()!= null){
+                assertEquals(BookingStatus.UNCONFIRMED, item.getHotel().getBookingStatus());
+            }
         }
         
         ws.travelgoodschema.BookItineraryRequest book_itinerary_request = new ws.travelgoodschema.BookItineraryRequest();
@@ -200,15 +198,14 @@ public class testP1 {
             assertFalse(true);
         }
         
-        flights = itinerary.getFlights();
-        hotels = itinerary.getHotels();
-        for(ItineraryBookingFlightType flight: flights)
-        {
-            assertEquals(BookingStatus.CONFIRMED, flight.getBookingStatus());
-        }
-        for(ItineraryBookingHotelType hotel: hotels)
-        {
-            assertEquals(BookingStatus.CONFIRMED, hotel.getBookingStatus());
+        itinerary = getItinerary(itinerary_request);
+        for (GetItineraryResponse.Items item : itinerary.getItems()) {
+            if(item.getFlight() != null){
+                assertEquals(BookingStatus.CONFIRMED, item.getFlight().getBookingStatus());
+            }
+            if(item.getHotel()!= null){
+                assertEquals(BookingStatus.CONFIRMED, item.getHotel().getBookingStatus());
+            }
         }
     }
 

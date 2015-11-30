@@ -83,8 +83,16 @@
     <xsd:element name="getItineraryResponse">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element name="flights" type="tns:ItineraryBookingFlightType" maxOccurs="unbounded" minOccurs="0"></xsd:element>
-                <xsd:element name="hotels" type="tns:ItineraryBookingHotelType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+                <xsd:element name="items" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:choice>
+                                <xsd:element name="hotel" type="tns:ItineraryBookingHotelType" minOccurs="1" maxOccurs="1"></xsd:element>
+                                <xsd:element name="flight" type="tns:ItineraryBookingFlightType" maxOccurs="1" minOccurs="1"></xsd:element>
+                            </xsd:choice>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>

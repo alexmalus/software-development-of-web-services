@@ -9,6 +9,7 @@ import static TravelGoodBPELClientTest.ClientTest.convertDateTimeToGregCal;
 import dk.dtu.imm.fastmoney.types.CreditCardInfoType;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -127,13 +128,15 @@ public class testB {
         GetItineraryResponse getItinenaryResponse = getItinerary(getItineraryRequest);
         
         // Check that there are exactly 3 elements in the itinerary
-        assertEquals(3, getItinenaryResponse.getFlights().size() + getItinenaryResponse.getHotels().size());
+        assertEquals(3, getItinenaryResponse.getItems().size());
         
-        for(ItineraryBookingFlightType flight : getItinenaryResponse.getFlights()){
-            assertEquals(BookingStatus.UNCONFIRMED, flight.getBookingStatus());
-        }
-        for(ItineraryBookingHotelType hotel : getItinenaryResponse.getHotels()){
-            assertEquals(BookingStatus.UNCONFIRMED, hotel.getBookingStatus());
+        for (GetItineraryResponse.Items item : getItinenaryResponse.getItems()) {
+            if(item.getFlight() != null){
+                assertEquals(BookingStatus.UNCONFIRMED, item.getFlight().getBookingStatus());
+            }
+            if(item.getHotel()!= null){
+                assertEquals(BookingStatus.UNCONFIRMED, item.getHotel().getBookingStatus());
+            }
         }
         
         BookItineraryRequest bookRequest = new BookItineraryRequest();
@@ -149,9 +152,9 @@ public class testB {
         
         // We check that the first is cancelled and the other two are unconfirmed
         GetItineraryResponse getItinenaryResponse2 = getItinerary(getItineraryRequest);
-        assertEquals(BookingStatus.CANCELLED, getItinenaryResponse2.getHotels().get(0).getBookingStatus());
-        assertEquals(BookingStatus.UNCONFIRMED, getItinenaryResponse2.getHotels().get(1).getBookingStatus());
-        assertEquals(BookingStatus.UNCONFIRMED, getItinenaryResponse2.getFlights().get(0).getBookingStatus());
+        assertEquals(BookingStatus.CANCELLED, getItinenaryResponse2.getItems().get(0).getHotel().getBookingStatus());
+        assertEquals(BookingStatus.UNCONFIRMED, getItinenaryResponse2.getItems().get(1).getHotel().getBookingStatus());
+        assertEquals(BookingStatus.UNCONFIRMED, getItinenaryResponse2.getItems().get(2).getHotel().getBookingStatus());
         
         
         

@@ -104,11 +104,11 @@ public class testC2 {
         // Add hotels to itinerary
         AddItineraryHotelRequest addHotelRequest = new AddItineraryHotelRequest();
         addHotelRequest.setItineraryId(itineraryID);
-        addHotelRequest.setItineraryId(hotelResponse.getHotels().get(0).getBookingNumber());
+        addHotelRequest.setBookingId(hotelResponse.getHotels().get(0).getBookingNumber());
         addItineraryHotel(addHotelRequest);
-        addHotelRequest.setItineraryId(hotelResponse2.getHotels().get(0).getBookingNumber());
+        addHotelRequest.setBookingId(hotelResponse2.getHotels().get(0).getBookingNumber());
         addItineraryHotel(addHotelRequest);
-        addHotelRequest.setItineraryId(hotelResponse3.getHotels().get(0).getBookingNumber());
+        addHotelRequest.setBookingId(hotelResponse3.getHotels().get(0).getBookingNumber());
         addItineraryHotel(addHotelRequest);
         BookItineraryRequest bookRequest = new BookItineraryRequest();
         bookRequest.setCreditCardInfo(creditCardAnne);
@@ -127,8 +127,9 @@ public class testC2 {
         
         GetItineraryResponse getResult = getItinerary(getRequest);
         
-        assertEquals(3, getResult.getHotels());
-        for(ItineraryBookingHotelType hotel : getResult.getHotels()){
+        assertEquals(3, getResult.getItems().size());
+        for(GetItineraryResponse.Items item : getResult.getItems()){
+            ItineraryBookingHotelType hotel = item.getHotel();
             assertEquals(BookingStatus.CONFIRMED,hotel.getBookingStatus());
         }
         CancelBookingRequest cancelBookingRequest = new CancelBookingRequest();
@@ -145,9 +146,9 @@ public class testC2 {
         }
         
         GetItineraryResponse getResult2 = getItinerary(getRequest);
-        assertEquals(BookingStatus.CANCELLED,getResult2.getHotels().get(0).getBookingStatus());
-        assertEquals(BookingStatus.CONFIRMED,getResult2.getHotels().get(1).getBookingStatus());
-        assertEquals(BookingStatus.CANCELLED,getResult2.getHotels().get(2).getBookingStatus());
+        assertEquals(BookingStatus.CANCELLED,getResult2.getItems().get(0).getHotel().getBookingStatus());
+        assertEquals(BookingStatus.CONFIRMED,getResult2.getItems().get(1).getHotel().getBookingStatus());
+        assertEquals(BookingStatus.CANCELLED,getResult2.getItems().get(2).getHotel().getBookingStatus());
         
         
     }
